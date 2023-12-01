@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+	font-family: 'Hubot Sans';
+	src: url('Hubot-Sans.woff2') format('woff2 supports variations'),
+		url('Hubot-Sans.woff2') format('woff2-variations');
+}
+
+html {
+	font-family: 'Hubot Sans';
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
