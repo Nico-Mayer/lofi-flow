@@ -21,3 +21,8 @@ html {
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
 }
+
+.heading {
+	letter-spacing: 7px;
+	font-size: xx-large;
+}
