@@ -6,15 +6,24 @@ declare global {
 		description: string
 		channels: Channel[]
 	}
+
 	type Channel = {
 		name: string
 		url: string
 		description: string
 		socials: Social[]
 	}
+
 	type Social = {
 		name: string
 		url: string
+	}
+
+	type Player = {
+		playVideo: () => void
+		pauseVideo: () => void
+		loadVideoById: (id: string) => void
+		setVolume: (volume: number) => void
 	}
 
 	namespace App {

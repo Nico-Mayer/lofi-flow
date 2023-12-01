@@ -26,3 +26,10 @@ html {
 	letter-spacing: 7px;
 	font-size: xx-large;
 }
+
+.glass {
+	background-color: rgba(0, 0, 0, 0.05);
+	backdrop-filter: blur(4px);
+	border: solid 1px rgba(255, 255, 255, 0.1);
+	border-radius: 0.25rem;
+}
