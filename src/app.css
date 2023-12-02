@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-	font-family: 'Hubot Sans';
-	src: url('Hubot-Sans.woff2') format('woff2 supports variations'),
-		url('Hubot-Sans.woff2') format('woff2-variations');
-}
-
-html {
-	font-family: 'Hubot Sans';
-}
-
 .scrollbar-hide::-webkit-scrollbar {
 	display: none;
 }
