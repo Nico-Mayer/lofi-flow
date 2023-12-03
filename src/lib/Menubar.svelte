@@ -1,6 +1,9 @@
 <script lang="ts">
-	import { volume, playing, buffering } from '$lib/stores/store'
+	import { volume, playing } from '$lib/stores/store'
+	import { onMount } from 'svelte'
 	export let player: Player
+
+	let muted = false
 
 	$: $volume, handleVolumeChange()
 
@@ -15,6 +18,18 @@
 	function handleVolumeChange() {
 		if (player) {
 			player.setVolume($volume)
+		}
+	}
+
+	function toggleMute() {
+		if (player) {
+			if (player.isMuted()) {
+				player.unMute()
+				muted = false
+			} else {
+				player.mute()
+				muted = true
+			}
 		}
 	}
 </script>
@@ -35,8 +50,17 @@
 		{/if}
 	</button>
 
-	<div class="flex justify-center items-center gap-2">
-		<div class="i-mdi-volume"></div>
+	<div class="flex justify-center items-center gap-2 anim">
+		<button on:click={toggleMute} class="flex items-center justify-center">
+			{#if $volume == 0 || muted}
+				<div class="i-mdi-volume-off"></div>
+			{:else if $volume < 50}
+				<div class="i-mdi-volume-medium"></div>
+			{:else}
+				<div class="i-mdi-volume-high"></div>
+			{/if}
+		</button>
+
 		<input
 			type="range"
 			min="0"

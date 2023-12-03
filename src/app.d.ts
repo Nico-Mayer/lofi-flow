@@ -10,6 +10,7 @@ declare global {
 	type Channel = {
 		name: string
 		url: string
+		id: string
 		description: string
 		socials: Social[]
 	}
@@ -24,6 +25,9 @@ declare global {
 		pauseVideo: () => void
 		loadVideoById: (id: string) => void
 		setVolume: (volume: number) => void
+		isMuted: () => boolean
+		mute: () => void
+		unMute: () => void
 	}
 
 	namespace App {

@@ -8,6 +8,7 @@ const defaultRadio: Radio = {
 		{
 			name: 'Hito Lofi',
 			url: 'https://www.youtube.com/watch?v=th8sZnMm9Nw',
+			id: 'th8sZnMm9Nw',
 			description: 'The hottest hits 24/7',
 			socials: [
 				{ name: 'Facebook', url: 'https://facebook.com/channel1' },
@@ -17,6 +18,7 @@ const defaultRadio: Radio = {
 		{
 			name: 'WoW Lofi Beats',
 			url: 'https://www.youtube.com/watch?v=-uxi6_5cFqw',
+			id: '-uxi6_5cFqw',
 			description: 'Classic rock and roll all day long',
 			socials: [
 				{
@@ -29,6 +31,7 @@ const defaultRadio: Radio = {
 		{
 			name: 'Smoke and Chill',
 			url: 'https://www.youtube.com/watch?v=J4S8iN7qV1k',
+			id: 'J4S8iN7qV1k',
 			description: 'Chill vibes for a relaxing day',
 			socials: [
 				{
@@ -40,7 +43,8 @@ const defaultRadio: Radio = {
 		},
 		{
 			name: 'lofi hip hop radio',
-			url: 'https://www.youtube.com/watch?v=rPjez8z61rI',
+			url: 'https://www.youtube.com/watch?v=5qap5aO4i9A',
+			id: '5qap5aO4i9A',
 			description: 'Chill vibes for a relaxing day',
 			socials: [
 				{
@@ -53,6 +57,7 @@ const defaultRadio: Radio = {
 		{
 			name: 'Bootleg Boy',
 			url: 'https://www.youtube.com/watch?v=bLlloaA4b4g',
+			id: 'bLlloaA4b4g',
 			description: 'Chill vibes for a relaxing day',
 			socials: [
 				{

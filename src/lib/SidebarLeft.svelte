@@ -5,8 +5,8 @@
 </script>
 
 <main class="w-96 h-full glass">
-	<div class="flex flex-col justify-between h-full p-4 px-8">
-		<div class="heading">LOFI FLOW</div>
+	<div class="flex flex-col justify-between h-full p-8 px-4">
+		<div class="heading text-center">LOFI FLOW</div>
 
 		<div
 			class="overflow-y-auto overflow-x-hidden scrollbar-hide h-full my-5">
