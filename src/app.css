@@ -1,6 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	html {
+		font-family: 'Pixelify Sans', sans-serif;
+	}
+}
 
 .scrollbar-hide::-webkit-scrollbar {
 	display: none;
@@ -12,18 +20,8 @@
 	scrollbar-width: none; /* Firefox */
 }
 
-.heading {
-	letter-spacing: 7px;
-	font-size: xx-large;
-}
-
-.glass {
-	background-color: rgba(0, 0, 0, 0.05);
-	backdrop-filter: blur(4px);
-	border: solid 1px rgba(255, 255, 255, 0.05);
-	border-radius: 0.25rem;
-}
-
-.anim {
-	transition: all 0.25s ease-in-out;
+.glowing-text {
+	color: #fff;
+	text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+		0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8);
 }

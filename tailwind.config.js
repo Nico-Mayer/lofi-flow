@@ -7,9 +7,10 @@ export default {
 	},
 	plugins: [
 		iconsPlugin({
+			scale: 2,
 			// Select the icon collections you want to use
 			// You can also ignore this option to automatically discover all icon collections you have installed
-			collections: getIconCollections(['mdi']),
+			collections: getIconCollections(['mdi', 'pixelarticons']),
 		}),
 	],
 }

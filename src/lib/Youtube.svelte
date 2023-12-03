@@ -65,40 +65,12 @@
 	<script src="https://www.youtube.com/iframe_api"></script>
 </svelte:head>
 
-<div class="video-player">
-	<div class="video" id={ytPlayerId} />
-</div>
+<div class="video" id={ytPlayerId} />
 
 <style scoped>
-	.video-player {
-		z-index: -1;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100vw;
-		height: 100vh;
-		overflow: hidden;
-	}
-
-	.video-player::after {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(
-			black,
-			transparent,
-			transparent,
-			transparent,
-			transparent,
-			black
-		);
-		content: '';
-		overflow: hidden;
-		pointer-events: none;
-	}
 	.video {
+		z-index: -1;
+		pointer-events: none;
 		position: absolute;
 		width: 100vw;
 		height: 100vh;

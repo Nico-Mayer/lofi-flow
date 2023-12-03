@@ -6,16 +6,6 @@ const defaultRadio: Radio = {
 	description: 'The best radio station on the web!',
 	channels: [
 		{
-			name: 'Hito Lofi',
-			url: 'https://www.youtube.com/watch?v=th8sZnMm9Nw',
-			id: 'th8sZnMm9Nw',
-			description: 'The hottest hits 24/7',
-			socials: [
-				{ name: 'Facebook', url: 'https://facebook.com/channel1' },
-				{ name: 'Twitter', url: 'https://twitter.com/channel1' },
-			],
-		},
-		{
 			name: 'WoW Lofi Beats',
 			url: 'https://www.youtube.com/watch?v=-uxi6_5cFqw',
 			id: '-uxi6_5cFqw',

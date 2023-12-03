@@ -11,6 +11,7 @@
 	},
 	"devDependencies": {
 		"@egoist/tailwindcss-icons": "^1.4.0",
+		"@iconify-json/pixelarticons": "^1.1.9",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.27.4",
 		"autoprefixer": "^10.4.16",
