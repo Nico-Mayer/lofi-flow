@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { volume, playing, buffering } from '$lib/stores/store'
-	import Icon from './Icon.svelte'
 	import { activeChannel, radio } from '$lib/stores/store'
 
 	export let player: Player
@@ -9,6 +8,11 @@
 	let muted = false
 
 	$: $volume, handleVolumeChange()
+	$: {
+		if (videoData?.errorCode !== null) {
+			randomChannel()
+		}
+	}
 
 	function removeFormattedTitle(title: string) {
 		if (!title) return
@@ -57,9 +61,15 @@
 
 	function randomChannel() {
 		if (player) {
-			const randomChannelIndex = Math.floor(
+			let randomChannelIndex = Math.floor(
 				Math.random() * $radio.channels.length
 			)
+
+			while (randomChannelIndex === $activeChannel.id) {
+				randomChannelIndex = Math.floor(
+					Math.random() * $radio.channels.length
+				)
+			}
 
 			$activeChannel = $radio.channels[randomChannelIndex]
 		}
@@ -71,39 +81,61 @@
 
 	<section class="flex items-center justify-center gap-4 flex-1 select-none">
 		<button on:click={randomChannel}>
-			<Icon icon="pixelarticons:shuffle" size={'s'} />
+			<img class="glow h-6" src="/icons/shuffle.svg" alt="shuffle-icon" />
 		</button>
 		<button on:click={handlePlayPause}>
 			{#if $playing}
-				<Icon icon="pixelarticons:pause" />
+				<img class="glow" src="/icons/pause.svg" alt="pause-icon" />
 			{:else}
-				<Icon icon="pixelarticons:play" />
+				<img class="glow" src="/icons/play.svg" alt="play-icon" />
 			{/if}
 		</button>
 
 		<div class="flex items-center justify-center gap-1">
+			<!-- <img class="glow h-6" src="/icons/volumeUp.svg" alt="volumeUp" />
+
+			<div class="volume-slider flex gap-1">
+				<div class="h-4 w-2 bg-white glow"></div>
+				<div class="h-4 w-2 bg-white glow"></div>
+				<div class="h-4 w-2 bg-white glow"></div>
+				<div class="h-4 w-2 bg-white glow"></div>
+				<div class="h-4 w-2 bg-white glow opacity-30"></div>
+				<div class="h-4 w-2 bg-white glow opacity-30"></div>
+			</div> -->
+
 			<button on:click={() => changeChannel(-1)}>
-				<Icon icon="pixelarticons:prev" size={'s'} />
+				<img class="glow h-6" src="/icons/prev.svg" alt="prev-icon" />
 			</button>
 
 			<button on:click={() => changeChannel(1)}>
-				<Icon icon="pixelarticons:next" size={'s'} />
+				<img class="glow h-6" src="/icons/next.svg" alt="next-icon" />
 			</button>
 		</div>
 	</section>
 
 	<section class="flex flex-1 items-center gap-4 justify-end">
-		<p class="text-[22px]">
+		<p class="glowing-text">
 			{#if $buffering}
-				buffering...
+				...buffering
+			{:else if !$playing}
+				...paused
 			{:else}
 				{removeFormattedTitle(videoData?.title.substring(0, 64))}
 			{/if}
 		</p>
+
 		{#if $buffering}
-			<Icon icon={'svg-spinners:blocks-shuffle-3'} size="s" />
-		{:else}
-			<Icon icon={'svg-spinners:bars-scale-middle'} size="s" />
+			<img
+				class="glow h-6"
+				src="/icons/loading.svg"
+				alt="loading-spinner" />
+		{:else if $playing}
+			<img
+				class="glow h-6"
+				src="/icons/playing.svg"
+				alt="playing-spinner" />
+		{:else if !$playing}
+			<div class="h-6 w-6"></div>
 		{/if}
 	</section>
 </main>

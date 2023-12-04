@@ -1,10 +1,17 @@
+<script lang="ts">
+	import { playing, buffering } from '$lib/stores/store'
+</script>
+
 <div class="vignette" />
 <div class="crt" />
-<div class="darken"></div>
+<div class="darken" class:paused={$playing === false || $buffering}></div>
 
 <style>
+	.paused {
+		background-color: rgba(0, 0, 0, 0.3) !important;
+	}
+
 	.vignette {
-		transition: all 0.5s ease-in-out;
 		pointer-events: none;
 		position: absolute;
 		top: 0;
@@ -20,6 +27,7 @@
 	}
 
 	.darken {
+		transition: background 0.5s ease-in-out;
 		pointer-events: none;
 		position: absolute;
 		top: 0;
@@ -29,47 +37,6 @@
 		z-index: 0;
 		background-color: rgba(0, 0, 0, 0.1);
 	}
-
-	.crt::before {
-		content: ' ';
-		display: block;
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		background: linear-gradient(
-				rgba(18, 16, 16, 0) 50%,
-				rgba(0, 0, 0, 0.25) 50%
-			),
-			linear-gradient(
-				90deg,
-				rgba(255, 0, 0, 0.06),
-				rgba(0, 255, 0, 0.02),
-				rgba(0, 0, 255, 0.06)
-			);
-		z-index: 20;
-		background-size:
-			100% 2px,
-			3px 100%;
-		pointer-events: none;
-	}
-
-	.crt::after {
-		content: ' ';
-		display: block;
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		background: rgba(18, 16, 16, 0.1);
-		opacity: 0;
-		z-index: 20;
-		pointer-events: none;
-		animation: flicker 0.15s infinite;
-	}
-
 	@keyframes flicker {
 		0% {
 			opacity: 0.27861;
@@ -134,5 +101,44 @@
 		100% {
 			opacity: 0.24387;
 		}
+	}
+
+	.crt::after {
+		content: ' ';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background: rgba(18, 16, 16, 0.1);
+		opacity: 0;
+		z-index: 2;
+		pointer-events: none;
+		animation: flicker 0.2s infinite;
+	}
+	.crt::before {
+		content: ' ';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background: linear-gradient(
+				rgba(18, 16, 16, 0) 50%,
+				rgba(0, 0, 0, 0.25) 50%
+			),
+			linear-gradient(
+				90deg,
+				rgba(255, 0, 0, 0.06),
+				rgba(0, 255, 0, 0.02),
+				rgba(0, 0, 255, 0.06)
+			);
+		z-index: 2;
+		background-size:
+			100% 2px,
+			3px 100%;
+		pointer-events: none;
 	}
 </style>

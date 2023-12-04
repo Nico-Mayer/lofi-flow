@@ -6,32 +6,28 @@ const defaultRadio: Radio = {
 	description: 'The default radio of lofi flow',
 	channels: [
 		{
-			name: 'WoW Lofi Beats To Chill To | Waiting for BlizzCon',
-			id: '-uxi6_5cFqw',
-		},
-		{
-			name: 'Shadowlands Lo-Fi Remixes: 4-Hour Compilation',
-			id: 'UWrslj9JQnc',
-		},
-		{
-			name: 'lofi hip hop radio 📚 - beats to relax/study to',
-			id: 'jfKfPfyJRdk',
-		},
-		{
-			name: '【Ｓｍｏｋｅ　Ａｎｄ　Ｃｈｉｌｌ】 ~ Lofi Hip Hop | Relaxing Music [ Beats To Relax / Chill To ]',
 			id: 'J4S8iN7qV1k',
 		},
 		{
-			name: 'Autumn Chill 🍂 Refresh Your Mind 🍂 24/7 Lofi hiphop',
 			id: 'AzwgsZUcTfM',
 		},
 		{
-			name: 'lofi hip hop radio 😴 sad & sleepy beats',
+			id: 'jfKfPfyJRdk',
+		},
+		{
 			id: 'bLlloaA4b4g',
 		},
 		{
-			name: 'ＣＨＩＬＬ　ＲＡＤＩＯ ２４／７',
 			id: 'tyVQk-BAWms',
+		},
+		{
+			id: '-uxi6_5cFqw',
+		},
+		{
+			id: 'UWrslj9JQnc',
+		},
+		{
+			id: 'UWrslj9JQewfnc',
 		},
 	],
 }
@@ -54,6 +50,7 @@ export const activeChannel = writable(
 
 export const playing = writable(false)
 export const buffering = writable(false)
+export const loadError = writable(false)
 
 volume.subscribe((value) => {
 	if (browser) {

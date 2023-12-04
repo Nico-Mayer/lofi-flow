@@ -2,6 +2,7 @@
 	export let videoData: VideoData
 </script>
 
-<main class="text-[22px]">
+<main class="glowing-text">
 	{videoData?.isLive ? 'Live' : 'Video'}
+	{videoData?.errorCode}
 </main>

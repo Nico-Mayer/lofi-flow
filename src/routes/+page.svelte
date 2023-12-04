@@ -6,6 +6,7 @@
 	import { playing, buffering, activeChannel } from '$lib/stores/store'
 
 	let player: Player
+	let app: HTMLElement
 
 	let videoData: VideoData
 
@@ -17,7 +18,7 @@
 
 	function handleChannelChange() {
 		if (player) {
-			player.loadVideoById($activeChannel.id)
+			player?.loadVideoById($activeChannel.id)
 		}
 	}
 
@@ -50,7 +51,7 @@
 	}
 </script>
 
-<main class="relative w-screen h-screen overflow-hidden flex">
+<main bind:this={app} class="relative w-screen h-screen overflow-hidden flex">
 	<Crt />
 
 	<Youtube
@@ -61,8 +62,7 @@
 		on:ready={getPlayerInfos}>
 	</Youtube>
 
-	<div
-		class="flex flex-col w-full h-full text-white z-20 justify-between p-12 glowing-text text-4xl">
+	<div class="flex flex-col w-full h-full z-20 justify-between p-12">
 		<Topbar {videoData} />
 
 		<Controls {player} {videoData} />
