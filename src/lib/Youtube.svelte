@@ -15,7 +15,7 @@
 				height: '360px',
 				width: '640px',
 				videoId,
-				playerVars: { autoplay: 1 },
+				playerVars: { autoplay: 1, rel: 0, controls: 0 },
 				events: {
 					onReady: onPlayerReady,
 					onStateChange: onPlayerStateChange,

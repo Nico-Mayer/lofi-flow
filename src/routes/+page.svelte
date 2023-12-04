@@ -3,16 +3,21 @@
 	import Controls from '$lib/Controls.svelte'
 	import Topbar from '$lib/Topbar.svelte'
 	import Crt from '$lib/Crt.svelte'
-	import { playing, buffering, activeChannel, radio } from '$lib/stores/store'
-	import { extractIDfromYTUrl } from '$lib/utils/utils'
+	import { playing, buffering, activeChannel } from '$lib/stores/store'
 
 	let player: Player
 
+	let videoData: VideoData
+
 	$: $activeChannel, handleChannelChange()
+
+	function getPlayerInfos() {
+		videoData = player.getVideoData()
+	}
 
 	function handleChannelChange() {
 		if (player) {
-			player.loadVideoById(extractIDfromYTUrl($activeChannel.url))
+			player.loadVideoById($activeChannel.id)
 		}
 	}
 
@@ -50,13 +55,16 @@
 
 	<Youtube
 		bind:player
-		videoId={extractIDfromYTUrl($activeChannel.url)}
-		on:stateChangeString={handleStateChange}></Youtube>
+		videoId={$activeChannel.id}
+		on:stateChangeString={handleStateChange}
+		on:stateChange={getPlayerInfos}
+		on:ready={getPlayerInfos}>
+	</Youtube>
 
 	<div
-		class="flex flex-col w-full h-full text-white z-10 items-center justify-between p-12 glowing-text text-4xl">
-		<Topbar />
+		class="flex flex-col w-full h-full text-white z-20 justify-between p-12 glowing-text text-4xl">
+		<Topbar {videoData} />
 
-		<Controls {player} />
+		<Controls {player} {videoData} />
 	</div>
 </main>

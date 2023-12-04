@@ -2,60 +2,36 @@ import { browser } from '$app/environment'
 import { writable } from 'svelte/store'
 
 const defaultRadio: Radio = {
-	name: 'Awesome Radio',
-	description: 'The best radio station on the web!',
+	name: 'Default Radio',
+	description: 'The default radio of lofi flow',
 	channels: [
 		{
-			name: 'WoW Lofi Beats',
-			url: 'https://www.youtube.com/watch?v=-uxi6_5cFqw',
+			name: 'WoW Lofi Beats To Chill To | Waiting for BlizzCon',
 			id: '-uxi6_5cFqw',
-			description: 'Classic rock and roll all day long',
-			socials: [
-				{
-					name: 'Instagram',
-					url: 'https://instagram.com/channel2',
-				},
-				{ name: 'YouTube', url: 'https://youtube.com/channel2' },
-			],
 		},
 		{
-			name: 'Smoke and Chill',
-			url: 'https://www.youtube.com/watch?v=J4S8iN7qV1k',
+			name: 'Shadowlands Lo-Fi Remixes: 4-Hour Compilation',
+			id: 'UWrslj9JQnc',
+		},
+		{
+			name: 'lofi hip hop radio 📚 - beats to relax/study to',
+			id: 'jfKfPfyJRdk',
+		},
+		{
+			name: '【Ｓｍｏｋｅ　Ａｎｄ　Ｃｈｉｌｌ】 ~ Lofi Hip Hop | Relaxing Music [ Beats To Relax / Chill To ]',
 			id: 'J4S8iN7qV1k',
-			description: 'Chill vibes for a relaxing day',
-			socials: [
-				{
-					name: 'Pinterest',
-					url: 'https://pinterest.com/channel10',
-				},
-				{ name: 'LinkedIn', url: 'https://linkedin.com/channel10' },
-			],
 		},
 		{
-			name: 'lofi hip hop radio',
-			url: 'https://www.youtube.com/watch?v=5qap5aO4i9A',
-			id: '5qap5aO4i9A',
-			description: 'Chill vibes for a relaxing day',
-			socials: [
-				{
-					name: 'Pinterest',
-					url: 'https://pinterest.com/channel10',
-				},
-				{ name: 'LinkedIn', url: 'https://linkedin.com/channel10' },
-			],
+			name: 'Autumn Chill 🍂 Refresh Your Mind 🍂 24/7 Lofi hiphop',
+			id: 'AzwgsZUcTfM',
 		},
 		{
-			name: 'Bootleg Boy',
-			url: 'https://www.youtube.com/watch?v=bLlloaA4b4g',
+			name: 'lofi hip hop radio 😴 sad & sleepy beats',
 			id: 'bLlloaA4b4g',
-			description: 'Chill vibes for a relaxing day',
-			socials: [
-				{
-					name: 'Pinterest',
-					url: 'https://pinterest.com/channel10',
-				},
-				{ name: 'LinkedIn', url: 'https://linkedin.com/channel10' },
-			],
+		},
+		{
+			name: 'ＣＨＩＬＬ　ＲＡＤＩＯ ２４／７',
+			id: 'tyVQk-BAWms',
 		},
 	],
 }
@@ -65,7 +41,7 @@ export const volume = writable(
 		? parseInt(localStorage?.getItem('volume') as string)
 		: 10
 )
-export const radio = writable(
+export const radio = writable<Radio>(
 	browser && localStorage.getItem('radio')
 		? JSON.parse(localStorage?.getItem('radio') as string)
 		: defaultRadio
