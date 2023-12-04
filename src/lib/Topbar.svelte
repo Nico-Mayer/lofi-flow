@@ -3,5 +3,5 @@
 </script>
 
 <main class="text-[22px]">
-	{videoData?.isLive ? 'Live' : 'Offline'}
+	{videoData?.isLive ? 'Live' : 'Video'}
 </main>

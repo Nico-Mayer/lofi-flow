@@ -8,7 +8,6 @@
 
 	let muted = false
 
-	$: console.log(videoData?.title)
 	$: $volume, handleVolumeChange()
 
 	function removeFormattedTitle(title: string) {
@@ -94,13 +93,13 @@
 	</section>
 
 	<section class="flex flex-1 items-center gap-4 justify-end">
-		<span class="text-[22px]">
+		<p class="text-[22px]">
 			{#if $buffering}
 				buffering...
 			{:else}
 				{removeFormattedTitle(videoData?.title.substring(0, 64))}
 			{/if}
-		</span>
+		</p>
 		{#if $buffering}
 			<Icon icon={'svg-spinners:blocks-shuffle-3'} size="s" />
 		{:else}
