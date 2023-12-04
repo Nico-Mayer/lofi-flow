@@ -12,7 +12,7 @@
 	const errTimeout = 1500
 
 	onMount(() => {
-		function load() {
+		window.YT.ready(() => {
 			player = new YT.Player(ytPlayerId, {
 				height: '360px',
 				width: '640px',
@@ -24,13 +24,7 @@
 					onStateChange: onPlayerStateChange,
 				},
 			})
-		}
-
-		if (window.YT.ready) {
-			load()
-		} else {
-			window.onYouTubeIframeAPIReady = load
-		}
+		})
 	})
 
 	function onError(event) {
