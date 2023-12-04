@@ -74,15 +74,48 @@
 			$activeChannel = $radio.channels[randomChannelIndex]
 		}
 	}
+
+	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key === ' ') {
+			handlePlayPause()
+		} else if (event.key === 'ArrowLeft') {
+			changeChannel(-1)
+		} else if (event.key === 'ArrowRight') {
+			changeChannel(1)
+		} else if (event.key === 'ArrowUp') {
+			$volume = Math.min($volume + 10, 100)
+		} else if (event.key === 'ArrowDown') {
+			$volume = Math.max($volume - 10, 0)
+		} else if (event.key === 'm') {
+			toggleMute()
+		} else if (event.key === 'r') {
+			randomChannel()
+		}
+	}
 </script>
 
-<main class="flex items-center justify-between">
+<svelte:window on:keydown={handleKeyDown} />
+
+<main class="flex items-center">
 	<section class="flex flex-1"></section>
 
 	<section class="flex items-center justify-center gap-4 flex-1 select-none">
-		<button on:click={randomChannel}>
-			<img class="glow h-6" src="/icons/shuffle.svg" alt="shuffle-icon" />
-		</button>
+		<div class="flex items-center justify-center gap-1">
+			<button on:click={randomChannel}>
+				<img
+					class="glow h-6"
+					src="/icons/shuffle.svg"
+					alt="shuffle-icon" />
+			</button>
+			<button on:click={() => changeChannel(-1)}>
+				<img class="glow h-6" src="/icons/prev.svg" alt="prev-icon" />
+			</button>
+
+			<button on:click={() => changeChannel(1)}>
+				<img class="glow h-6" src="/icons/next.svg" alt="next-icon" />
+			</button>
+		</div>
+
 		<button on:click={handlePlayPause}>
 			{#if $playing}
 				<img class="glow" src="/icons/pause.svg" alt="pause-icon" />
@@ -92,24 +125,17 @@
 		</button>
 
 		<div class="flex items-center justify-center gap-1">
-			<!-- <img class="glow h-6" src="/icons/volumeUp.svg" alt="volumeUp" />
+			<img class="glow h-6" src="/icons/volume.svg" alt="volume-icon" />
 
 			<div class="volume-slider flex gap-1">
-				<div class="h-4 w-2 bg-white glow"></div>
-				<div class="h-4 w-2 bg-white glow"></div>
-				<div class="h-4 w-2 bg-white glow"></div>
-				<div class="h-4 w-2 bg-white glow"></div>
-				<div class="h-4 w-2 bg-white glow opacity-30"></div>
-				<div class="h-4 w-2 bg-white glow opacity-30"></div>
-			</div> -->
-
-			<button on:click={() => changeChannel(-1)}>
-				<img class="glow h-6" src="/icons/prev.svg" alt="prev-icon" />
-			</button>
-
-			<button on:click={() => changeChannel(1)}>
-				<img class="glow h-6" src="/icons/next.svg" alt="next-icon" />
-			</button>
+				<div class="h-4 w-[6px] bg-white glow"></div>
+				<div class="h-4 w-[6px] bg-white glow"></div>
+				<div class="h-4 w-[6px] bg-white glow"></div>
+				<div class="h-4 w-[6px] bg-white glow"></div>
+				<div class="h-4 w-[6px] bg-white glow opacity-30"></div>
+				<div class="h-4 w-[6px] bg-white glow opacity-30"></div>
+				<div class="h-4 w-[6px] bg-white glow opacity-30"></div>
+			</div>
 		</div>
 	</section>
 
@@ -125,17 +151,11 @@
 		</p>
 
 		{#if $buffering}
-			<img
-				class="glow h-6"
-				src="/icons/loading.svg"
-				alt="loading-spinner" />
+			<img class="glow" src="/icons/loading.svg" alt="loading-spinner" />
 		{:else if $playing}
-			<img
-				class="glow h-6"
-				src="/icons/playing.svg"
-				alt="playing-spinner" />
+			<img class="glow" src="/icons/playing.svg" alt="playing-spinner" />
 		{:else if !$playing}
-			<div class="h-6 w-6"></div>
+			<div class="h-8 w-8"></div>
 		{/if}
 	</section>
 </main>
