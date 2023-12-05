@@ -116,7 +116,7 @@
 			</button>
 		</div>
 
-		<button on:click={handlePlayPause}>
+		<button on:click={handlePlayPause} class="h-8 w-8">
 			{#if $playing}
 				<img class="glow" src="/icons/pause.svg" alt="pause-icon" />
 			{:else}
@@ -150,12 +150,18 @@
 			{/if}
 		</p>
 
-		{#if $buffering}
-			<img class="glow" src="/icons/loading.svg" alt="loading-spinner" />
-		{:else if $playing}
-			<img class="glow" src="/icons/playing.svg" alt="playing-spinner" />
-		{:else if !$playing}
-			<div class="h-8 w-8"></div>
-		{/if}
+		<div class="h-6 w-6">
+			{#if $buffering}
+				<img
+					class="glow h-6"
+					src="/icons/loading.svg"
+					alt="loading-spinner" />
+			{:else if $playing}
+				<img
+					class="glow h-6"
+					src="/icons/playing.svg"
+					alt="playing-spinner" />
+			{/if}
+		</div>
 	</section>
 </main>

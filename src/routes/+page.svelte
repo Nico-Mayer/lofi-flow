@@ -4,13 +4,28 @@
 	import Topbar from '$lib/Topbar.svelte'
 	import Crt from '$lib/Crt.svelte'
 	import { playing, buffering, activeChannel } from '$lib/stores/store'
+	import { onMount } from 'svelte'
 
 	let player: Player
 	let app: HTMLElement
+	let whiteNoiseEffect: HTMLAudioElement
 
 	let videoData: VideoData
 
+	onMount(() => {
+		whiteNoiseEffect.volume = 0.05
+	})
+
 	$: $activeChannel, handleChannelChange()
+	$: {
+		if ($buffering) {
+			whiteNoiseEffect?.play()
+
+			setTimeout(() => {
+				whiteNoiseEffect?.pause()
+			}, 300)
+		}
+	}
 
 	function getPlayerInfos() {
 		videoData = player.getVideoData()
@@ -52,6 +67,11 @@
 </script>
 
 <main bind:this={app} class="relative w-screen h-screen overflow-hidden flex">
+	<audio bind:this={whiteNoiseEffect}>
+		<source src="/sounds/whiteNoise.mp3" type="audio/mp3" />
+		Your browser does not support the audio tag.
+	</audio>
+
 	<Crt />
 
 	<Youtube

@@ -9,7 +9,7 @@
 
 	const dispatch = createEventDispatcher()
 	const ytPlayerId = 'youtube-player'
-	const errTimeout = 1500
+	const errTimeout = 1000
 
 	onMount(() => {
 		window.YT.ready(() => {
