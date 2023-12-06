@@ -99,20 +99,20 @@
 <main class="flex items-center">
 	<section class="flex flex-1"></section>
 
-	<section class="flex items-center justify-center gap-4 flex-1 select-none">
-		<div class="flex items-center justify-center gap-1">
+	<section class="flex flex-1 gap-4 items-center justify-center select-none">
+		<div class="flex gap-1 items-center justify-center">
 			<button on:click={randomChannel}>
 				<img
-					class="glow h-6"
+					class="h-6 glow"
 					src="/icons/shuffle.svg"
 					alt="shuffle-icon" />
 			</button>
 			<button on:click={() => changeChannel(-1)}>
-				<img class="glow h-6" src="/icons/prev.svg" alt="prev-icon" />
+				<img class="h-6 glow" src="/icons/prev.svg" alt="prev-icon" />
 			</button>
 
 			<button on:click={() => changeChannel(1)}>
-				<img class="glow h-6" src="/icons/next.svg" alt="next-icon" />
+				<img class="h-6 glow" src="/icons/next.svg" alt="next-icon" />
 			</button>
 		</div>
 
@@ -124,22 +124,22 @@
 			{/if}
 		</button>
 
-		<div class="flex items-center justify-center gap-1">
-			<img class="glow h-6" src="/icons/volume.svg" alt="volume-icon" />
+		<div class="flex gap-1 items-center justify-center">
+			<img class="h-6 glow" src="/icons/volume.svg" alt="volume-icon" />
 
-			<div class="volume-slider flex gap-1">
-				<div class="h-4 w-[6px] bg-white glow"></div>
-				<div class="h-4 w-[6px] bg-white glow"></div>
-				<div class="h-4 w-[6px] bg-white glow"></div>
-				<div class="h-4 w-[6px] bg-white glow"></div>
-				<div class="h-4 w-[6px] bg-white glow opacity-30"></div>
-				<div class="h-4 w-[6px] bg-white glow opacity-30"></div>
-				<div class="h-4 w-[6px] bg-white glow opacity-30"></div>
+			<div class="flex gap-1 volume-slider">
+				<div class="bg-white h-4 w-[6px] glow"></div>
+				<div class="bg-white h-4 w-[6px] glow"></div>
+				<div class="bg-white h-4 w-[6px] glow"></div>
+				<div class="bg-white h-4 w-[6px] glow"></div>
+				<div class="bg-white h-4 opacity-30 w-[6px] glow"></div>
+				<div class="bg-white h-4 opacity-30 w-[6px] glow"></div>
+				<div class="bg-white h-4 opacity-30 w-[6px] glow"></div>
 			</div>
 		</div>
 	</section>
 
-	<section class="flex flex-1 items-center gap-4 justify-end">
+	<section class="flex flex-1 gap-4 items-center justify-end">
 		<p class="glowing-text">
 			{#if $buffering}
 				...buffering
@@ -153,12 +153,12 @@
 		<div class="h-6 w-6">
 			{#if $buffering}
 				<img
-					class="glow h-6"
+					class="h-6 glow"
 					src="/icons/loading.svg"
 					alt="loading-spinner" />
 			{:else if $playing}
 				<img
-					class="glow h-6"
+					class="h-6 glow"
 					src="/icons/playing.svg"
 					alt="playing-spinner" />
 			{/if}
