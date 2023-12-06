@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { playing, buffering } from '$lib/stores/store'
+	import { buffering, playing } from '$lib/stores/store'
 </script>
 
 <div class="vignette" />

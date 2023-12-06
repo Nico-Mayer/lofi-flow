@@ -1,6 +1,11 @@
 <script lang="ts">
-	import { volume, playing, buffering } from '$lib/stores/store'
-	import { activeChannel, radio } from '$lib/stores/store'
+	import {
+		activeChannel,
+		buffering,
+		playing,
+		radio,
+		volume,
+	} from '$lib/stores/store'
 
 	export let player: Player
 	export let videoData: VideoData

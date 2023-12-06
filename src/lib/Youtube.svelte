@@ -1,8 +1,7 @@
 <script>
 	// @ts-nocheck
-	import { onMount } from 'svelte'
-	import { createEventDispatcher } from 'svelte'
 	import { loadError } from '$lib/stores/store'
+	import { createEventDispatcher, onMount } from 'svelte'
 
 	export let player
 	export let videoId = ''

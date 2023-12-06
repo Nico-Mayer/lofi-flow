@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Youtube from '$lib/Youtube.svelte'
 	import Controls from '$lib/Controls.svelte'
-	import Topbar from '$lib/Topbar.svelte'
 	import Crt from '$lib/Crt.svelte'
-	import { playing, buffering, activeChannel } from '$lib/stores/store'
+	import Topbar from '$lib/Topbar.svelte'
+	import Youtube from '$lib/Youtube.svelte'
+	import { activeChannel, buffering, playing } from '$lib/stores/store'
 	import { onMount } from 'svelte'
 
 	let player: Player
