@@ -3,7 +3,12 @@
 	import Crt from '$lib/Crt.svelte'
 	import Topbar from '$lib/Topbar.svelte'
 	import Youtube from '$lib/Youtube.svelte'
-	import { activeChannel, buffering, playing } from '$lib/stores/store'
+	import {
+		activeChannel,
+		buffering,
+		playing,
+		switchingChannel,
+	} from '$lib/stores/store'
 	import { onMount } from 'svelte'
 
 	let player: Player
@@ -18,12 +23,10 @@
 
 	$: $activeChannel, handleChannelChange()
 	$: {
-		if ($buffering) {
+		if ($switchingChannel) {
 			whiteNoiseEffect?.play()
-
-			setTimeout(() => {
-				whiteNoiseEffect?.pause()
-			}, 300)
+		} else if (!$switchingChannel) {
+			whiteNoiseEffect?.pause()
 		}
 	}
 
@@ -48,6 +51,7 @@
 			$buffering = false
 		}
 		if (state == 'PLAYING') {
+			$switchingChannel = false
 			$playing = true
 			$buffering = false
 		}
@@ -64,6 +68,13 @@
 			$buffering = true
 		}
 	}
+
+	function getRandomChangeImg(): string {
+		const max = 6
+		const random = Math.floor(Math.random() * max) + 1
+
+		return `/gifs/change${random}.gif`
+	}
 </script>
 
 <main bind:this={app} class="relative flex w-screen h-screen overflow-hidden">
@@ -73,6 +84,13 @@
 	</audio>
 
 	<Crt />
+
+	{#if $switchingChannel}
+		<img
+			class="absolute top-0 left-0 w-full h-full"
+			src={getRandomChangeImg()}
+			alt="change-screen" />
+	{/if}
 
 	<Youtube
 		bind:player

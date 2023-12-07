@@ -48,10 +48,21 @@ export const activeChannel = writable(
 export const playing = writable(false)
 export const buffering = writable(false)
 export const loadError = writable(false)
+export const switchingChannel = writable(false)
 
 volume.subscribe((value) => {
 	if (browser) {
-		localStorage.setItem('volume', value.toString())
+		let volume = ''
+
+		if (value > 100) {
+			volume = '100'
+		} else if (value < 0) {
+			volume = '0'
+		} else if (value == null || value == undefined) {
+			return
+		}
+
+		localStorage.setItem('volume', volume)
 	}
 })
 radio.subscribe((value) => {

@@ -4,22 +4,21 @@
 		buffering,
 		playing,
 		radio,
+		switchingChannel,
 		volume,
 	} from '$lib/stores/store'
+	import VolumeSlider from './VolumeSlider.svelte'
 
 	export let player: Player
 	export let videoData: VideoData
 
-	let muted = false
-
-	$: $volume, handleVolumeChange()
 	$: {
 		if (videoData?.errorCode !== null) {
 			randomChannel()
 		}
 	}
 
-	function removeFormattedTitle(title: string) {
+	function removeFormatting(title: string) {
 		if (!title) return
 		return title.replace(/[^a-zA-Z0-9 ]/g, '')
 	}
@@ -32,26 +31,17 @@
 		}
 	}
 
-	function handleVolumeChange() {
-		if (player) {
-			player.setVolume($volume)
-		}
-	}
-
-	function toggleMute() {
-		if (player) {
-			if (player.isMuted()) {
-				player.unMute()
-				muted = false
-			} else {
-				player.mute()
-				muted = true
-			}
-		}
+	function randomTimeout() {
+		const randomNumber = Math.floor(Math.random() * (310 - 220 + 1)) + 220
+		setTimeout(() => {
+			$switchingChannel = false
+		}, randomNumber)
 	}
 
 	function changeChannel(offset: number) {
 		if (player) {
+			$switchingChannel = true
+			randomTimeout()
 			const activeChannelIndex = $radio.channels.findIndex(
 				(channel) => channel.id === $activeChannel.id
 			)
@@ -66,6 +56,8 @@
 
 	function randomChannel() {
 		if (player) {
+			$switchingChannel = true
+			randomTimeout()
 			let randomChannelIndex = Math.floor(
 				Math.random() * $radio.channels.length
 			)
@@ -92,7 +84,8 @@
 		} else if (event.key === 'ArrowDown') {
 			$volume = Math.max($volume - 10, 0)
 		} else if (event.key === 'm') {
-			toggleMute()
+			console.log('mute Player')
+			//toggleMute()
 		} else if (event.key === 'r') {
 			randomChannel()
 		}
@@ -105,7 +98,7 @@
 	<section class="flex flex-1"></section>
 
 	<section class="flex items-center justify-center flex-1 gap-4 select-none">
-		<div class="flex items-center justify-center gap-1">
+		<div class="flex items-center justify-end flex-1 gap-1">
 			<button on:click={randomChannel}>
 				<img
 					class="h-6 glow"
@@ -129,19 +122,7 @@
 			{/if}
 		</button>
 
-		<div class="flex items-center justify-center gap-1">
-			<img class="h-6 glow" src="/icons/volume.svg" alt="volume-icon" />
-
-			<div class="flex gap-1 volume-slider">
-				<div class="bg-white h-4 w-[6px] glow"></div>
-				<div class="bg-white h-4 w-[6px] glow"></div>
-				<div class="bg-white h-4 w-[6px] glow"></div>
-				<div class="bg-white h-4 w-[6px] glow"></div>
-				<div class="bg-white h-4 opacity-30 w-[6px] glow"></div>
-				<div class="bg-white h-4 opacity-30 w-[6px] glow"></div>
-				<div class="bg-white h-4 opacity-30 w-[6px] glow"></div>
-			</div>
-		</div>
+		<VolumeSlider {player} />
 	</section>
 
 	<section class="flex items-center justify-end flex-1 gap-4">
@@ -151,7 +132,7 @@
 			{:else if !$playing}
 				...paused
 			{:else}
-				{removeFormattedTitle(videoData?.title.substring(0, 64))}
+				{removeFormatting(videoData?.title.substring(0, 64))}
 			{/if}
 		</p>
 
