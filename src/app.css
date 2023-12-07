@@ -21,7 +21,6 @@
 }
 
 .glowing-text {
-	font-size: 22px;
 	color: #fff;
 	text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
 		0 0 20px rgba(0, 255, 0, 0.8), 0 0 30px rgba(255, 255, 255, 0.8),
@@ -33,6 +32,14 @@
 		drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))
 		drop-shadow(0 0 30px rgba(255, 255, 255, 0.8))
 		drop-shadow(0 0 5px rgba(0, 255, 0, 0.5));
+}
+
+.btn {
+	@apply flex items-center justify-center w-8 h-8;
+}
+
+.icon {
+	@apply w-6 h-6;
 }
 
 /* .glowing-text {

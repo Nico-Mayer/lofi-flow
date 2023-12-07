@@ -20,6 +20,7 @@ declare global {
 		isMuted: () => boolean
 		mute: () => void
 		unMute: () => void
+		setPlaybackQuality(suggestedQuality: String): Void
 	}
 
 	type VideoData = {

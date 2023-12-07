@@ -2,10 +2,10 @@
 	import {
 		activeChannel,
 		buffering,
+		disableChannelSwitching,
 		playing,
 		radio,
 		switchingChannel,
-		volume,
 	} from '$lib/stores/store'
 	import VolumeSlider from './VolumeSlider.svelte'
 
@@ -73,19 +73,14 @@
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {
+		if ($disableChannelSwitching) return
+
 		if (event.key === ' ') {
 			handlePlayPause()
 		} else if (event.key === 'ArrowLeft') {
 			changeChannel(-1)
 		} else if (event.key === 'ArrowRight') {
 			changeChannel(1)
-		} else if (event.key === 'ArrowUp') {
-			$volume = Math.min($volume + 10, 100)
-		} else if (event.key === 'ArrowDown') {
-			$volume = Math.max($volume - 10, 0)
-		} else if (event.key === 'm') {
-			console.log('mute Player')
-			//toggleMute()
 		} else if (event.key === 'r') {
 			randomChannel()
 		}
@@ -94,38 +89,44 @@
 
 <svelte:window on:keydown={handleKeyDown} />
 
-<main class="flex items-center">
-	<section class="flex flex-1"></section>
+<main
+	class="flex flex-col items-start gap-2 lg:items-center lg:gap-0 lg:flex-row">
+	<div class="flex-1 hidden lg:flex"></div>
 
-	<section class="flex items-center justify-center flex-1 gap-4 select-none">
-		<div class="flex items-center justify-end flex-1 gap-1">
-			<button on:click={randomChannel}>
+	<section
+		class="flex items-center flex-1 gap-2 lg:gap-4 select-justify-center">
+		<div class="flex items-center justify-end flex-1 gap-1 shrink-0">
+			<button class="btn" on:click={randomChannel}>
 				<img
-					class="h-6 glow"
+					class="icon glow"
 					src="/icons/shuffle.svg"
 					alt="shuffle-icon" />
 			</button>
-			<button on:click={() => changeChannel(-1)}>
-				<img class="h-6 glow" src="/icons/prev.svg" alt="prev-icon" />
+			<button class="btn" on:click={() => changeChannel(-1)}>
+				<img class="icon glow" src="/icons/prev.svg" alt="prev-icon" />
 			</button>
 
-			<button on:click={() => changeChannel(1)}>
-				<img class="h-6 glow" src="/icons/next.svg" alt="next-icon" />
+			<button class="btn" on:click={() => changeChannel(1)}>
+				<img class="icon glow" src="/icons/next.svg" alt="next-icon" />
 			</button>
 		</div>
 
-		<button on:click={handlePlayPause} class="w-8 h-8">
+		<button on:click={handlePlayPause} class="btn">
 			{#if $playing}
-				<img class="glow" src="/icons/pause.svg" alt="pause-icon" />
+				<img
+					class="icon glow"
+					src="/icons/pause.svg"
+					alt="pause-icon" />
 			{:else}
-				<img class="glow" src="/icons/play.svg" alt="play-icon" />
+				<img class="icon glow" src="/icons/play.svg" alt="play-icon" />
 			{/if}
 		</button>
 
 		<VolumeSlider {player} />
 	</section>
 
-	<section class="flex items-center justify-end flex-1 gap-4">
+	<section
+		class="flex flex-row-reverse items-center justify-end flex-1 gap-4 lg:flex-row whitespace-nowrap">
 		<p class="glowing-text">
 			{#if $buffering}
 				...buffering
@@ -136,15 +137,15 @@
 			{/if}
 		</p>
 
-		<div class="w-6 h-6">
+		<div class="flex items-center justify-center w-8 h-8">
 			{#if $buffering}
 				<img
-					class="h-6 glow"
+					class="icon glow"
 					src="/icons/loading.svg"
 					alt="loading-spinner" />
 			{:else if $playing}
 				<img
-					class="h-6 glow"
+					class="icon glow"
 					src="/icons/playing.svg"
 					alt="playing-spinner" />
 			{/if}

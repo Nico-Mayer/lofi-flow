@@ -49,17 +49,20 @@ export const playing = writable(false)
 export const buffering = writable(false)
 export const loadError = writable(false)
 export const switchingChannel = writable(false)
+export const disableChannelSwitching = writable(false)
 
 volume.subscribe((value) => {
 	if (browser) {
-		let volume = ''
+		if (value == null || value == undefined) {
+			return
+		}
+
+		let volume = value.toString()
 
 		if (value > 100) {
 			volume = '100'
 		} else if (value < 0) {
 			volume = '0'
-		} else if (value == null || value == undefined) {
-			return
 		}
 
 		localStorage.setItem('volume', volume)

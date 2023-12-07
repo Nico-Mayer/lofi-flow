@@ -1,18 +1,27 @@
 <script lang="ts">
-	import { volume } from '$lib/stores/store'
-	import { onMount } from 'svelte'
+	import { disableChannelSwitching, volume } from '$lib/stores/store'
+	import { afterUpdate, onMount } from 'svelte'
 
 	export let player: Player
 
 	let fineTune = false
 	let iconSrc = '/icons/volume.svg'
 	let muted = false
+	let fineTuneInput: HTMLInputElement | undefined
 
 	$: $volume, handleVolumeChange()
 	$: filled = Math.floor(($volume / 100) * 7)
 
 	onMount(() => {
 		iconSrc = getIconSrc()
+	})
+
+	afterUpdate(() => {
+		if (fineTuneInput !== document.activeElement && fineTune) {
+			fineTuneInput?.focus()
+			fineTuneInput?.select()
+			$disableChannelSwitching = true
+		}
 	})
 
 	function toggleMute() {
@@ -60,32 +69,42 @@
 
 	function handleFineTune(e: Event) {
 		e.preventDefault()
-		let value = (e.target as HTMLInputElement).value
-		let valueAsNumber = Number(value)
-		let key = (e as KeyboardEvent).key
+
+		const inputElement = e.target as HTMLInputElement
+		const valueAsNumber = Number(inputElement.value)
+		const key = (e as KeyboardEvent).key
 
 		if (key === 'Enter') {
-			fineTune = false
+			dropFocus()
 		}
 
-		console.log('Value as number: ', valueAsNumber)
+		let adjustedValue = isNaN(valueAsNumber)
+			? 0
+			: Math.max(0, Math.min(100, valueAsNumber))
+		$volume = adjustedValue
+	}
 
-		if (valueAsNumber > 100) {
-			valueAsNumber = 100
-		} else if (valueAsNumber < 0) {
-			valueAsNumber = 0
-		} else if (isNaN(valueAsNumber)) {
-			valueAsNumber = 0
+	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key === 'ArrowUp') {
+			$volume = Math.min($volume + 10, 100)
+		} else if (event.key === 'ArrowDown') {
+			$volume = Math.max($volume - 10, 0)
+		} else if (event.key === 'm') {
+			toggleMute()
 		}
-		$volume = valueAsNumber
+	}
+
+	function dropFocus() {
+		fineTune = false
+		$disableChannelSwitching = false
 	}
 </script>
 
+<svelte:window on:keydown={handleKeyDown} />
+
 <main class="flex items-center justify-start flex-1 gap-2">
-	<button
-		class="flex items-center justify-center w-8 h-8"
-		on:click={toggleMute}>
-		<img class="h-6 glow" src={iconSrc} alt="volume-icon" />
+	<button class="btn" on:click={toggleMute}>
+		<img class="icon glow" src={iconSrc} alt="volume-icon" />
 	</button>
 
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -93,15 +112,15 @@
 	<div class="flex gap-1 volume-slider" on:click={handleClick}>
 		{#if fineTune}
 			<input
+				bind:this={fineTuneInput}
 				on:keyup={handleFineTune}
-				on:blur={() => (fineTune = false)}
+				on:blur={dropFocus}
 				bind:value={$volume}
-				id="fineTuneVolumeInput"
 				min="0"
 				max="100"
 				type="text"
-				maxlength="3"
-				class="px-2 overflow-visible bg-transparent outline-none glowing-text" />
+				class="w-20 px-2 py-1 otiline-none"
+				maxlength="3" />
 		{:else}
 			<div
 				class="bg-white opacity-30 h-4 w-[6px] glow"

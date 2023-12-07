@@ -8,6 +8,7 @@
 		buffering,
 		playing,
 		switchingChannel,
+		volume,
 	} from '$lib/stores/store'
 	import { onMount } from 'svelte'
 
@@ -28,6 +29,12 @@
 		} else if (!$switchingChannel) {
 			whiteNoiseEffect?.pause()
 		}
+	}
+
+	function onPlayerReady() {
+		getPlayerInfos()
+		player.setVolume($volume)
+		player.setPlaybackQuality('highres')
 	}
 
 	function getPlayerInfos() {
@@ -97,10 +104,11 @@
 		videoId={$activeChannel.id}
 		on:stateChangeString={handleStateChange}
 		on:stateChange={getPlayerInfos}
-		on:ready={getPlayerInfos}>
+		on:ready={onPlayerReady}>
 	</Youtube>
 
-	<div class="z-20 flex flex-col justify-between w-full h-full p-12">
+	<div
+		class="z-20 flex flex-col justify-between w-full h-full p-6 text-lg lg:text-2xl lg:p-12">
 		<Topbar {videoData} />
 
 		<Controls {player} {videoData} />
