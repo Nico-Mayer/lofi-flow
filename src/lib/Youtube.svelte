@@ -69,7 +69,7 @@
 </svelte:head>
 
 {#if $loadError}
-	<div class="flex gap-4 err justify-center items-center glowing-text">
+	<div class="flex items-center justify-center gap-4 err glowing-text">
 		<svg
 			class="glow"
 			xmlns="http://www.w3.org/2000/svg"

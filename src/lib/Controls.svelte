@@ -104,8 +104,8 @@
 <main class="flex items-center">
 	<section class="flex flex-1"></section>
 
-	<section class="flex flex-1 gap-4 items-center justify-center select-none">
-		<div class="flex gap-1 items-center justify-center">
+	<section class="flex items-center justify-center flex-1 gap-4 select-none">
+		<div class="flex items-center justify-center gap-1">
 			<button on:click={randomChannel}>
 				<img
 					class="h-6 glow"
@@ -121,7 +121,7 @@
 			</button>
 		</div>
 
-		<button on:click={handlePlayPause} class="h-8 w-8">
+		<button on:click={handlePlayPause} class="w-8 h-8">
 			{#if $playing}
 				<img class="glow" src="/icons/pause.svg" alt="pause-icon" />
 			{:else}
@@ -129,7 +129,7 @@
 			{/if}
 		</button>
 
-		<div class="flex gap-1 items-center justify-center">
+		<div class="flex items-center justify-center gap-1">
 			<img class="h-6 glow" src="/icons/volume.svg" alt="volume-icon" />
 
 			<div class="flex gap-1 volume-slider">
@@ -144,7 +144,7 @@
 		</div>
 	</section>
 
-	<section class="flex flex-1 gap-4 items-center justify-end">
+	<section class="flex items-center justify-end flex-1 gap-4">
 		<p class="glowing-text">
 			{#if $buffering}
 				...buffering
@@ -155,7 +155,7 @@
 			{/if}
 		</p>
 
-		<div class="h-6 w-6">
+		<div class="w-6 h-6">
 			{#if $buffering}
 				<img
 					class="h-6 glow"

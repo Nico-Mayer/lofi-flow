@@ -66,7 +66,7 @@
 	}
 </script>
 
-<main bind:this={app} class="flex h-screen w-screen relative overflow-hidden">
+<main bind:this={app} class="relative flex w-screen h-screen overflow-hidden">
 	<audio bind:this={whiteNoiseEffect}>
 		<source src="/sounds/whiteNoise.mp3" type="audio/mp3" />
 		Your browser does not support the audio tag.
@@ -82,7 +82,7 @@
 		on:ready={getPlayerInfos}>
 	</Youtube>
 
-	<div class="flex flex-col h-full w-full p-12 z-20 justify-between">
+	<div class="z-20 flex flex-col justify-between w-full h-full p-12">
 		<Topbar {videoData} />
 
 		<Controls {player} {videoData} />
