@@ -50,6 +50,7 @@ export const buffering = writable(false)
 export const loadError = writable(false)
 export const switchingChannel = writable(false)
 export const disableChannelSwitching = writable(false)
+export const showChannelList = writable(false)
 
 volume.subscribe((value) => {
 	if (browser) {

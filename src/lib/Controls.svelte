@@ -5,8 +5,10 @@
 		disableChannelSwitching,
 		playing,
 		radio,
+		showChannelList,
 		switchingChannel,
 	} from '$lib/stores/store'
+	import { rnd } from '$lib/utils/utils'
 	import VolumeSlider from './VolumeSlider.svelte'
 
 	export let player: Player
@@ -32,10 +34,12 @@
 	}
 
 	function randomTimeout() {
-		const randomNumber = Math.floor(Math.random() * (310 - 220 + 1)) + 220
-		setTimeout(() => {
-			$switchingChannel = false
-		}, randomNumber)
+		setTimeout(
+			() => {
+				$switchingChannel = false
+			},
+			rnd(220, 310)
+		)
 	}
 
 	function changeChannel(offset: number) {
@@ -85,33 +89,41 @@
 			randomChannel()
 		}
 	}
+
+	function openChannelList(e: MouseEvent) {
+		e.stopPropagation()
+		$showChannelList = true
+	}
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
 
 <main
 	class="flex flex-col items-start gap-2 lg:items-center lg:gap-0 lg:flex-row">
-	<div class="flex-1 hidden lg:flex"></div>
+	<div class="flex-1 hidden h-full lg:flex"></div>
 
 	<section
 		class="flex items-center flex-1 gap-2 lg:gap-4 select-justify-center">
 		<div class="flex items-center justify-end flex-1 gap-1 shrink-0">
-			<button class="btn" on:click={randomChannel}>
+			<button type="button" class="btn" on:click={randomChannel}>
 				<img
 					class="icon glow"
 					src="/icons/shuffle.svg"
 					alt="shuffle-icon" />
 			</button>
-			<button class="btn" on:click={() => changeChannel(-1)}>
+			<button
+				type="button"
+				class="btn"
+				on:click={() => changeChannel(-1)}>
 				<img class="icon glow" src="/icons/prev.svg" alt="prev-icon" />
 			</button>
 
-			<button class="btn" on:click={() => changeChannel(1)}>
+			<button type="button" class="btn" on:click={() => changeChannel(1)}>
 				<img class="icon glow" src="/icons/next.svg" alt="next-icon" />
 			</button>
 		</div>
 
-		<button on:click={handlePlayPause} class="btn">
+		<button type="button" on:click={handlePlayPause} class="btn">
 			{#if $playing}
 				<img
 					class="icon glow"
@@ -125,7 +137,9 @@
 		<VolumeSlider {player} />
 	</section>
 
-	<section
+	<button
+		on:click={openChannelList}
+		type="button"
 		class="flex flex-row-reverse items-center justify-end flex-1 gap-4 lg:flex-row whitespace-nowrap">
 		<p class="glowing-text">
 			{#if $buffering}
@@ -133,7 +147,7 @@
 			{:else if !$playing}
 				...paused
 			{:else}
-				{removeFormatting(videoData?.title.substring(0, 64))}
+				{removeFormatting(videoData?.title)?.substring(0, 36)}
 			{/if}
 		</p>
 
@@ -150,5 +164,5 @@
 					alt="playing-spinner" />
 			{/if}
 		</div>
-	</section>
+	</button>
 </main>

@@ -103,7 +103,7 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 <main class="flex items-center justify-start flex-1 gap-2">
-	<button class="btn" on:click={toggleMute}>
+	<button type="button" class="btn" on:click={toggleMute}>
 		<img class="icon glow" src={iconSrc} alt="volume-icon" />
 	</button>
 
@@ -119,7 +119,7 @@
 				min="0"
 				max="100"
 				type="text"
-				class="w-20 px-2 py-1 otiline-none"
+				class="w-20 px-2 text-base"
 				maxlength="3" />
 		{:else}
 			<div

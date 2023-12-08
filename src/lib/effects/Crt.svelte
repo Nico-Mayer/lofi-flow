@@ -1,42 +1,43 @@
-<script lang="ts">
-	import { buffering, playing } from '$lib/stores/store'
-</script>
-
-<div class="vignette" />
 <div class="crt" />
-<div class="darken" class:paused={$playing === false || $buffering}></div>
+<div class="refresh" />
 
 <style>
-	.paused {
-		background-color: rgba(0, 0, 0, 0.3) !important;
+	@keyframes refresh {
+		0% {
+			bottom: 100%;
+		}
+		70% {
+			bottom: 100%;
+		}
+		100% {
+			bottom: 0px;
+		}
 	}
-
-	.vignette {
-		pointer-events: none;
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		z-index: 40;
-		background: radial-gradient(
-			ellipse at center,
-			rgba(0, 0, 0, 0) 0%,
-			rgba(0, 0, 0, 0.45) 100%
+	.refresh {
+		float: left;
+		width: 200%;
+		height: 100px;
+		z-index: 99;
+		background: linear-gradient(
+			0deg,
+			rgba(0, 0, 0, 0) 0,
+			rgba(0, 255, 0, 0.4) 10%,
+			rgba(0, 0, 0, 0.1) 100%
 		);
+		opacity: 0.1;
+		position: fixed;
+		bottom: 0;
+		animation: refresh 6s linear infinite;
+		animation-name: refresh;
+		animation-duration: 6s;
+		animation-timing-function: linear;
+		animation-delay: 0s;
+		animation-iteration-count: infinite;
+		animation-direction: normal;
+		animation-fill-mode: none;
+		animation-play-state: running;
 	}
 
-	.darken {
-		transition: background 0.5s ease-in-out;
-		pointer-events: none;
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		z-index: 0;
-		background-color: rgba(0, 0, 0, 0.1);
-	}
 	@keyframes flicker {
 		0% {
 			opacity: 0.27861;
@@ -113,7 +114,7 @@
 		right: 0;
 		background: rgba(18, 16, 16, 0.1);
 		opacity: 0;
-		z-index: 2;
+		z-index: 100;
 		pointer-events: none;
 		animation: flicker 0.2s infinite;
 	}
@@ -135,7 +136,7 @@
 				rgba(0, 255, 0, 0.02),
 				rgba(0, 0, 255, 0.06)
 			);
-		z-index: 2;
+		z-index: 100;
 		background-size:
 			100% 2px,
 			3px 100%;

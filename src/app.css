@@ -22,16 +22,13 @@
 
 .glowing-text {
 	color: #fff;
-	text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-		0 0 20px rgba(0, 255, 0, 0.8), 0 0 30px rgba(255, 255, 255, 0.8),
-		0 0 5px rgba(0, 255, 0, 0.5);
+	text-shadow: 0px 0px 2px hsl(120, 100%, 80%), 0px 0px 15px green,
+		0px 0px 60px green;
 }
 
 .glow {
-	filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))
-		drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))
-		drop-shadow(0 0 30px rgba(255, 255, 255, 0.8))
-		drop-shadow(0 0 5px rgba(0, 255, 0, 0.5));
+	filter: drop-shadow(0px 0px 2px hsl(120, 100%, 80%))
+		drop-shadow(0px 0px 8px green);
 }
 
 .btn {

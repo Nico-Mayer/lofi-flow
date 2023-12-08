@@ -1,35 +1,27 @@
 <script lang="ts">
+	import ChannelList from '$lib/ChannelList.svelte'
 	import Controls from '$lib/Controls.svelte'
-	import Crt from '$lib/Crt.svelte'
 	import Topbar from '$lib/Topbar.svelte'
 	import Youtube from '$lib/Youtube.svelte'
+	import ChangeAnimation from '$lib/effects/ChangeAnimation.svelte'
+	import Crt from '$lib/effects/Crt.svelte'
+	import Darken from '$lib/effects/Darken.svelte'
+	import Vignette from '$lib/effects/Vignette.svelte'
 	import {
 		activeChannel,
 		buffering,
 		playing,
+		showChannelList,
 		switchingChannel,
 		volume,
 	} from '$lib/stores/store'
-	import { onMount } from 'svelte'
 
 	let player: Player
 	let app: HTMLElement
-	let whiteNoiseEffect: HTMLAudioElement
 
 	let videoData: VideoData
 
-	onMount(() => {
-		whiteNoiseEffect.volume = 0.05
-	})
-
 	$: $activeChannel, handleChannelChange()
-	$: {
-		if ($switchingChannel) {
-			whiteNoiseEffect?.play()
-		} else if (!$switchingChannel) {
-			whiteNoiseEffect?.pause()
-		}
-	}
 
 	function onPlayerReady() {
 		getPlayerInfos()
@@ -75,29 +67,13 @@
 			$buffering = true
 		}
 	}
-
-	function getRandomChangeImg(): string {
-		const max = 6
-		const random = Math.floor(Math.random() * max) + 1
-
-		return `/gifs/change${random}.gif`
-	}
 </script>
 
 <main bind:this={app} class="relative flex w-screen h-screen overflow-hidden">
-	<audio bind:this={whiteNoiseEffect}>
-		<source src="/sounds/whiteNoise.mp3" type="audio/mp3" />
-		Your browser does not support the audio tag.
-	</audio>
-
+	<Darken />
 	<Crt />
-
-	{#if $switchingChannel}
-		<img
-			class="absolute top-0 left-0 w-full h-full"
-			src={getRandomChangeImg()}
-			alt="change-screen" />
-	{/if}
+	<Vignette />
+	<ChangeAnimation />
 
 	<Youtube
 		bind:player
@@ -107,8 +83,13 @@
 		on:ready={onPlayerReady}>
 	</Youtube>
 
+	{#if $showChannelList}
+		<ChannelList />
+	{/if}
+
 	<div
-		class="z-20 flex flex-col justify-between w-full h-full p-6 text-lg lg:text-2xl lg:p-12">
+		id="ui-wrapper"
+		class="z-20 flex flex-col justify-between w-full h-full p-6 text-2xl lg:p-12">
 		<Topbar {videoData} />
 
 		<Controls {player} {videoData} />
