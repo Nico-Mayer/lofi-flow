@@ -21,7 +21,7 @@
 		background: linear-gradient(
 			0deg,
 			rgba(0, 0, 0, 0) 0,
-			rgba(0, 255, 0, 0.4) 10%,
+			#99ff9950 10%,
 			rgba(0, 0, 0, 0.1) 100%
 		);
 		opacity: 0.1;

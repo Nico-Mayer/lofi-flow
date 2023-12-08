@@ -69,7 +69,9 @@
 	}
 </script>
 
-<main bind:this={app} class="relative flex w-screen h-screen overflow-hidden">
+<main
+	bind:this={app}
+	class="relative flex w-[calc(100dvw)] h-[calc(100dvh)] overflow-hidden">
 	<Darken />
 	<Crt />
 	<Vignette />
@@ -89,7 +91,7 @@
 
 	<div
 		id="ui-wrapper"
-		class="z-20 flex flex-col justify-between w-full h-full p-6 text-2xl lg:p-12">
+		class="z-20 flex flex-col justify-between w-full h-full p-6 text-lg lg:text-2xl lg:p-12">
 		<Topbar {videoData} />
 
 		<Controls {player} {videoData} />

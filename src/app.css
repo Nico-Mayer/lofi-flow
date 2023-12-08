@@ -7,6 +7,7 @@
 @layer base {
 	html {
 		font-family: 'VT323', monospace;
+		background-color: black;
 	}
 }
 
@@ -22,13 +23,11 @@
 
 .glowing-text {
 	color: #fff;
-	text-shadow: 0px 0px 2px hsl(120, 100%, 80%), 0px 0px 15px green,
-		0px 0px 60px green;
+	text-shadow: 0px 0px 2px #99ff99, 0px 0px 15px green, 0px 0px 60px green;
 }
 
 .glow {
-	filter: drop-shadow(0px 0px 2px hsl(120, 100%, 80%))
-		drop-shadow(0px 0px 8px green);
+	filter: drop-shadow(0px 0px 2px #99ff99) drop-shadow(0px 0px 8px green);
 }
 
 .btn {
