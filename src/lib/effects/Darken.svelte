@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { buffering, playing } from '$lib/stores/store'
+	import { buffering, playing } from '$lib/store/store'
 </script>
 
 <div class="darken" class:paused={$playing === false || $buffering}></div>

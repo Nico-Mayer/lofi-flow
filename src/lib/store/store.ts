@@ -29,22 +29,8 @@ const defaultRadio: Radio = {
 	],
 }
 
-export const volume = writable(
-	browser && localStorage.getItem('volume')
-		? parseInt(localStorage?.getItem('volume') as string)
-		: 10
-)
-export const radio = writable<Radio>(
-	browser && localStorage.getItem('radio')
-		? JSON.parse(localStorage?.getItem('radio') as string)
-		: defaultRadio
-)
-export const activeChannel = writable(
-	browser && localStorage.getItem('activeChannel')
-		? JSON.parse(localStorage?.getItem('activeChannel') as string)
-		: defaultRadio.channels[0]
-)
-
+export const player = writable<Player | null>(null)
+export const videoData = writable<VideoData | null>(null)
 export const playing = writable(false)
 export const buffering = writable(false)
 export const loadError = writable(false)
@@ -52,6 +38,11 @@ export const switchingChannel = writable(false)
 export const disableChannelSwitching = writable(false)
 export const showChannelList = writable(false)
 
+export const volume = writable(
+	browser && localStorage.getItem('volume')
+		? parseInt(localStorage?.getItem('volume') as string)
+		: 10
+)
 volume.subscribe((value) => {
 	if (browser) {
 		if (value == null || value == undefined) {
@@ -69,13 +60,25 @@ volume.subscribe((value) => {
 		localStorage.setItem('volume', volume)
 	}
 })
-radio.subscribe((value) => {
-	if (browser) {
-		localStorage.setItem('radio', JSON.stringify(value))
-	}
-})
+
+export const activeChannel = writable(
+	browser && localStorage.getItem('activeChannel')
+		? JSON.parse(localStorage?.getItem('activeChannel') as string)
+		: defaultRadio.channels[0]
+)
 activeChannel.subscribe((value) => {
 	if (browser) {
 		localStorage.setItem('activeChannel', JSON.stringify(value))
+	}
+})
+
+export const radio = writable<Radio>(
+	browser && localStorage.getItem('radio')
+		? JSON.parse(localStorage?.getItem('radio') as string)
+		: defaultRadio
+)
+radio.subscribe((value) => {
+	if (browser) {
+		localStorage.setItem('radio', JSON.stringify(value))
 	}
 })

@@ -1,10 +1,9 @@
 <script>
 	// @ts-nocheck
-	import { loadError } from '$lib/stores/store'
+	import { activeChannel, loadError } from '$lib/store/store'
 	import { createEventDispatcher, onMount } from 'svelte'
 
 	export let player
-	export let videoId = ''
 
 	const dispatch = createEventDispatcher()
 	const ytPlayerId = 'youtube-player'
@@ -15,7 +14,7 @@
 			player = new YT.Player(ytPlayerId, {
 				height: '360px',
 				width: '640px',
-				videoId,
+				videoId: $activeChannel.id,
 				playerVars: { autoplay: 1, rel: 0, controls: 0 },
 				events: {
 					onError,

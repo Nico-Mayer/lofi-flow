@@ -2,6 +2,7 @@
 	import ChannelList from '$lib/ChannelList.svelte'
 	import Controls from '$lib/Controls.svelte'
 	import Topbar from '$lib/Topbar.svelte'
+	import VolumeSlider from '$lib/VolumeSlider.svelte'
 	import Youtube from '$lib/Youtube.svelte'
 	import ChangeAnimation from '$lib/effects/ChangeAnimation.svelte'
 	import Crt from '$lib/effects/Crt.svelte'
@@ -10,78 +11,64 @@
 	import {
 		activeChannel,
 		buffering,
+		player,
 		playing,
 		showChannelList,
 		switchingChannel,
+		videoData,
 		volume,
-	} from '$lib/stores/store'
+	} from '$lib/store/store'
 
-	let player: Player
-	let app: HTMLElement
-
-	let videoData: VideoData
-
-	$: $activeChannel, handleChannelChange()
+	$: $activeChannel, onChannelChange()
 
 	function onPlayerReady() {
-		getPlayerInfos()
-		player.setVolume($volume)
-		player.setPlaybackQuality('highres')
+		if ($player == null) return
+		$videoData = $player.getVideoData()
+		$player.setVolume($volume)
+		$player.setPlaybackQuality('highres')
 	}
 
-	function getPlayerInfos() {
-		videoData = player.getVideoData()
+	function onChannelChange() {
+		if ($player == null) return
+		$player?.loadVideoById($activeChannel.id)
 	}
 
-	function handleChannelChange() {
-		if (player) {
-			player?.loadVideoById($activeChannel.id)
-		}
-	}
-
-	function handleStateChange(e: CustomEvent) {
+	function onPlayerStateChange(e: CustomEvent) {
+		if ($player == null) return
 		let state = e.detail
 		if (state == 'UNSTARTED') {
 			$playing = false
 			$buffering = true
-		}
-		if (state == 'ENDED') {
+		} else if (state == 'ENDED') {
 			$playing = false
 			$buffering = false
-		}
-		if (state == 'PLAYING') {
+		} else if (state == 'PLAYING') {
 			$switchingChannel = false
 			$playing = true
 			$buffering = false
-		}
-		if (state == 'PAUSED') {
+		} else if (state == 'PAUSED') {
 			$playing = false
 			$buffering = false
-		}
-		if (state == 'BUFFERING') {
+		} else if (state == 'BUFFERING') {
+			$playing = false
+			$buffering = true
+		} else if (state == 'VIDEO_CUED') {
 			$playing = false
 			$buffering = true
 		}
-		if (state == 'VIDEO_CUED') {
-			$playing = false
-			$buffering = true
-		}
+		$videoData = $player.getVideoData()
 	}
 </script>
 
-<main
-	bind:this={app}
-	class="relative flex w-[calc(100dvw)] h-[calc(100dvh)] overflow-hidden">
+<main class="relative flex w-[calc(100dvw)] h-[calc(100dvh)] overflow-hidden">
 	<Darken />
 	<Crt />
 	<Vignette />
 	<ChangeAnimation />
 
 	<Youtube
-		bind:player
-		videoId={$activeChannel.id}
-		on:stateChangeString={handleStateChange}
-		on:stateChange={getPlayerInfos}
+		bind:player={$player}
+		on:stateChangeString={onPlayerStateChange}
 		on:ready={onPlayerReady}>
 	</Youtube>
 
@@ -92,8 +79,10 @@
 	<div
 		id="ui-wrapper"
 		class="z-20 flex flex-col justify-between w-full h-full p-6 text-lg lg:text-2xl lg:p-12">
-		<Topbar {videoData} />
+		<Topbar />
 
-		<Controls {player} {videoData} />
+		<Controls>
+			<VolumeSlider />
+		</Controls>
 	</div>
 </main>

@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { disableChannelSwitching, volume } from '$lib/stores/store'
+	import { disableChannelSwitching, player, volume } from '$lib/store/store'
 	import { afterUpdate, onMount } from 'svelte'
-
-	export let player: Player
 
 	let fineTune = false
 	let iconSrc = '/icons/volume.svg'
@@ -25,16 +23,15 @@
 	})
 
 	function toggleMute() {
-		if (player) {
-			if (player.isMuted()) {
-				player.unMute()
-				muted = false
-			} else {
-				player.mute()
-				muted = true
-			}
-			iconSrc = getIconSrc()
+		if ($player == null) return
+		if ($player.isMuted()) {
+			$player.unMute()
+			muted = false
+		} else {
+			$player.mute()
+			muted = true
 		}
+		iconSrc = getIconSrc()
 	}
 
 	function getIconSrc(): string {
@@ -53,10 +50,9 @@
 	}
 
 	function handleVolumeChange() {
-		if (player) {
-			player.setVolume($volume)
-			iconSrc = getIconSrc()
-		}
+		if ($player == null) return
+		$player.setVolume($volume)
+		iconSrc = getIconSrc()
 	}
 
 	function handleClick(e: MouseEvent) {

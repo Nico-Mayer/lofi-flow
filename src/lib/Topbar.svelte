@@ -1,8 +1,9 @@
 <script lang="ts">
-	export let videoData: VideoData
+	import { videoData } from '$lib/store/store'
 </script>
 
 <main class="glowing-text">
-	{videoData?.isLive ? 'Live' : 'Video'}
-	{videoData?.errorCode}
+	{$videoData?.isLive ? 'Live' : 'Video'}
+	{$videoData?.author}
+	{$videoData?.errorCode}
 </main>

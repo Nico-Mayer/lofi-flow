@@ -4,8 +4,21 @@
 		radio,
 		showChannelList,
 		switchingChannel,
-	} from '$lib/stores/store'
+	} from '$lib/store/store'
 	import { rnd } from '$lib/utils/utils'
+	import { onMount } from 'svelte'
+
+	let channels: Channel[] = []
+
+	onMount(() => {
+		channels = $radio.channels
+
+		for (let i = 0; i < channels.length; i++) {
+			getTitle(channels[i].id).then((title) => {
+				channels[i].title = title
+			})
+		}
+	})
 
 	function clickOutside(node: HTMLDivElement, cb: Function) {
 		function onClick(event: MouseEvent) {
@@ -36,6 +49,21 @@
 			rnd(220, 310)
 		)
 	}
+
+	async function getTitle(id: string): Promise<string> {
+		const vidurl = `https://www.youtube.com/watch?v=${id}`
+
+		try {
+			const response = await fetch(
+				`https://noembed.com/embed?dataType=json&url=${vidurl}`
+			)
+			const data = await response.json()
+			return data.title
+		} catch (error) {
+			console.error('Error fetching data:', error)
+			return '' // or handle the error in a way that makes sense for your application
+		}
+	}
 </script>
 
 <main
@@ -45,7 +73,7 @@
 		use:clickOutside={() => {
 			$showChannelList = false
 		}}>
-		{#each $radio?.channels as channel}
+		{#each channels as channel}
 			<button
 				on:click={() => handleChannelChange(channel)}
 				class="w-full max-w-full p-4 m-auto">
@@ -57,7 +85,7 @@
 						alt="channel-thumbnail" />
 					<div class="p-2 bg-white">
 						<!-- Your content goes here -->
-						<p class="text-lg font-semibold">Channel:</p>
+						<p class="text-lg font-semibold">{channel.title}</p>
 						<p>
 							{channel.id}
 						</p>

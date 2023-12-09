@@ -8,6 +8,7 @@ declare global {
 	}
 
 	type Channel = {
+		title?: string
 		id: string
 	}
 

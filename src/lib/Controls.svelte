@@ -3,33 +3,31 @@
 		activeChannel,
 		buffering,
 		disableChannelSwitching,
+		player,
 		playing,
 		radio,
 		showChannelList,
 		switchingChannel,
-	} from '$lib/stores/store'
+		videoData,
+	} from '$lib/store/store'
 	import { rnd } from '$lib/utils/utils'
-	import VolumeSlider from './VolumeSlider.svelte'
-
-	export let player: Player
-	export let videoData: VideoData
 
 	$: {
-		if (videoData?.errorCode !== null) {
+		if ($videoData?.errorCode !== null) {
 			randomChannel()
 		}
 	}
 
-	function removeFormatting(title: string) {
-		if (!title) return
+	function removeFormatting(title: string): string {
+		if (!title) return ''
 		return title.replace(/[^a-zA-Z0-9 ]/g, '')
 	}
 
 	function handlePlayPause() {
-		if (player && !$playing) {
-			player.playVideo()
-		} else if (player && $playing) {
-			player.pauseVideo()
+		if ($player != null && !$playing) {
+			$player.playVideo()
+		} else if ($player && $playing) {
+			$player.pauseVideo()
 		}
 	}
 
@@ -43,41 +41,39 @@
 	}
 
 	function changeChannel(offset: number) {
-		if (player) {
-			$switchingChannel = true
-			randomTimeout()
-			const activeChannelIndex = $radio.channels.findIndex(
-				(channel) => channel.id === $activeChannel.id
-			)
+		if ($player == null) return
+		$switchingChannel = true
+		randomTimeout()
+		const activeChannelIndex = $radio.channels.findIndex(
+			(channel) => channel.id === $activeChannel.id
+		)
 
-			const totalChannels = $radio.channels.length
-			const newChannelIndex =
-				(activeChannelIndex + offset + totalChannels) % totalChannels
+		const totalChannels = $radio.channels.length
+		const newChannelIndex =
+			(activeChannelIndex + offset + totalChannels) % totalChannels
 
-			$activeChannel = $radio.channels[newChannelIndex]
-		}
+		$activeChannel = $radio.channels[newChannelIndex]
 	}
 
 	function randomChannel() {
-		if (player) {
-			$switchingChannel = true
-			randomTimeout()
-			let randomChannelIndex = Math.floor(
+		if ($player == null) return
+		$switchingChannel = true
+		randomTimeout()
+		let randomChannelIndex = Math.floor(
+			Math.random() * $radio.channels.length
+		)
+
+		while (randomChannelIndex === $activeChannel.id) {
+			randomChannelIndex = Math.floor(
 				Math.random() * $radio.channels.length
 			)
-
-			while (randomChannelIndex === $activeChannel.id) {
-				randomChannelIndex = Math.floor(
-					Math.random() * $radio.channels.length
-				)
-			}
-
-			$activeChannel = $radio.channels[randomChannelIndex]
 		}
+
+		$activeChannel = $radio.channels[randomChannelIndex]
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {
-		if ($disableChannelSwitching) return
+		if ($disableChannelSwitching || $showChannelList) return
 
 		if (event.key === ' ') {
 			handlePlayPause()
@@ -134,7 +130,7 @@
 			{/if}
 		</button>
 
-		<VolumeSlider {player} />
+		<slot />
 	</section>
 
 	<button
@@ -146,8 +142,8 @@
 				...buffering
 			{:else if !$playing}
 				...paused
-			{:else}
-				{removeFormatting(videoData?.title)?.substring(0, 36)}
+			{:else if $videoData != null}
+				{removeFormatting($videoData.title).substring(0, 36)}
 			{/if}
 		</p>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { switchingChannel } from '$lib/stores/store'
+	import { switchingChannel } from '$lib/store/store'
 	import { onMount } from 'svelte'
 
 	let whiteNoiseEffect: HTMLAudioElement
