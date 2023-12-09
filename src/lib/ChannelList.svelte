@@ -76,7 +76,7 @@
 			$showChannelList = false
 		}}>
 		{#each channels as channel}
-			<div class="relative w-full max-w-full p-4 m-auto">
+			<div class="relative w-full max-w-full p-4 m-autot">
 				<a
 					target="_blank"
 					href={`https://www.youtube.com/watch?v=${channel.id}`}
@@ -90,7 +90,7 @@
 
 				<button
 					class:active={$activeChannel.id === channel.id}
-					class="w-full h-full"
+					class="w-full h-full test"
 					on:click={() => handleChannelChange(channel)}>
 					<img
 						draggable="false"
@@ -109,6 +109,10 @@
 </main>
 
 <style scoped>
+	.test:hover {
+		animation: glow 3s ease-in-out infinite;
+	}
+
 	.channel-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
