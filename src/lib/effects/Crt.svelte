@@ -138,8 +138,15 @@
 			);
 		z-index: 100;
 		background-size:
-			100% 2px,
-			3px 100%;
+			100% 3px,
+			4px 100%;
 		pointer-events: none;
+		animation: moveDown 150s linear infinite;
+	}
+
+	@keyframes moveDown {
+		100% {
+			background-position-y: 100%;
+		}
 	}
 </style>
