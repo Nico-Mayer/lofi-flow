@@ -2,7 +2,7 @@
 	import { videoData } from '$lib/store/store'
 </script>
 
-<main class="glowing-text">
+<main class="text-glow">
 	{$videoData?.isLive ? 'Live' : 'Video'}
 	{$videoData?.author}
 	{$videoData?.errorCode}

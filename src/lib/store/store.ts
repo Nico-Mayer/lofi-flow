@@ -6,6 +6,9 @@ const defaultRadio: Radio = {
 	description: 'The default radio of lofi flow',
 	channels: [
 		{
+			id: 'rPjez8z61rI',
+		},
+		{
 			id: 'J4S8iN7qV1k',
 		},
 		{
@@ -26,6 +29,9 @@ const defaultRadio: Radio = {
 		{
 			id: 'UWrslj9JQnc',
 		},
+		{
+			id: '9dPqo8LIuBI',
+		},
 	],
 }
 
@@ -41,7 +47,7 @@ export const showChannelList = writable(false)
 export const volume = writable(
 	browser && localStorage.getItem('volume')
 		? parseInt(localStorage?.getItem('volume') as string)
-		: 10
+		: 20
 )
 volume.subscribe((value) => {
 	if (browser) {

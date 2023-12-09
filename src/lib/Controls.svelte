@@ -18,11 +18,6 @@
 		}
 	}
 
-	function removeFormatting(title: string): string {
-		if (!title) return ''
-		return title.replace(/[^a-zA-Z0-9 ]/g, '')
-	}
-
 	function handlePlayPause() {
 		if ($player != null && !$playing) {
 			$player.playVideo()
@@ -95,7 +90,7 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 <main
-	class="flex flex-col items-start gap-2 lg:items-center lg:gap-0 lg:flex-row">
+	class="flex flex-col items-start gap-2 lg:items-center lg:gap-10 lg:flex-row">
 	<div class="flex-1 hidden h-full lg:flex"></div>
 
 	<section
@@ -103,7 +98,8 @@
 		<div class="flex items-center justify-end flex-1 gap-1 shrink-0">
 			<button type="button" class="btn" on:click={randomChannel}>
 				<img
-					class="icon glow"
+					draggable="false"
+					class="icon"
 					src="/icons/shuffle.svg"
 					alt="shuffle-icon" />
 			</button>
@@ -111,22 +107,35 @@
 				type="button"
 				class="btn"
 				on:click={() => changeChannel(-1)}>
-				<img class="icon glow" src="/icons/prev.svg" alt="prev-icon" />
+				<img
+					draggable="false"
+					class="icon"
+					src="/icons/prev.svg"
+					alt="prev-icon" />
 			</button>
 
 			<button type="button" class="btn" on:click={() => changeChannel(1)}>
-				<img class="icon glow" src="/icons/next.svg" alt="next-icon" />
+				<img
+					draggable="false"
+					class="icon"
+					src="/icons/next.svg"
+					alt="next-icon" />
 			</button>
 		</div>
 
 		<button type="button" on:click={handlePlayPause} class="btn">
 			{#if $playing}
 				<img
-					class="icon glow"
+					draggable="false"
+					class="icon"
 					src="/icons/pause.svg"
 					alt="pause-icon" />
 			{:else}
-				<img class="icon glow" src="/icons/play.svg" alt="play-icon" />
+				<img
+					draggable="false"
+					class="icon"
+					src="/icons/play.svg"
+					alt="play-icon" />
 			{/if}
 		</button>
 
@@ -136,21 +145,21 @@
 	<button
 		on:click={openChannelList}
 		type="button"
-		class="flex flex-row-reverse items-center justify-end flex-1 gap-4 lg:flex-row whitespace-nowrap">
-		<p class="glowing-text">
+		class="flex flex-row-reverse items-center justify-end flex-1 max-w-full gap-4 lg:w-1/3 lg:flex-row">
+		<p class="truncate text-glow">
 			{#if $buffering}
 				...buffering
 			{:else if !$playing}
 				...paused
 			{:else if $videoData != null}
-				{removeFormatting($videoData.title).substring(0, 36)}
+				{$videoData.title}
 			{/if}
 		</p>
 
 		<div class="flex items-center justify-center w-8 h-8">
 			{#if $buffering}
 				<svg
-					class="icon glow"
+					class="icon"
 					xmlns="http://www.w3.org/2000/svg"
 					width="32"
 					height="32"
@@ -254,7 +263,7 @@
 					></svg>
 			{:else if $playing}
 				<svg
-					class="icon glow"
+					class="icon"
 					xmlns="http://www.w3.org/2000/svg"
 					width="32"
 					height="32"

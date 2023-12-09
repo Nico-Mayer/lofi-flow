@@ -7,6 +7,7 @@
 	} from '$lib/store/store'
 	import { rnd } from '$lib/utils/utils'
 	import { onMount } from 'svelte'
+	import { fade } from 'svelte/transition'
 
 	let channels: Channel[] = []
 
@@ -61,12 +62,13 @@
 			return data.title
 		} catch (error) {
 			console.error('Error fetching data:', error)
-			return '' // or handle the error in a way that makes sense for your application
+			return ''
 		}
 	}
 </script>
 
 <main
+	transition:fade={{ duration: 200 }}
 	class="absolute top-0 left-0 z-30 w-full h-full p-8 overflow-auto bg-black/50">
 	<div
 		class="channel-grid"
@@ -74,35 +76,58 @@
 			$showChannelList = false
 		}}>
 		{#each channels as channel}
-			<button
-				on:click={() => handleChannelChange(channel)}
-				class="w-full max-w-full p-4 m-auto">
-				<div
-					class:glow={$activeChannel.id === channel.id}
-					class:active={$activeChannel.id === channel.id}>
+			<div class="relative w-full max-w-full p-4 m-auto">
+				<a
+					target="_blank"
+					href={`https://www.youtube.com/watch?v=${channel.id}`}
+					class="absolute top-6 right-6 btn">
 					<img
-						src={`http://img.youtube.com/vi/${channel.id}/maxresdefault.jpg`}
+						draggable="false"
+						class="icon"
+						src="https://api.iconify.design/pixelarticons:external-link.svg?color=%23ffffff"
+						alt="link-icon" />
+				</a>
+
+				<button
+					class:active={$activeChannel.id === channel.id}
+					class="w-full h-full"
+					on:click={() => handleChannelChange(channel)}>
+					<img
+						draggable="false"
+						src={`http://img.youtube.com/vi/${channel.id}/mqdefault.jpg`}
 						alt="channel-thumbnail" />
 					<div class="p-2 bg-white">
 						<!-- Your content goes here -->
-						<p class="text-lg font-semibold">{channel.title}</p>
-						<p>
-							{channel.id}
+						<p class="text-lg font-semibold truncate text-ellipsis">
+							{channel.title}
 						</p>
 					</div>
-				</div>
-			</button>
+				</button>
+			</div>
 		{/each}
 	</div>
 </main>
 
-<style>
+<style scoped>
 	.channel-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 		grid-template-rows: min-content;
 	}
 	.active {
-		border: 2px solid rgba(0, 255, 0, 0.5);
+		border: 1px solid #99ff99;
+		animation: glow 3s ease-in-out infinite;
+	}
+
+	@keyframes glow {
+		0% {
+			box-shadow: 0px 0px 10px #99ff99;
+		}
+		50% {
+			box-shadow: 0px 0px 20px #99ff99;
+		}
+		100% {
+			box-shadow: 0px 0px 10px #99ff99;
+		}
 	}
 </style>

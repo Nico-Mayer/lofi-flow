@@ -68,9 +68,9 @@
 </svelte:head>
 
 {#if $loadError}
-	<div class="flex items-center justify-center gap-4 err glowing-text">
+	<div class="flex items-center justify-center gap-4 err text-glow">
 		<svg
-			class="glow"
+			class="icon"
 			xmlns="http://www.w3.org/2000/svg"
 			width="24"
 			height="24"
@@ -154,7 +154,7 @@
 					dur="0.2s"
 					values="1;13" /></rect
 			></svg>
-		<span class="glowing-text">
+		<span class="text-glow">
 			...error loading channel, connect to different one
 		</span>
 	</div>

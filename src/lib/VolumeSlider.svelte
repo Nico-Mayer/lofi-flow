@@ -100,7 +100,7 @@
 
 <main class="flex items-center justify-start flex-1 gap-2">
 	<button type="button" class="btn" on:click={toggleMute}>
-		<img class="icon glow" src={iconSrc} alt="volume-icon" />
+		<img draggable="false" class="icon" src={iconSrc} alt="volume-icon" />
 	</button>
 
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
