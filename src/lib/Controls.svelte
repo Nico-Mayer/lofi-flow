@@ -91,7 +91,7 @@
 
 <main
 	class="flex flex-col items-start gap-2 lg:items-center lg:gap-10 lg:flex-row">
-	<div class="flex-1 hidden h-full lg:flex"></div>
+	<div class="flex-1 hidden w-1/3 h-full overflow-hidden lg:flex"></div>
 
 	<section
 		class="flex items-center flex-1 gap-2 lg:gap-4 select-justify-center">
@@ -145,7 +145,7 @@
 	<button
 		on:click={openChannelList}
 		type="button"
-		class="flex flex-row-reverse items-center justify-end flex-1 max-w-full gap-4 lg:w-1/3 lg:flex-row">
+		class="flex flex-row-reverse items-center justify-end flex-1 max-w-full gap-4 overflow-hidden lg:w-1/3 lg:flex-row">
 		<p class="truncate text-glow">
 			{#if $buffering}
 				...buffering
