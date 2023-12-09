@@ -29,9 +29,6 @@ const defaultRadio: Radio = {
 		{
 			id: 'UWrslj9JQnc',
 		},
-		{
-			id: '9dPqo8LIuBI',
-		},
 	],
 }
 
