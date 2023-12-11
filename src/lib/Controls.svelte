@@ -11,6 +11,7 @@
 		videoData,
 	} from '$lib/store/store'
 	import { rnd } from '$lib/utils/utils'
+	import IconBtn from './IconBtn.svelte'
 
 	$: {
 		if ($videoData?.errorCode !== null) {
@@ -96,48 +97,20 @@
 	<section
 		class="flex items-center flex-1 gap-2 lg:gap-4 select-justify-center">
 		<div class="flex items-center justify-end flex-1 gap-1 shrink-0">
-			<button type="button" class="btn" on:click={randomChannel}>
-				<img
-					draggable="false"
-					class="icon"
-					src="/icons/shuffle.svg"
-					alt="shuffle-icon" />
-			</button>
-			<button
-				type="button"
-				class="btn"
-				on:click={() => changeChannel(-1)}>
-				<img
-					draggable="false"
-					class="icon"
-					src="/icons/prev.svg"
-					alt="prev-icon" />
-			</button>
-
-			<button type="button" class="btn" on:click={() => changeChannel(1)}>
-				<img
-					draggable="false"
-					class="icon"
-					src="/icons/next.svg"
-					alt="next-icon" />
-			</button>
+			<IconBtn icon="pixelarticons:shuffle" on:click={randomChannel} />
+			<IconBtn
+				icon="pixelarticons:prev"
+				on:click={() => changeChannel(-1)} />
+			<IconBtn
+				icon="pixelarticons:next"
+				on:click={() => changeChannel(1)} />
 		</div>
 
-		<button type="button" on:click={handlePlayPause} class="btn">
-			{#if $playing}
-				<img
-					draggable="false"
-					class="icon"
-					src="/icons/pause.svg"
-					alt="pause-icon" />
-			{:else}
-				<img
-					draggable="false"
-					class="icon"
-					src="/icons/play.svg"
-					alt="play-icon" />
-			{/if}
-		</button>
+		{#if $playing}
+			<IconBtn icon="pixelarticons:pause" on:click={handlePlayPause} />
+		{:else}
+			<IconBtn icon="pixelarticons:play" on:click={handlePlayPause} />
+		{/if}
 
 		<slot />
 	</section>

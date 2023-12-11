@@ -90,7 +90,7 @@
 
 				<button
 					class:active={$activeChannel.id === channel.id}
-					class="w-full h-full test"
+					class="w-full h-full channel-item"
 					on:click={() => handleChannelChange(channel)}>
 					<img
 						draggable="false"
@@ -109,10 +109,10 @@
 </main>
 
 <style scoped>
-	.test:hover {
+	.channel-item:hover {
+		box-shadow: 0px 0px 8px #99ff99;
 		animation: glow 3s ease-in-out infinite;
 	}
-
 	.channel-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -122,7 +122,6 @@
 		border: 1px solid #99ff99;
 		animation: glow 3s ease-in-out infinite;
 	}
-
 	@keyframes glow {
 		0% {
 			box-shadow: 0px 0px 10px #99ff99;

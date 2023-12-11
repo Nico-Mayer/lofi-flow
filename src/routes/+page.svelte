@@ -19,6 +19,8 @@
 		volume,
 	} from '$lib/store/store'
 
+	let app: HTMLElement
+
 	$: $activeChannel, onChannelChange()
 
 	function onPlayerReady() {
@@ -60,7 +62,9 @@
 	}
 </script>
 
-<main class="relative flex w-[calc(100dvw)] h-[calc(100dvh)] overflow-hidden">
+<main
+	bind:this={app}
+	class="relative flex w-[calc(100dvw)] h-[calc(100dvh)] overflow-hidden">
 	<Darken />
 	<Crt />
 	<Vignette />

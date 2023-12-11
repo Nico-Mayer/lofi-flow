@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { disableChannelSwitching, player, volume } from '$lib/store/store'
 	import { afterUpdate, onMount } from 'svelte'
+	import IconBtn from './IconBtn.svelte'
 
 	let fineTune = false
-	let iconSrc = '/icons/volume.svg'
+	let iconSrc = 'pixelarticons:volume'
 	let muted = false
 	let fineTuneInput: HTMLInputElement | undefined
 
@@ -36,17 +37,17 @@
 
 	function getIconSrc(): string {
 		if (muted) {
-			return '/icons/volumeX.svg'
+			return 'pixelarticons:volume-x'
 		} else if ($volume === 0) {
-			return '/icons/volume.svg'
+			return 'pixelarticons:volume'
 		} else if ($volume <= 33) {
-			return '/icons/volume1.svg'
+			return 'pixelarticons:volume-1'
 		} else if ($volume <= 66) {
-			return '/icons/volume2.svg'
+			return 'pixelarticons:volume-2'
 		} else if ($volume <= 100) {
-			return '/icons/volume3.svg'
+			return 'pixelarticons:volume-3'
 		}
-		return '/icons/volume.svg'
+		return 'pixelarticons:volume'
 	}
 
 	function handleVolumeChange() {
@@ -99,10 +100,7 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 <main class="flex items-center justify-start flex-1 gap-2">
-	<button type="button" class="btn" on:click={toggleMute}>
-		<img draggable="false" class="icon" src={iconSrc} alt="volume-icon" />
-	</button>
-
+	<IconBtn icon={iconSrc} on:click={toggleMute} />
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div class="flex gap-1 volume-slider" on:click={handleClick}>
