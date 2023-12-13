@@ -16,6 +16,7 @@ declare global {
 		playVideo: () => void
 		pauseVideo: () => void
 		loadVideoById: (id: string) => void
+		loadVideoByUrl: (url: string) => void
 		getVideoData: () => VideoData
 		setVolume: (volume: number) => void
 		isMuted: () => boolean

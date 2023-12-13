@@ -16,10 +16,14 @@
 		channels = $radio.channels
 
 		for (let i = 0; i < channels.length; i++) {
+			if (channels[i].title) continue
+
 			getTitle(channels[i].id).then((title) => {
 				channels[i].title = title
 			})
 		}
+
+		$radio.channels = channels
 	})
 
 	function clickOutside(node: HTMLDivElement, cb: Function) {

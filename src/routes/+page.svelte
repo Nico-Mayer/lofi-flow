@@ -27,12 +27,11 @@
 		if ($player == null) return
 		$videoData = $player.getVideoData()
 		$player.setVolume($volume)
-		$player.setPlaybackQuality('highres')
 	}
 
 	function onChannelChange() {
 		if ($player == null) return
-		$player?.loadVideoById($activeChannel.id)
+		$player.loadVideoById($activeChannel.id)
 	}
 
 	function onPlayerStateChange(e: CustomEvent) {
@@ -84,7 +83,6 @@
 		id="ui-wrapper"
 		class="z-20 flex flex-col justify-between w-full h-full p-6 text-lg lg:text-2xl lg:p-12">
 		<Topbar />
-
 		<Controls>
 			<VolumeSlider />
 		</Controls>
