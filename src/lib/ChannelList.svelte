@@ -8,6 +8,7 @@
 	import { rnd } from '$lib/utils/utils'
 	import { onMount } from 'svelte'
 	import { fade } from 'svelte/transition'
+	import IconLink from './IconLink.svelte'
 
 	let channels: Channel[] = []
 
@@ -76,7 +77,11 @@
 			$showChannelList = false
 		}}>
 		{#each channels as channel}
-			<div class="relative w-full max-w-full p-4 m-autot">
+			<div class="relative w-full max-w-full p-4 m-auto">
+				<IconLink
+					class="absolute top-6 right-6"
+					url={`https://www.youtube.com/watch?v=${channel.id}`}
+					icon="pixelarticons:external-link" />
 				<a
 					target="_blank"
 					href={`https://www.youtube.com/watch?v=${channel.id}`}

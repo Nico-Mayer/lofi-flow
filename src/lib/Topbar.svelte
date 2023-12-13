@@ -1,5 +1,6 @@
 <script lang="ts">
 	import IconBtn from './IconBtn.svelte'
+	import IconLink from './IconLink.svelte'
 
 	function toggleFullscreen() {
 		document.fullscreenElement == null
@@ -15,8 +16,12 @@
 		<IconBtn
 			icon="pixelarticons:chevrons-vertical"
 			on:click={toggleFullscreen} />
-		<IconBtn icon="mdi:github" />
-		<IconBtn icon="pixelarticons:heart" />
+		<IconLink
+			icon="mdi:github"
+			url="https://github.com/nico-mayer/lofi-flow" />
+		<IconLink
+			icon="line-md:buy-me-a-coffee-filled"
+			url="https://www.buymeacoffee.com/nima94" />
 		<IconBtn icon="material-symbols:settings" />
 	</section>
 </main>

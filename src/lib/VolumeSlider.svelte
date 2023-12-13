@@ -103,7 +103,7 @@
 	<IconBtn icon={iconSrc} on:click={toggleMute} />
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="flex gap-1 volume-slider" on:click={handleClick}>
+	<div class="volume-slider" on:click={handleClick}>
 		{#if fineTune}
 			<input
 				bind:this={fineTuneInput}
@@ -116,33 +116,45 @@
 				class="w-20 px-2 text-base"
 				maxlength="3" />
 		{:else}
-			<div
-				class="bg-white opacity-30 h-4 w-[6px] glow"
-				class:filled={filled >= 1}>
-			</div>
-			<div
-				class="bg-white opacity-30 h-4 w-[6px] glow"
-				class:filled={filled >= 2}>
-			</div>
-			<div
-				class="bg-white opacity-30 h-4 w-[6px] glow"
-				class:filled={filled >= 3}>
-			</div>
-			<div
-				class="bg-white opacity-30 h-4 w-[6px] glow"
-				class:filled={filled >= 4}>
-			</div>
-			<div
-				class="bg-white opacity-30 h-4 w-[6px] glow"
-				class:filled={filled >= 5}>
-			</div>
-			<div
-				class="bg-white opacity-30 h-4 w-[6px] glow"
-				class:filled={filled >= 6}>
-			</div>
-			<div
-				class="bg-white opacity-30 h-4 w-[6px] glow"
-				class:filled={filled >= 7}>
+			<div class="relative">
+				<input
+					bind:value={$volume}
+					min="0"
+					max="100"
+					type="range"
+					class="absolute top-0 left-0 w-16 opacity-0 cursor-pointer"
+					step="1" />
+
+				<div class="flex gap-1 pointer-events-none">
+					<div
+						class="bg-white opacity-30 h-4 w-[6px] glow"
+						class:filled={filled >= 1}>
+					</div>
+					<div
+						class="bg-white opacity-30 h-4 w-[6px] glow"
+						class:filled={filled >= 2}>
+					</div>
+					<div
+						class="bg-white opacity-30 h-4 w-[6px] glow"
+						class:filled={filled >= 3}>
+					</div>
+					<div
+						class="bg-white opacity-30 h-4 w-[6px] glow"
+						class:filled={filled >= 4}>
+					</div>
+					<div
+						class="bg-white opacity-30 h-4 w-[6px] glow"
+						class:filled={filled >= 5}>
+					</div>
+					<div
+						class="bg-white opacity-30 h-4 w-[6px] glow"
+						class:filled={filled >= 6}>
+					</div>
+					<div
+						class="bg-white opacity-30 h-4 w-[6px] glow"
+						class:filled={filled >= 7}>
+					</div>
+				</div>
 			</div>
 		{/if}
 	</div>
