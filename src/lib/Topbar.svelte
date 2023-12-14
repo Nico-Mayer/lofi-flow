@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { lowPowerMode } from '$lib/store/store'
 	import IconBtn from './IconBtn.svelte'
 	import IconLink from './IconLink.svelte'
 
@@ -22,6 +23,8 @@
 		<IconLink
 			icon="line-md:buy-me-a-coffee-filled"
 			url="https://www.buymeacoffee.com/nima94" />
-		<IconBtn icon="material-symbols:settings" />
+		<IconBtn
+			icon="material-symbols:settings"
+			on:click={() => ($lowPowerMode = !$lowPowerMode)} />
 	</section>
 </main>

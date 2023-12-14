@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+.low-power {
+	.icon {
+		filter: none !important;
+	}
+
+	.glow {
+		box-shadow: none !important;
+	}
+
+	.text-glow {
+		filter: none !important;
+	}
+}
+
 @layer base {
 	html {
 		font-family: 'VT323', monospace;

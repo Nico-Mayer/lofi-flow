@@ -11,6 +11,7 @@
 	import {
 		activeChannel,
 		buffering,
+		lowPowerMode,
 		player,
 		playing,
 		showChannelList,
@@ -63,11 +64,14 @@
 
 <main
 	bind:this={app}
-	class="relative flex w-[calc(100dvw)] h-[calc(100dvh)] overflow-hidden">
+	class="relative flex w-[calc(100dvw)] h-[calc(100dvh)] overflow-hidden"
+	class:low-power={$lowPowerMode}>
 	<Darken />
-	<Crt />
-	<Vignette />
-	<ChangeAnimation />
+	{#if !$lowPowerMode}
+		<Crt />
+		<Vignette />
+		<ChangeAnimation />
+	{/if}
 
 	<Youtube
 		bind:player={$player}

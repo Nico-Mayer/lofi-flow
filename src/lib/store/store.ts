@@ -43,6 +43,7 @@ export const loadError = writable(false)
 export const switchingChannel = writable(false)
 export const disableChannelSwitching = writable(false)
 export const showChannelList = writable(false)
+export const lowPowerMode = writable(false)
 
 export const volume = writable(
 	browser && localStorage.getItem('volume')

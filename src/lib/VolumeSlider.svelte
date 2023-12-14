@@ -23,6 +23,16 @@
 		}
 	})
 
+	function handleClick(e: MouseEvent) {
+		const controlKey = e.ctrlKey || e.metaKey
+
+		if (controlKey) {
+			fineTune = true
+		} else {
+			toggleMute()
+		}
+	}
+
 	function toggleMute() {
 		if ($player == null) return
 		if ($player.isMuted()) {
@@ -54,14 +64,6 @@
 		if ($player == null) return
 		$player.setVolume($volume)
 		iconSrc = getIconSrc()
-	}
-
-	function handleClick(e: MouseEvent) {
-		const shiftKey = e.shiftKey
-
-		if (shiftKey) {
-			fineTune = true
-		}
 	}
 
 	function handleFineTune(e: Event) {
@@ -100,10 +102,8 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 <main class="flex items-center justify-start flex-1 gap-2">
-	<IconBtn icon={iconSrc} on:click={toggleMute} />
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="volume-slider" on:click={handleClick}>
+	<IconBtn icon={iconSrc} on:click={handleClick} />
+	<div class="volume-slider">
 		{#if fineTune}
 			<input
 				bind:this={fineTuneInput}
