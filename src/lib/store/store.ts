@@ -84,8 +84,12 @@ export const radio = writable<Radio>(
 		? JSON.parse(localStorage?.getItem('radio') as string)
 		: defaultRadio
 )
-radio.subscribe((value) => {
+radio.subscribe((newRadio) => {
 	if (browser) {
-		localStorage.setItem('radio', JSON.stringify(value))
+		if (newRadio.channels.length == 0) {
+			newRadio.channels = defaultRadio.channels
+		}
+
+		localStorage.setItem('radio', JSON.stringify(newRadio))
 	}
 })

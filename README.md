@@ -15,7 +15,7 @@
 ## About The Project
 
 <p align="center">
-<img src="./static/showcase.gif" alt="showcase-gif" />
+<img src="./static/showcase.png" alt="showcase" />
 </p>
 Lofi Flow is like your cozy corner on the web for all things chill. Save your best-loved YouTube lofi live radios and videos in one spot, kick back with the laid-back vibes of Lofi Flow, and let it be the soundtrack to your relaxation or background beats while you're doing your thing. 🎶✨
 
@@ -27,7 +27,7 @@ Lofi Flow is like your cozy corner on the web for all things chill. Save your be
 ## Features
 
 -   [x] 📺 Save your favorite YouTube lofi live radios and videos
--   [ ] 🔋 Energy saving mode
+-   [x] 🔋 Energy saving mode
 -   [x] 📼 Retro CRT feeling
 
 If you have any ideas for new features, feel free to open an issue and let me know!

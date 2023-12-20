@@ -8,7 +8,9 @@
 	import { rnd } from '$lib/utils/utils'
 	import { onMount } from 'svelte'
 	import { fade } from 'svelte/transition'
+	import IconBtn from './IconBtn.svelte'
 	import IconLink from './IconLink.svelte'
+	import { clickOutside } from './utils/utils'
 
 	let channels: Channel[] = []
 
@@ -25,24 +27,6 @@
 
 		$radio.channels = channels
 	})
-
-	function clickOutside(node: HTMLDivElement, cb: Function) {
-		function onClick(event: MouseEvent) {
-			if (!node.contains(event.target as Node)) {
-				cb()
-			}
-		}
-
-		document.addEventListener('click', onClick)
-		return {
-			update(newCb: Function) {
-				cb = newCb
-			},
-			destroy() {
-				document.removeEventListener('click', onClick)
-			},
-		}
-	}
 
 	function handleChannelChange(channel: Channel) {
 		$activeChannel = channel
@@ -70,6 +54,16 @@
 			return ''
 		}
 	}
+
+	function removeChannel(event: MouseEvent, id: string) {
+		event.stopPropagation()
+		let newRadio = $radio
+		newRadio.channels = newRadio.channels.filter(
+			(channel) => channel.id !== id
+		)
+		$radio = newRadio
+		channels = $radio.channels
+	}
 </script>
 
 <main
@@ -81,21 +75,16 @@
 			$showChannelList = false
 		}}>
 		{#each channels as channel}
-			<div class="relative w-full max-w-full p-4 m-auto">
+			<div class="relative w-full max-w-full p-4 m-auto group">
 				<IconLink
 					class="absolute top-6 right-6"
 					url={`https://www.youtube.com/watch?v=${channel.id}`}
 					icon="pixelarticons:external-link" />
-				<a
-					target="_blank"
-					href={`https://www.youtube.com/watch?v=${channel.id}`}
-					class="absolute top-6 right-6 btn">
-					<img
-						draggable="false"
-						class="icon"
-						src="https://api.iconify.design/pixelarticons:external-link.svg?color=%23ffffff"
-						alt="link-icon" />
-				</a>
+
+				<IconBtn
+					class="absolute !hidden top-6 left-6 group-hover:!block"
+					on:click={(e) => removeChannel(e, channel.id)}
+					icon="pixelarticons:close" />
 
 				<button
 					class:active={$activeChannel.id === channel.id}
@@ -103,6 +92,7 @@
 					on:click={() => handleChannelChange(channel)}>
 					<img
 						draggable="false"
+						class="object-cover w-full h-full max-h-96"
 						src={`http://img.youtube.com/vi/${channel.id}/mqdefault.jpg`}
 						alt="channel-thumbnail" />
 					<div class="p-2 bg-white">

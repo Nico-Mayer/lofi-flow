@@ -2,7 +2,11 @@
 	export let icon: string
 </script>
 
-<button type="button" on:click class="btn">
+<button
+	type="button"
+	on:click
+	class={`btn ${$$props.class}`}
+	on:mousedown={(e) => e.preventDefault()}>
 	<img
 		draggable="false"
 		class="icon"

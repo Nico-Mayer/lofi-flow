@@ -3,6 +3,7 @@
 		activeChannel,
 		buffering,
 		disableChannelSwitching,
+		lowPowerMode,
 		player,
 		playing,
 		radio,
@@ -41,7 +42,7 @@
 		$switchingChannel = true
 		randomTimeout()
 		const activeChannelIndex = $radio.channels.findIndex(
-			(channel) => channel.id === $activeChannel.id
+			(channel: { id: any }) => channel.id === $activeChannel.id
 		)
 
 		const totalChannels = $radio.channels.length
@@ -79,6 +80,10 @@
 			changeChannel(1)
 		} else if (event.key === 'r') {
 			randomChannel()
+		} else if (event.key === 'm') {
+			$player?.isMuted() ? $player.unMute() : $player?.mute()
+		} else if (event.key === 'l') {
+			$lowPowerMode = !$lowPowerMode
 		}
 	}
 
