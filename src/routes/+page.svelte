@@ -82,7 +82,6 @@
 	{#if $showChannelList}
 		<ChannelList />
 	{/if}
-
 	<div
 		id="ui-wrapper"
 		class="z-20 flex flex-col justify-between w-full h-full p-6 text-lg lg:text-2xl lg:p-12">
