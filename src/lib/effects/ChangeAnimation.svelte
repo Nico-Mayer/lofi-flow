@@ -1,12 +1,16 @@
 <script lang="ts">
-	import { switchingChannel } from '$lib/store/store'
+	import { switchingChannel, volume } from '$lib/store/store'
 	import { onMount } from 'svelte'
 
 	let whiteNoiseEffect: HTMLAudioElement
+	let mounted = false
 
 	onMount(() => {
-		whiteNoiseEffect.volume = 0.05
+		mounted = true
+		handleVolumeChange()
 	})
+
+	$: $volume, handleVolumeChange()
 
 	$: {
 		if ($switchingChannel) {
@@ -14,6 +18,13 @@
 		} else if (!$switchingChannel) {
 			whiteNoiseEffect?.pause()
 		}
+	}
+
+	function handleVolumeChange() {
+		if (!mounted) return
+		let newVolume = $volume / 100
+
+		whiteNoiseEffect.volume = Math.min(newVolume, 0.05)
 	}
 
 	function getRandomChangeImg(): string {
