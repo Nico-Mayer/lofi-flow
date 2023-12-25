@@ -66,7 +66,7 @@
 
 	<section class="flex gap-2">
 		<IconBtn
-			icon="pixelarticons:chevrons-vertical"
+			icon="mingcute:fullscreen-2-line"
 			on:click={toggleFullscreen} />
 		<IconLink
 			icon="mdi:github"
