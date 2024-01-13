@@ -25,6 +25,17 @@ declare global {
 		setPlaybackQuality(suggestedQuality: String): Void
 	}
 
+	type TwitchPlayer = {
+		play: () => void
+		pause: () => void
+		setVolume: (volume: number) => void
+		setMuted: (muted: boolean) => void
+		setChannel: (channel: string) => void
+		setQuality: (quality: string) => void
+		getMuted: () => boolean
+		setMuted: (muted: boolean) => void
+	}
+
 	type VideoData = {
 		video_id: string
 		author: string
@@ -54,4 +65,4 @@ declare global {
 	}
 }
 
-export {}
+export { }

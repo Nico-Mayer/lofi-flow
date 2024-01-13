@@ -36,6 +36,7 @@ const defaultRadio: Radio = {
 }
 
 export const player = writable<Player | null>(null)
+export const twitchPlayer = writable<TwitchPlayer | null>(null)
 export const videoData = writable<VideoData | null>(null)
 export const playing = writable(false)
 export const buffering = writable(false)
