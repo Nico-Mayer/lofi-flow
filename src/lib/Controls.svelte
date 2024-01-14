@@ -4,6 +4,8 @@
         playing,
         showChannelList,
         videoData,
+        offline,
+        activeChannel,
     } from "$lib/store/store";
     import IconBtn from "./IconBtn.svelte";
     import {
@@ -57,7 +59,9 @@
         class="flex flex-row-reverse items-center justify-end flex-1 max-w-full gap-4 overflow-hidden lg:w-1/3 lg:flex-row pointer-events-auto"
     >
         <p class="truncate text-glow">
-            {#if $buffering}
+            {#if $offline}
+                {$activeChannel.title} is offline
+            {:else if $buffering}
                 ...buffering
             {:else if !$playing}
                 ...paused

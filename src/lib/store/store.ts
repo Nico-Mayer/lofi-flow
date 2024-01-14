@@ -53,6 +53,7 @@ const defaultRadio: Radio = {
 export const twitchPlayer = writable<TwitchPlayer | null>(null)
 export const videoData = writable<VideoData | null>(null)
 export const playing = writable(false)
+export const offline = writable(false)
 export const buffering = writable(false)
 export const loadError = writable(false)
 export const switchingChannel = writable(false)

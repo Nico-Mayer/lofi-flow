@@ -1,6 +1,7 @@
 <script lang="ts">
     import ChannelList from "$lib/ChannelList.svelte";
     import Controls from "$lib/Controls.svelte";
+    import OfflineAnimation from "$lib/effects/OfflineAnimation.svelte";
     import Topbar from "$lib/Topbar.svelte";
     import Twitch from "$lib/Twitch.svelte";
     import VolumeSlider from "$lib/VolumeSlider.svelte";
@@ -17,12 +18,12 @@
         showChannelList,
         switchingChannel,
         volume,
+        offline,
     } from "$lib/store/store";
     import { handleKeyDown } from "$lib/utils/controls";
 
-    let app: HTMLElement;
-
     $: $activeChannel, onChannelChange();
+    $: $playing, ($offline = !$playing);
 
     function onPlayerReady() {
         if ($twitchPlayer == null) return;
@@ -65,7 +66,6 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 <main
-    bind:this={app}
     class="relative flex w-[calc(100dvw)] h-[calc(100dvh)] overflow-hidden"
     class:low-power={$lowPowerMode}
 >
@@ -75,6 +75,7 @@
         <Vignette />
     {/if}
     <ChangeAnimation />
+    <OfflineAnimation />
 
     {#if $showChannelList}
         <ChannelList />
