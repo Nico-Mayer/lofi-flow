@@ -2,16 +2,19 @@
     import { fade } from "svelte/transition";
     import IconBtn from "./IconBtn.svelte";
     import { clickOutside } from "./utils/utils";
+    import { track } from "@vercel/analytics";
 
     let showInfo = false;
 
     function toggleFullscreen() {
+        track("Fullscreen toggled");
         document.fullscreenElement == null
             ? document.documentElement.requestFullscreen()
             : document.exitFullscreen();
     }
 
     function toggleInfo(e: MouseEvent) {
+        track("Info toggled");
         e.stopPropagation();
         showInfo = !showInfo;
     }

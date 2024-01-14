@@ -6,6 +6,7 @@
     } from "$lib/store/store";
     import { afterUpdate, onMount } from "svelte";
     import IconBtn from "./IconBtn.svelte";
+    import { track } from "@vercel/analytics";
 
     let fineTune = false;
     let iconSrc = "pixelarticons:volume";
@@ -32,6 +33,7 @@
 
         if (controlKey) {
             fineTune = true;
+            track("Fine tune activated");
         } else {
             toggleMute();
         }
@@ -42,9 +44,11 @@
         if ($twitchPlayer.getMuted()) {
             $twitchPlayer.setMuted(false);
             muted = false;
+            track("Unmuted");
         } else {
             $twitchPlayer.setMuted(true);
             muted = true;
+            track("Muted");
         }
         iconSrc = getIconSrc();
     }
@@ -68,6 +72,7 @@
         if ($twitchPlayer == null) return;
         $twitchPlayer.setVolume($volume / 100);
         iconSrc = getIconSrc();
+        track("Volume changed");
     }
 
     function handleFineTune(e: Event) {

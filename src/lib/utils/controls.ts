@@ -14,6 +14,8 @@ import { get } from 'svelte/store';
 
 import { rnd } from "$lib/utils/utils";
 
+import { track } from "@vercel/analytics";
+
 let $twitchPlayer = get(twitchPlayer);
 let $playing = get(playing);
 let $buffering = get(buffering);
@@ -40,8 +42,10 @@ radio.subscribe((value) => ($radio = value));
 export function handlePlayPause() {
     if ($twitchPlayer != null && !$playing) {
         $twitchPlayer.play();
+        track("play")
     } else if ($twitchPlayer && $playing) {
         $twitchPlayer.pause();
+        track("pause")
     }
 }
 
@@ -56,8 +60,6 @@ export function randomTimeout() {
 
 export function changeChannel(offset: number) {
     if ($twitchPlayer == null) return;
-    console.log(offset)
-
     switchingChannel.set(true);
     randomTimeout();
     const activeChannelIndex = $radio.channels.findIndex(
@@ -69,6 +71,8 @@ export function changeChannel(offset: number) {
         (activeChannelIndex + offset + totalChannels) % totalChannels;
 
     activeChannel.set($radio.channels[newChannelIndex]);
+
+    track("change-channel")
 }
 
 export function randomChannel() {
@@ -86,9 +90,11 @@ export function randomChannel() {
     }
 
     activeChannel.set($radio.channels[randomChannelIndex]);
+    track("random-channel")
 }
 
 export function handleKeyDown(event: KeyboardEvent) {
+    track("key-down", { key: event.key })
     if ($disableChannelSwitching || $showChannelList) return;
 
     if (event.key === " ") {
