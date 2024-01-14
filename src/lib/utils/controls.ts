@@ -79,7 +79,7 @@ export function randomChannel() {
         Math.random() * $radio.channels.length
     );
 
-    while (randomChannelIndex === $activeChannel.id) {
+    while (randomChannelIndex === $radio.channels.indexOf($activeChannel)) {
         randomChannelIndex = Math.floor(
             Math.random() * $radio.channels.length
         );
