@@ -2,6 +2,7 @@
     import { fade } from "svelte/transition";
     import IconBtn from "./IconBtn.svelte";
     import { clickOutside } from "./utils/utils";
+    import Auth from "./Auth.svelte";
 
     let showInfo = false;
 
@@ -26,6 +27,7 @@
             on:click={toggleFullscreen}
         />
         <IconBtn icon="material-symbols:info-outline" on:click={toggleInfo} />
+        <Auth />
     </section>
 
     {#if showInfo}
