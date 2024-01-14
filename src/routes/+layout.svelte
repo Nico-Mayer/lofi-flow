@@ -9,7 +9,7 @@
         "Lofi NoPixel is like your cozy corner on the web to chill with while watching your favorite streamers. No chat, No spam. 🎶✨";
 
     const title = "Lofi NoPixel.";
-    const url = "https://lofi-nopixel.vercel.app/";
+    const url = "https://lofi-nopixel.com/";
     const image_preview = url + "/preview-small.jpg";
 </script>
 
