@@ -6,6 +6,13 @@ const defaultRadio: Radio = {
 	description: 'The default radio of lofi nopixel',
 	channels: [
 		{
+			id: 'omie',
+			title: 'Omie',
+			description: 'Marty Banks is a streamer on nopixel. He plays a character named Marty Banks.',
+			image: "https://static-cdn.jtvnw.net/jtv_user_pictures/052abaf5-0f8f-49c7-8c43-000e9fc08ab0-profile_image-300x300.png",
+			url: 'https://www.twitch.tv/omie'
+		},
+		{
 			id: 'moonmoon',
 			title: 'Moonmoon',
 			description: 'Moonmoon is a streamer on nopixel. He plays a character.',
@@ -25,13 +32,6 @@ const defaultRadio: Radio = {
 			description: '4Head is a streamer on nopixel. He plays a character named 4Head.',
 			image: 'https://static-cdn.jtvnw.net/jtv_user_pictures/4315ed51-808d-4174-ae38-5f5872177aff-profile_image-300x300.png',
 			url: 'https://www.twitch.tv/4head'
-		},
-		{
-			id: 'omie',
-			title: 'Omie',
-			description: 'Marty Banks is a streamer on nopixel. He plays a character named Marty Banks.',
-			image: "https://static-cdn.jtvnw.net/jtv_user_pictures/052abaf5-0f8f-49c7-8c43-000e9fc08ab0-profile_image-300x300.png",
-			url: 'https://www.twitch.tv/omie'
 		},
 		{
 			id: 'ripoozi',
