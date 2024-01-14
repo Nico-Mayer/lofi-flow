@@ -23,17 +23,18 @@
     import { handleKeyDown } from "$lib/utils/controls";
 
     $: $activeChannel, onChannelChange();
-    $: $playing, ($offline = !$playing);
 
     function onPlayerReady() {
         if ($twitchPlayer == null) return;
         $twitchPlayer.setMuted(false);
         $twitchPlayer.setVolume($volume / 100);
+        $offline = false;
     }
 
     function onChannelChange() {
         if ($twitchPlayer == null) return;
         $twitchPlayer.setChannel($activeChannel.id);
+        $offline = false;
     }
 
     function onPlayerStateChange(event: CustomEvent<string>) {
@@ -46,6 +47,7 @@
         } else if (state == "ENDED") {
             $playing = false;
             $buffering = false;
+            $offline = true;
         } else if (state == "PLAYING") {
             $switchingChannel = false;
             $playing = true;
