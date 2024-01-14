@@ -6,12 +6,13 @@
     const dispatch = createEventDispatcher();
 
     export let twitchPlayer;
+    export let channel: string = "jack";
 
     onMount(async () => {
         twitchPlayer = new Twitch.Player(twitchPlayerId, {
             width: "100%",
             height: "100%",
-            channel: "dizzy",
+            channel: channel,
             autoplay: true,
             muted: false,
             controls: false,

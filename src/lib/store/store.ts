@@ -48,10 +48,11 @@ export const lowPowerMode = writable(false)
 
 export const volume = writable(
 	browser && localStorage.getItem('volume')
-		? parseInt(localStorage?.getItem('volume') as string)
-		: 20
+		? parseFloat(localStorage?.getItem('volume') as string)
+		: 0.2
 )
 volume.subscribe((value) => {
+	console.log('volume', value)
 	if (browser) {
 		if (value == null || value == undefined) {
 			return
@@ -59,11 +60,12 @@ volume.subscribe((value) => {
 
 		let volume = value.toString()
 
-		if (value > 100) {
-			volume = '100'
+		if (value > 1) {
+			volume = '1'
 		} else if (value < 0) {
 			volume = '0'
 		}
+
 
 		localStorage.setItem('volume', volume)
 	}

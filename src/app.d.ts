@@ -28,12 +28,12 @@ declare global {
 	type TwitchPlayer = {
 		play: () => void
 		pause: () => void
+		getVolume: () => number
 		setVolume: (volume: number) => void
+		getMuted: () => boolean
 		setMuted: (muted: boolean) => void
 		setChannel: (channel: string) => void
 		setQuality: (quality: string) => void
-		getMuted: () => boolean
-		setMuted: (muted: boolean) => void
 	}
 
 	type VideoData = {
