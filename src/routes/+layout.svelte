@@ -4,31 +4,29 @@
     import { inject } from "@vercel/analytics";
 
     inject({ mode: dev ? "development" : "production" });
+
+    const description =
+        "Lofi NoPixel is like your cozy corner on the web to chill with while watching your favorite streamers. No chat, No spam. 🎶✨";
+
+    const title = "Lofi NoPixel.";
+    const url = "https://lofi-nopixel.vercel.app/";
+    const image_preview = url + "/preview.png";
 </script>
 
 <svelte:head>
     <title>Lofi NoPixel.</title>
 
-    <meta
-        name="description"
-        content="Lofi NoPixel is like your cozy corner on the web to chill with while watching your favorite streamers. No chat, No spam. 🎶✨"
-    />
-    <meta property="og:title" content="Lofi NoPixel." />
-    <meta
-        property="og:description"
-        content="Lofi NoPixel is like your cozy corner on the web to chill with while watching your favorite streamers. No chat, No spam. 🎶✨"
-    />
-    <meta property="og:url" content="https://lofi-nopixel.vercel.app/" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/preview.png" />
+    <meta property="og:image" content={image_preview} />
 
-    <meta name="twitter:title" content="Lofi NoPixel." />
-    <meta
-        name="twitter:description"
-        content="Lofi NoPixel is like your cozy corner on the web to chill with while watching your favorite streamers. No chat, No spam. 🎶✨"
-    />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/preview.png" />
+    <meta name="twitter:image" content={image_preview} />
 </svelte:head>
 
 <slot />
