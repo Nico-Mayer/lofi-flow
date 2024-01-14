@@ -30,7 +30,7 @@
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${access_token}`,
-                        "Client-Id": CLIENT_ID,
+                        "Client-Id": PUBLIC_CLIENT_ID,
                     },
                 })
                     .then((res) => res.json())
