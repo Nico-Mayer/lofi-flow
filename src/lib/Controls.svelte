@@ -1,93 +1,16 @@
 <script lang="ts">
     import {
-        activeChannel,
         buffering,
-        disableChannelSwitching,
-        lowPowerMode,
-        twitchPlayer,
         playing,
-        radio,
         showChannelList,
-        switchingChannel,
         videoData,
     } from "$lib/store/store";
-    import { rnd } from "$lib/utils/utils";
     import IconBtn from "./IconBtn.svelte";
-
-    $: {
-        if ($videoData?.errorCode !== null) {
-            randomChannel();
-        }
-    }
-
-    function handlePlayPause() {
-        if ($twitchPlayer != null && !$playing) {
-            $twitchPlayer.play();
-        } else if ($twitchPlayer && $playing) {
-            $twitchPlayer.pause();
-        }
-    }
-
-    function randomTimeout() {
-        setTimeout(
-            () => {
-                $switchingChannel = false;
-            },
-            rnd(220, 310)
-        );
-    }
-
-    function changeChannel(offset: number) {
-        if ($twitchPlayer == null) return;
-        $switchingChannel = true;
-        randomTimeout();
-        const activeChannelIndex = $radio.channels.findIndex(
-            (channel: { id: any }) => channel.id === $activeChannel.id
-        );
-
-        const totalChannels = $radio.channels.length;
-        const newChannelIndex =
-            (activeChannelIndex + offset + totalChannels) % totalChannels;
-
-        $activeChannel = $radio.channels[newChannelIndex];
-    }
-
-    function randomChannel() {
-        if ($twitchPlayer == null) return;
-        $switchingChannel = true;
-        randomTimeout();
-        let randomChannelIndex = Math.floor(
-            Math.random() * $radio.channels.length
-        );
-
-        while (randomChannelIndex === $activeChannel.id) {
-            randomChannelIndex = Math.floor(
-                Math.random() * $radio.channels.length
-            );
-        }
-
-        $activeChannel = $radio.channels[randomChannelIndex];
-    }
-
-    function handleKeyDown(event: KeyboardEvent) {
-        if ($disableChannelSwitching || $showChannelList) return;
-
-        if (event.key === " ") {
-            handlePlayPause();
-        } else if (event.key === "ArrowLeft") {
-            changeChannel(-1);
-        } else if (event.key === "ArrowRight") {
-            changeChannel(1);
-        } else if (event.key === "r") {
-            randomChannel();
-        } else if (event.key === "m") {
-            $twitchPlayer?.getMuted()
-                ? $twitchPlayer?.setMuted(false)
-                : $twitchPlayer?.setMuted(true);
-        } else if (event.key === "l") {
-            $lowPowerMode = !$lowPowerMode;
-        }
-    }
+    import {
+        randomChannel,
+        changeChannel,
+        handlePlayPause,
+    } from "./utils/controls";
 
     function openChannelList(e: MouseEvent) {
         e.stopPropagation();
@@ -95,17 +18,19 @@
     }
 </script>
 
-<svelte:window on:keydown={handleKeyDown} />
+<svelte:window />
 
 <main
-    class="flex flex-col items-start gap-2 lg:items-center lg:gap-10 lg:flex-row"
+    class="flex flex-col items-start gap-2 lg:items-center lg:gap-10 lg:flex-row pointer-events-none"
 >
     <div class="flex-1 hidden w-1/3 h-full overflow-hidden lg:flex"></div>
 
     <section
-        class="flex items-center flex-1 gap-2 lg:gap-4 select-justify-center"
+        class="flex items-center flex-1 gap-2 lg:gap-4 select-justify-center pointer-events-auto"
     >
-        <div class="flex items-center justify-end flex-1 gap-1 shrink-0">
+        <div
+            class="flex items-center justify-end flex-1 gap-1 shrink-0 pointer-events-auto"
+        >
             <IconBtn icon="pixelarticons:shuffle" on:click={randomChannel} />
             <IconBtn
                 icon="pixelarticons:prev"
@@ -129,7 +54,7 @@
     <button
         on:click={openChannelList}
         type="button"
-        class="flex flex-row-reverse items-center justify-end flex-1 max-w-full gap-4 overflow-hidden lg:w-1/3 lg:flex-row"
+        class="flex flex-row-reverse items-center justify-end flex-1 max-w-full gap-4 overflow-hidden lg:w-1/3 lg:flex-row pointer-events-auto"
     >
         <p class="truncate text-glow">
             {#if $buffering}

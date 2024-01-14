@@ -8,21 +8,11 @@ declare global {
 	}
 
 	type Channel = {
-		title?: string
+		title: string
+		image: string
+		description: string
+		url: string
 		id: string
-	}
-
-	type Player = {
-		playVideo: () => void
-		pauseVideo: () => void
-		loadVideoById: (id: string) => void
-		loadVideoByUrl: (url: string) => void
-		getVideoData: () => VideoData
-		setVolume: (volume: number) => void
-		isMuted: () => boolean
-		mute: () => void
-		unMute: () => void
-		setPlaybackQuality(suggestedQuality: String): Void
 	}
 
 	type TwitchPlayer = {

@@ -105,7 +105,7 @@
 
 <svelte:window on:keydown={handleKeyDown} />
 
-<main class="flex items-center justify-start flex-1 gap-2">
+<main class="flex items-center justify-start flex-1 gap-2 pointer-events-auto">
     <IconBtn icon={iconSrc} on:click={handleClick} />
     <div class="volume-slider">
         {#if fineTune}

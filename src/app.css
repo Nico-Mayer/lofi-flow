@@ -1,54 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .low-power {
-	.icon {
-		filter: none !important;
-	}
+    .icon {
+        filter: none !important;
+    }
 
-	.glow {
-		box-shadow: none !important;
-	}
+    .glow {
+        box-shadow: none !important;
+    }
 
-	.text-glow {
-		filter: none !important;
-	}
+    .text-glow {
+        filter: none !important;
+    }
 }
 
 @layer base {
-	html {
-		font-family: 'VT323', monospace;
-		background-color: black;
-	}
+    html {
+        font-family: "VT323", monospace;
+        background-color: black;
+    }
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-	display: none;
+    display: none;
 }
 
 /* For IE, Edge and Firefox */
 .scrollbar-hide {
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 .text-glow {
-	color: #fff;
-	filter: drop-shadow(0px 0px 2px #99ff99) drop-shadow(0px 0px 8px green);
+    color: #fff;
+    filter: drop-shadow(0px 0px 2px #99ff99) drop-shadow(0px 0px 8px green);
 }
 
 .btn {
-	@apply flex items-center justify-center w-8 h-8 select-none;
+    @apply flex items-center justify-center w-8 h-8 select-none;
 }
 
 .icon {
-	@apply w-6 h-6;
-	filter: drop-shadow(0px 0px 2px #99ff99) drop-shadow(0px 0px 8px green);
-}
-
-.glow {
-	box-shadow: 0px 0px 8px #99ff99;
+    @apply w-6 h-6;
+    filter: drop-shadow(0px 0px 2px #99ff99) drop-shadow(0px 0px 8px green);
 }
