@@ -10,7 +10,7 @@
 
     const title = "Lofi NoPixel.";
     const url = "https://lofi-nopixel.vercel.app/";
-    const image_preview = url + "/preview.png";
+    const image_preview = url + "/preview-small.jpg";
 </script>
 
 <svelte:head>
