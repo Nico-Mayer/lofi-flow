@@ -6,6 +6,13 @@ const defaultRadio: Radio = {
 	description: 'The default radio of lofi nopixel',
 	channels: [
 		{
+			id: 'moonmoon',
+			title: 'Moonmoon',
+			description: 'Moonmoon is a streamer on nopixel. He plays a character.',
+			image: 'https://static-cdn.jtvnw.net/jtv_user_pictures/3973e918fe7cc8c8-profile_image-300x300.png',
+			url: 'https://www.twitch.tv/moonmoon'
+		},
+		{
 			id: 'jack',
 			title: 'Jack',
 			description: 'Jack is a streamer on nopixel. He plays a character named Jack Cortair.',

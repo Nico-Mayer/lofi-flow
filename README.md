@@ -2,11 +2,11 @@
 <br />
 <div align="center">
   <a href="https://github.com/nico-mayer/json-bucket">
-    <img src="https://api.iconify.design/pixelarticons:headphone.svg?color=%23ffffff" alt="Logo" width="90" height="90">
+    <img src="./static/favicon.png" alt="Logo" width="90" height="90">
   </a>
 
   <h3 align="center">
-    <a href="https://lofi-flow.vercel.app">LOFI Flow</a>
+    <a href="https://lofi-flow.vercel.app">LOFI NoPixel</a>
   </h3>
 </div>
 
@@ -15,9 +15,14 @@
 ## About The Project
 
 <p align="center">
-<img src="./static/showcase.png" alt="showcase" />
+<img src="./static/preview.png" alt="showcase" />
+<img src="./static/preview-2.png" alt="showcase" />
+<img src="./static/preview-3.png" alt="showcase" />
+<img src="./static/offline.png" alt="showcase" />
+
 </p>
-Lofi Flow is like your cozy corner on the web for all things chill. Save your best-loved YouTube lofi live radios and videos in one spot, kick back with the laid-back vibes of Lofi Flow, and let it be the soundtrack to your relaxation or background beats while you're doing your thing. 🎶✨
+
+Lofi NoPixel is like your cozy corner on the web to chill with while watching your favorite streamers. No chat, No spam. 🎶✨
 
 ### Built With
 
@@ -26,13 +31,16 @@ Lofi Flow is like your cozy corner on the web for all things chill. Save your be
 
 ## Features
 
--   [x] 📺 Save your favorite YouTube lofi live radios and videos
 -   [x] 🔋 Energy saving mode
 -   [x] 📼 Retro CRT feeling
 
 If you have any ideas for new features, feel free to open an issue and let me know!
 
 ## Acknowledgments
+
+This project is a fork of:
+
+-   [lofi.flow](https://github.com/Nico-Mayer/lofi-flow)
 
 This project is heavily inspired by the following Projects:
 
