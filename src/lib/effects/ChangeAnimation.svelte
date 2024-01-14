@@ -43,7 +43,7 @@
 {#if $switchingChannel}
     <img
         draggable="false"
-        class="absolute top-0 left-0 w-full h-full z-10"
+        class="absolute top-0 left-0 w-full h-full z-30"
         src={getRandomChangeImg()}
         alt="change-screen"
     />
