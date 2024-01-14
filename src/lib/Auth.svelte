@@ -1,11 +1,10 @@
 <script lang="ts">
-    import { client_id, client_secret } from "$env/static/private";
+    import { PUBLIC_CLIENT_ID } from "$env/static/public";
 
     function login() {
         const url = new URL("https://id.twitch.tv/oauth2/token");
         const params = {
-            client_id: client_id,
-            client_secret: client_secret,
+            client_id: PUBLIC_CLIENT_ID,
             grant_type: `client_credentials`,
         };
 
@@ -31,7 +30,7 @@
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${access_token}`,
-                        "Client-Id": client_id,
+                        "Client-Id": CLIENT_ID,
                     },
                 })
                     .then((res) => res.json())

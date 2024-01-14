@@ -1,6 +1,6 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import { client_id, client_secret } from "$env/static/private";
+    import { PUBLIC_CLIENT_ID } from "$env/static/public";
     import { onMount } from "svelte";
 
     const authToken = $page.url.hash.split("=")[1];
@@ -10,8 +10,7 @@
 
         const url = new URL("https://id.twitch.tv/oauth2/validate");
         const params = {
-            client_id: client_id,
-            client_secret: client_secret,
+            client_id: PUBLIC_CLIENT_ID,
             grant_type: "authorization_code",
             redirect_uri: "http://localhost:5173",
             code: authToken,
