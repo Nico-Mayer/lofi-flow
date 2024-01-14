@@ -1,10 +1,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/nico-mayer/json-bucket">
-    <img src="./static/favicon.png" alt="Logo" width="90" height="90">
-  </a>
-
   <h3 align="center">
     <a href="https://lofi-flow.vercel.app">LOFI NoPixel</a>
   </h3>
