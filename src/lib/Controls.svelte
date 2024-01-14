@@ -7,7 +7,6 @@
         offline,
         activeChannel,
     } from "$lib/store/store";
-    import { track } from "@vercel/analytics";
     import IconBtn from "./IconBtn.svelte";
     import {
         randomChannel,
@@ -18,7 +17,6 @@
     function openChannelList(e: MouseEvent) {
         e.stopPropagation();
         $showChannelList = true;
-        track("Channel list opened");
     }
 </script>
 

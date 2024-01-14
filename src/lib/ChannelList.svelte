@@ -10,7 +10,6 @@
     import IconBtn from "./IconBtn.svelte";
     import IconLink from "./IconLink.svelte";
     import { clickOutside } from "./utils/utils";
-    import { track } from "@vercel/analytics";
 
     let channels: Channel[] = $radio.channels;
 
@@ -27,7 +26,6 @@
     }
 
     function removeChannel(event: MouseEvent, id: string) {
-        track("Channel removed");
         event.stopPropagation();
         let newRadio = $radio;
         newRadio.channels = newRadio.channels.filter(
