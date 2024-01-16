@@ -18,16 +18,14 @@
     }
 </script>
 
-<svelte:window />
-
-<main class="relative flex items-center justify-end pointer-events-auto">
+<main class="relative flex items-center justify-between pointer-events-auto">
+    <Auth />
     <section class="flex gap-2">
         <IconBtn
             icon="mingcute:fullscreen-2-line"
             on:click={toggleFullscreen}
         />
         <IconBtn icon="material-symbols:info-outline" on:click={toggleInfo} />
-        <Auth />
     </section>
 
     {#if showInfo}

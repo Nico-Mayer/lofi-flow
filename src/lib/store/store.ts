@@ -1,4 +1,5 @@
 import { browser } from '$app/environment'
+import type { Session } from '$lib/utils/auth'
 import { writable } from 'svelte/store'
 
 const defaultRadio: Radio = {
@@ -117,3 +118,19 @@ radio.subscribe((newRadio) => {
 		localStorage.setItem('radio', JSON.stringify(newRadio))
 	}
 })
+
+export const session = writable<Session | null>(
+	browser && localStorage.getItem('session')
+		? JSON.parse(localStorage?.getItem('session') as string)
+		: null
+)
+
+session.subscribe((newSession) => {
+	if (browser) {
+		if (newSession == null) {
+			localStorage.removeItem('session')
+		} else {
+			localStorage.setItem('session', JSON.stringify(newSession))
+		}
+	}
+});
