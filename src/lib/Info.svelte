@@ -6,7 +6,7 @@
     transition:fade={{ duration: 200 }}
     class="absolute right-0 text-right top-6 border-2 animate-glow border-green-300 p-4"
 >
-    <ul>
+    <ul class="text-5xl">
         <li>
             <span class="keybind">space </span>
             <span class="text-glow">play / pause</span>
