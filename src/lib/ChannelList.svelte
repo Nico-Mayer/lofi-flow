@@ -1,7 +1,7 @@
 <script lang="ts">
     import {
         activeChannel,
-        radio,
+        tv,
         showChannelList,
         switchingChannel,
     } from "$lib/store/store";
@@ -11,7 +11,7 @@
     import IconLink from "./IconLink.svelte";
     import { clickOutside } from "./utils/utils";
 
-    let channels: Channel[] = $radio.channels;
+    let channels: Channel[] = $tv.channels;
 
     function handleChannelChange(channel: Channel) {
         $activeChannel = channel;
@@ -27,12 +27,10 @@
 
     function removeChannel(event: MouseEvent, id: string) {
         event.stopPropagation();
-        let newRadio = $radio;
-        newRadio.channels = newRadio.channels.filter(
-            (channel) => channel.id !== id
-        );
-        $radio = newRadio;
-        channels = $radio.channels;
+        let newtv = $tv;
+        newtv.channels = newtv.channels.filter((channel) => channel.id !== id);
+        $tv = newtv;
+        channels = $tv.channels;
     }
 </script>
 

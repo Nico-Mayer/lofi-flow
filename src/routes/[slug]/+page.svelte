@@ -16,7 +16,7 @@
         lowPowerMode,
         offline,
         playing,
-        radio,
+        tv,
         session,
         showChannelList,
         switchingChannel,
@@ -84,7 +84,7 @@
         if (slug === currentSlug) return;
         currentSlug = slug;
 
-        const channel = $radio.channels.find((c) => c.id === slug);
+        const channel = $tv.channels.find((c) => c.id === slug);
         if (channel) {
             activeChannel.set(channel);
             return;
@@ -101,11 +101,11 @@
             };
 
             $activeChannel = channel;
-            if ($radio.channels.find((c) => c.id === channel.id)) return;
-            $radio.channels.push(channel);
-            $radio.channels = $radio.channels;
+            if ($tv.channels.find((c) => c.id === channel.id)) return;
+            $tv.channels.push(channel);
+            $tv.channels = $tv.channels;
         } else {
-            const channel = $radio.channels.find((c) => c.id === slug);
+            const channel = $tv.channels.find((c) => c.id === slug);
             if (channel) {
                 activeChannel.set(channel);
                 return;

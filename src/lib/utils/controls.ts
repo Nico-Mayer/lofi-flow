@@ -8,7 +8,7 @@ import {
     switchingChannel,
     volume,
     disableChannelSwitching,
-    radio,
+    tv,
 } from "$lib/store/store";
 import { get } from 'svelte/store';
 
@@ -24,7 +24,7 @@ let $showChannelList = get(showChannelList);
 let $lowPowerMode = get(lowPowerMode);
 let $volume = get(volume);
 let $activeChannel = get(activeChannel);
-let $radio = get(radio);
+let $tv = get(tv);
 
 twitchPlayer.subscribe((value) => ($twitchPlayer = value));
 playing.subscribe((value) => ($playing = value));
@@ -35,7 +35,7 @@ showChannelList.subscribe((value) => ($showChannelList = value));
 lowPowerMode.subscribe((value) => ($lowPowerMode = value));
 volume.subscribe((value) => ($volume = value));
 activeChannel.subscribe((value) => ($activeChannel = value));
-radio.subscribe((value) => ($radio = value));
+tv.subscribe((value) => ($tv = value));
 
 
 export function handlePlayPause() {
@@ -59,15 +59,15 @@ export function changeChannel(offset: number) {
     if ($twitchPlayer == null) return;
     switchingChannel.set(true);
     randomTimeout();
-    const activeChannelIndex = $radio.channels.findIndex(
+    const activeChannelIndex = $tv.channels.findIndex(
         (channel: { id: any }) => channel.id === $activeChannel.id
     );
 
-    const totalChannels = $radio.channels.length;
+    const totalChannels = $tv.channels.length;
     const newChannelIndex =
         (activeChannelIndex + offset + totalChannels) % totalChannels;
 
-    activeChannel.set($radio.channels[newChannelIndex]);
+    activeChannel.set($tv.channels[newChannelIndex]);
 }
 
 export function randomChannel() {
@@ -75,16 +75,16 @@ export function randomChannel() {
     switchingChannel.set(true)
     randomTimeout();
     let randomChannelIndex = Math.floor(
-        Math.random() * $radio.channels.length
+        Math.random() * $tv.channels.length
     );
 
-    while (randomChannelIndex === $radio.channels.indexOf($activeChannel)) {
+    while (randomChannelIndex === $tv.channels.indexOf($activeChannel)) {
         randomChannelIndex = Math.floor(
-            Math.random() * $radio.channels.length
+            Math.random() * $tv.channels.length
         );
     }
 
-    activeChannel.set($radio.channels[randomChannelIndex]);
+    activeChannel.set($tv.channels[randomChannelIndex]);
 }
 
 export function handleKeyDown(event: KeyboardEvent) {

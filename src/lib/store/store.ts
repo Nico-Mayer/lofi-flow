@@ -2,7 +2,7 @@ import { browser } from '$app/environment'
 import type { Session } from '$lib/utils/auth'
 import { writable } from 'svelte/store'
 
-const defaultRadio: Radio = {
+const defaultTv: TV = {
 	name: 'Default Radio',
 	description: 'The default radio of lofi nopixel',
 	channels: [
@@ -13,13 +13,20 @@ const defaultRadio: Radio = {
 			"image": "https://static-cdn.jtvnw.net/jtv_user_pictures/c02fd1f5-a521-4649-982b-e86f6f10bc23-profile_image-300x300.png",
 			"url": "https://www.twitch.tv/buddha"
 		},
-		// {
-		// 	id: 'omie',
-		// 	title: 'Omie',
-		// 	description: 'Marty Banks is a streamer on nopixel. He plays a character named Marty Banks.',
-		// 	image: "https://static-cdn.jtvnw.net/jtv_user_pictures/052abaf5-0f8f-49c7-8c43-000e9fc08ab0-profile_image-300x300.png",
-		// 	url: 'https://www.twitch.tv/omie'
-		// },
+		{
+			"id": "xqc",
+			"title": "xQc",
+			"description": "xQc",
+			"image": "https://static-cdn.jtvnw.net/jtv_user_pictures/xqc-profile_image-9298dca608632101-300x300.jpeg",
+			"url": "https://www.twitch.tv/xqc"
+		},
+		{
+			id: 'omie',
+			title: 'Omie',
+			description: 'Marty Banks is a streamer on nopixel. He plays a character named Marty Banks.',
+			image: "https://static-cdn.jtvnw.net/jtv_user_pictures/052abaf5-0f8f-49c7-8c43-000e9fc08ab0-profile_image-300x300.png",
+			url: 'https://www.twitch.tv/omie'
+		},
 		{
 			id: 'moonmoon',
 			title: 'Moonmoon',
@@ -103,7 +110,7 @@ volume.subscribe((value) => {
 export const activeChannel = writable<Channel>(
 	browser && localStorage.getItem('activeChannel')
 		? JSON.parse(localStorage?.getItem('activeChannel') as string)
-		: defaultRadio.channels[0]
+		: defaultTv.channels[0]
 )
 activeChannel.subscribe((value) => {
 	if (browser) {
@@ -111,15 +118,15 @@ activeChannel.subscribe((value) => {
 	}
 })
 
-export const radio = writable<Radio>(
+export const tv = writable<TV>(
 	browser && localStorage.getItem('radio')
 		? JSON.parse(localStorage?.getItem('radio') as string)
-		: defaultRadio
+		: defaultTv
 )
-radio.subscribe((newRadio) => {
+tv.subscribe((newRadio) => {
 	if (browser) {
 		if (newRadio.channels.length == 0) {
-			newRadio.channels = defaultRadio.channels
+			newRadio.channels = defaultTv.channels
 		}
 
 		localStorage.setItem('radio', JSON.stringify(newRadio))
