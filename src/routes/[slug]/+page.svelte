@@ -78,8 +78,10 @@
 
     async function checkSlug() {
         if (!browser) return;
+        if ($page.url.hash) return;
 
         const slug = $page.params.slug;
+        console.log(slug);
         if (slug === currentSlug) return;
         currentSlug = slug;
 
