@@ -56,7 +56,7 @@
     </div>
 {:else}
     <a
-        href="https://id.twitch.tv/oauth2/authorize?client_id={PUBLIC_CLIENT_ID}&redirect_uri=http://localhost:5173&response_type=token&scope=channel:read:subscriptions"
+        href="https://id.twitch.tv/oauth2/authorize?client_id={PUBLIC_CLIENT_ID}&redirect_uri=https://lofi-nopixel.com&response_type=token&scope=channel:read:subscriptions"
         class="block px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
     >
         Login with Twitch
