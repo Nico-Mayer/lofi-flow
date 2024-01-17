@@ -7,6 +7,13 @@ const defaultRadio: Radio = {
 	description: 'The default radio of lofi nopixel',
 	channels: [
 		{
+			"id": "buddha",
+			"title": "buddha",
+			"description": "buddha",
+			"image": "https://static-cdn.jtvnw.net/jtv_user_pictures/c02fd1f5-a521-4649-982b-e86f6f10bc23-profile_image-300x300.png",
+			"url": "https://www.twitch.tv/buddha"
+		},
+		{
 			id: 'omie',
 			title: 'Omie',
 			description: 'Marty Banks is a streamer on nopixel. He plays a character named Marty Banks.',

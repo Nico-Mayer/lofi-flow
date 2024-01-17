@@ -18,9 +18,14 @@
     }
 </script>
 
-<main class="relative flex items-center justify-between pointer-events-auto">
-    <Auth />
-    <section class="flex gap-2">
+<div
+    class="relative flex flex-row justify-between pointer-events-auto items-center"
+>
+    <div>
+        <Auth />
+    </div>
+
+    <section class="flex items-center">
         <IconBtn
             icon="mingcute:fullscreen-2-line"
             on:click={toggleFullscreen}
@@ -69,7 +74,7 @@
             </ul>
         </section>
     {/if}
-</main>
+</div>
 
 <style>
     .keybind {

@@ -9,41 +9,50 @@
 
     export let twitchPlayer;
     export let channel: string = $activeChannel.id;
+    let twitchJs;
+    let twitchJsUrl = "https://player.twitch.tv/js/embed/v1.js";
 
     let playerDiv: HTMLDivElement;
 
     onMount(async () => {
-        twitchPlayer = new Twitch.Player(twitchPlayerId, {
-            width: "100%",
-            height: "100%",
-            channel: channel,
-            autoplay: true,
-            muted: false,
-            controls: false,
-        });
+        const script = document.createElement("script");
+        script.onload = () => {
+            if (Twitch) {
+                twitchPlayer = new Twitch.Player(twitchPlayerId, {
+                    width: "100%",
+                    height: "100%",
+                    channel: channel,
+                    autoplay: true,
+                    muted: false,
+                    controls: false,
+                });
 
-        twitchPlayer.addEventListener(Twitch.Player.READY, () => {
-            onPlayerReady();
-            onPlayerStateChange("ready");
-        });
-        twitchPlayer.addEventListener(Twitch.Player.PLAYING, () =>
-            onPlayerStateChange("play")
-        );
-        twitchPlayer.addEventListener(Twitch.Player.PLAYING, () =>
-            onPlayerStateChange("playing")
-        );
-        twitchPlayer.addEventListener(Twitch.Player.PAUSE, () =>
-            onPlayerStateChange("paused")
-        );
-        twitchPlayer.addEventListener(Twitch.Player.ENDED, () =>
-            onPlayerStateChange("ended")
-        );
-        twitchPlayer.addEventListener(Twitch.Player.ONLINE, () =>
-            onPlayerStateChange("online")
-        );
-        twitchPlayer.addEventListener(Twitch.Player.OFFLINE, () =>
-            onPlayerStateChange("offline")
-        );
+                twitchPlayer.addEventListener(Twitch.Player.READY, () => {
+                    onPlayerReady();
+                    onPlayerStateChange("ready");
+                });
+                twitchPlayer.addEventListener(Twitch.Player.PLAYING, () =>
+                    onPlayerStateChange("play")
+                );
+                twitchPlayer.addEventListener(Twitch.Player.PLAYING, () =>
+                    onPlayerStateChange("playing")
+                );
+                twitchPlayer.addEventListener(Twitch.Player.PAUSE, () =>
+                    onPlayerStateChange("paused")
+                );
+                twitchPlayer.addEventListener(Twitch.Player.ENDED, () =>
+                    onPlayerStateChange("ended")
+                );
+                twitchPlayer.addEventListener(Twitch.Player.ONLINE, () =>
+                    onPlayerStateChange("online")
+                );
+                twitchPlayer.addEventListener(Twitch.Player.OFFLINE, () =>
+                    onPlayerStateChange("offline")
+                );
+            }
+        };
+        script.src = twitchJsUrl;
+        document.head.appendChild(script);
     });
 
     function onPlayerReady() {
@@ -84,10 +93,6 @@
         handleKeyDown(event);
     }
 </script>
-
-<svelte:head>
-    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
-</svelte:head>
 
 <div id={twitchPlayerId} class="twitch_player" bind:this={playerDiv}></div>
 

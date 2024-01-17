@@ -5,31 +5,8 @@
     import { browser } from "$app/environment";
     import { session } from "./store/store";
     import type { User } from "./utils/auth";
-
-    function getUser(name: string | null = null) {
-        if (!$session) return;
-        fetch(
-            `https://api.twitch.tv/helix/users${name ? `?login=${name}` : ""}`,
-            {
-                headers: {
-                    "Client-ID": PUBLIC_CLIENT_ID,
-                    Authorization: `Bearer ${$session.access_token}`,
-                },
-            }
-        )
-            .then((res) => res.json())
-            .then((res: { data: [User] }) => {
-                if (res.data[0]) {
-                    session.update((s) => {
-                        if (!s) return s;
-                        s.user = res.data[0];
-                        return s;
-                    });
-                }
-            });
-    }
-
-    function validate() {}
+    import { goto } from "$app/navigation";
+    import { getUser } from "./utils/twitch";
 
     onMount(() => {
         const params = $page.url.hash
@@ -54,39 +31,34 @@
                     token_type: tokenType,
                     user: null,
                 };
-            }
 
-            getUser();
+                getUser(null, $session).then((user) => {
+                    $session!.user = user;
+                    goto("/");
+                });
+            }
         }
     });
 </script>
 
-<div>
-    {#if $session && $session.access_token && $session.user}
-        <div>
-            <img
-                src={$session.user.profile_image_url}
-                alt="User Profile"
-                width="50"
-                height="50"
-                class="rounded-full"
-            />
-            <span class="text-slate-100 font-semibold">
-                {$session.user.display_name}
-            </span>
-        </div>
-    {:else}
-        <a
-            href="https://id.twitch.tv/oauth2/authorize?client_id={PUBLIC_CLIENT_ID}&redirect_uri=http://localhost:5173&response_type=token&scope=channel:read:subscriptions"
-        >
-            Connect with Twitch
-            <img
-                src="https://static-cdn.jtvnw.net/jtv_user_pictures/0f9f9f9f-0f9f-0f9f-0f9f-0f9f9f9f0f9f-profile_image-300x300.png"
-                alt="Twitch Logo"
-                width="50"
-                height="50"
-                class="rounded-full"
-            />
-        </a>
-    {/if}
-</div>
+{#if $session && $session.access_token && $session.user}
+    <div class="flex flex-col justify-center items-center">
+        <img
+            src={$session.user.profile_image_url}
+            alt="User Profile"
+            width="50"
+            height="50"
+            class="rounded-full"
+        />
+        <span class="text-slate-100 font-semibold">
+            {$session.user.display_name}
+        </span>
+    </div>
+{:else}
+    <a
+        href="https://id.twitch.tv/oauth2/authorize?client_id={PUBLIC_CLIENT_ID}&redirect_uri=http://localhost:5173&response_type=token&scope=channel:read:subscriptions"
+        class="block px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+    >
+        Login with Twitch
+    </a>
+{/if}
