@@ -13,13 +13,13 @@ const defaultRadio: Radio = {
 			"image": "https://static-cdn.jtvnw.net/jtv_user_pictures/c02fd1f5-a521-4649-982b-e86f6f10bc23-profile_image-300x300.png",
 			"url": "https://www.twitch.tv/buddha"
 		},
-		{
-			id: 'omie',
-			title: 'Omie',
-			description: 'Marty Banks is a streamer on nopixel. He plays a character named Marty Banks.',
-			image: "https://static-cdn.jtvnw.net/jtv_user_pictures/052abaf5-0f8f-49c7-8c43-000e9fc08ab0-profile_image-300x300.png",
-			url: 'https://www.twitch.tv/omie'
-		},
+		// {
+		// 	id: 'omie',
+		// 	title: 'Omie',
+		// 	description: 'Marty Banks is a streamer on nopixel. He plays a character named Marty Banks.',
+		// 	image: "https://static-cdn.jtvnw.net/jtv_user_pictures/052abaf5-0f8f-49c7-8c43-000e9fc08ab0-profile_image-300x300.png",
+		// 	url: 'https://www.twitch.tv/omie'
+		// },
 		{
 			id: 'moonmoon',
 			title: 'Moonmoon',

@@ -111,7 +111,7 @@
                 return;
             }
             alert("You need to be logged in to navigate to custom channels.");
-            goto("/");
+            goto(`/${$activeChannel.id}`);
         }
     }
 </script>
