@@ -8,7 +8,7 @@
 
     const redirectUrl = dev
         ? "http://localhost:5173"
-        : "https://lofi-nopixel.com";
+        : "https://www.lofi-nopixel.com";
 
     $: $page.url.hash, checkHash();
 
