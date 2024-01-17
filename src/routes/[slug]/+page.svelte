@@ -1,35 +1,38 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import { onMount } from "svelte";
-    import { session } from "$lib/store/store";
     import ChannelList from "$lib/ChannelList.svelte";
     import Controls from "$lib/Controls.svelte";
-    import OfflineAnimation from "$lib/effects/OfflineAnimation.svelte";
     import Topbar from "$lib/Topbar.svelte";
     import Twitch from "$lib/Twitch.svelte";
     import VolumeSlider from "$lib/VolumeSlider.svelte";
     import ChangeAnimation from "$lib/effects/ChangeAnimation.svelte";
     import Crt from "$lib/effects/Crt.svelte";
     import Darken from "$lib/effects/Darken.svelte";
+    import OfflineAnimation from "$lib/effects/OfflineAnimation.svelte";
     import Vignette from "$lib/effects/Vignette.svelte";
     import {
         activeChannel,
         buffering,
-        twitchPlayer,
-        playing,
-        switchingChannel,
-        volume,
-        offline,
-        radio,
         lowPowerMode,
+        offline,
+        playing,
+        radio,
+        session,
         showChannelList,
+        switchingChannel,
+        twitchPlayer,
+        volume,
     } from "$lib/store/store";
 
-    import { getUser } from "$lib/utils/twitch";
     import { goto } from "$app/navigation";
     import { handleKeyDown } from "$lib/utils/controls";
+    import { getUser } from "$lib/utils/twitch";
+    import { browser } from "$app/environment";
 
     $: $activeChannel, onChannelChange();
+    $: $page.params.slug, checkSlug();
+
+    let currentSlug: string;
 
     function onPlayerReady() {
         if ($twitchPlayer == null) return;
@@ -73,28 +76,43 @@
         }
     }
 
-    onMount(async () => {
+    async function checkSlug() {
+        if (!browser) return;
+
         const slug = $page.params.slug;
+        if (slug === currentSlug) return;
+        currentSlug = slug;
+
+        const channel = $radio.channels.find((c) => c.id === slug);
+        if (channel) {
+            activeChannel.set(channel);
+            return;
+        }
+
         if ($session?.user) {
             const user = await getUser(slug, $session);
-            const channel: Channel = {
+            const channel = {
                 id: user.login,
                 title: user.display_name,
                 description: user.display_name,
                 image: user.profile_image_url,
-                url: "https://www.twitch.tv/" + user.login,
+                url: `https://www.twitch.tv/${user.login}`,
             };
 
             $activeChannel = channel;
-            if ($radio.channels.find((c) => c.id == channel.id)) return;
+            if ($radio.channels.find((c) => c.id === channel.id)) return;
             $radio.channels.push(channel);
             $radio.channels = $radio.channels;
         } else {
-            if ($radio.channels.find((c) => c.id == slug)) return;
+            const channel = $radio.channels.find((c) => c.id === slug);
+            if (channel) {
+                activeChannel.set(channel);
+                return;
+            }
             alert("You need to be logged in to navigate to custom channels.");
             goto("/");
         }
-    });
+    }
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
