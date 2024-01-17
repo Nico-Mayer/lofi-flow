@@ -141,3 +141,15 @@ session.subscribe((newSession) => {
 		}
 	}
 });
+
+export const onboarded = writable<boolean>(
+	browser && localStorage.getItem('onboarded')
+		? JSON.parse(localStorage?.getItem('onboarded') as string)
+		: false
+)
+
+onboarded.subscribe((value) => {
+	if (browser) {
+		localStorage.setItem('onboarded', JSON.stringify(value))
+	}
+})

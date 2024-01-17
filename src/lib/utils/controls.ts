@@ -104,5 +104,7 @@ export function handleKeyDown(event: KeyboardEvent) {
             : $twitchPlayer?.setMuted(true);
     } else if (event.key === "l") {
         lowPowerMode.set(!$lowPowerMode);
+    } else if (event.key === "c") {
+        showChannelList.set(!$showChannelList);
     }
 }
