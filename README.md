@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <h3 align="center">
-    <a href="https://lofi-nopixel.vercel.app">LOFI NoPixel</a>
+    <a href="https://lofi-nopixel.com">LOFI NoPixel</a>
   </h3>
 </div>
 
