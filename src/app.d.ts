@@ -1,5 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
+/// <reference types="lucia" />
 declare global {
 	type TV = {
 		name: string
@@ -47,9 +48,27 @@ declare global {
 		paidContentOverlayDurationMs: number
 	}
 
+	namespace Lucia {
+		type Auth = import("$lib/server/lucia").Auth;
+		type DatabaseUserAttributes = {
+			id: string,
+			login: string,
+			display_name: string,
+			description: string,
+			profile_image_url: string,
+			offline_image_url: string,
+			email: string,
+
+		};
+		type DatabaseSessionAttributes = {};
+	}
+
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			auth: import("lucia").AuthRequest;
+			user: Lucia.DatabaseUserAttributes;
+		}
 		// interface PageData {}
 		// interface Platform {}
 	}

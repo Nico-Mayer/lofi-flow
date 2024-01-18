@@ -1,14 +1,13 @@
 <script lang="ts">
-    import Auth from "$lib/Auth.svelte";
+    import { enhance } from "$app/forms";
+    import type { PageData } from "./$types";
 
-    import { goto } from "$app/navigation";
-    import { onMount } from "svelte";
-
-    onMount(() => {
-        goto("/buddha");
-    });
+    export let data: PageData;
 </script>
 
-<main>
-    <Auth />
-</main>
+<h1>Profile</h1>
+<p>User id: {data.user.id}</p>
+<p>User name: {data.user.display_name}</p>
+<form method="post" action="?/logout" use:enhance>
+    <input type="submit" value="Sign out" />
+</form>

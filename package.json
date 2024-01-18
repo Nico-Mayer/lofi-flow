@@ -24,6 +24,10 @@
     },
     "type": "module",
     "dependencies": {
-        "@vercel/analytics": "^1.1.1"
+        "@lucia-auth/adapter-postgresql": "^2.0.2",
+        "@lucia-auth/oauth": "^3.5.2",
+        "@vercel/analytics": "^1.1.1",
+        "@vercel/postgres": "^0.5.1",
+        "lucia": "^2.7.6"
     }
 }
