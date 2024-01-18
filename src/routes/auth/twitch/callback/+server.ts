@@ -6,7 +6,6 @@ export const GET = async ({ url, cookies, locals }) => {
     const state = url.searchParams.get("state");
     const code = url.searchParams.get("code");
 
-    console.log(storedState, state, code);
     // validate state
     if (!storedState || !state || storedState !== state || !code) {
         return new Response(null, {
@@ -14,7 +13,7 @@ export const GET = async ({ url, cookies, locals }) => {
         });
     }
     try {
-        const { getExistingUser, twitchUser, createUser } =
+        const { getExistingUser, twitchUser, createUser, twitchTokens } =
             await twitchProvider.validateCallback(code);
 
         const getUser = async () => {
@@ -37,10 +36,11 @@ export const GET = async ({ url, cookies, locals }) => {
         const user = await getUser();
         const session = await auth.createSession({
             userId: user.userId,
-            attributes: {}
+            attributes: {
+                token: twitchTokens.accessToken
+            }
         });
         locals.auth.setSession(session);
-        locals.user = user;
         return new Response(null, {
             status: 302,
             headers: {
@@ -48,7 +48,6 @@ export const GET = async ({ url, cookies, locals }) => {
             }
         });
     } catch (e) {
-        console.log(e);
         if (e instanceof OAuthRequestError) {
             // invalid code
             return new Response(null, {

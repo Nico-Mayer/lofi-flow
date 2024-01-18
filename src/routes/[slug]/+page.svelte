@@ -17,7 +17,6 @@
         offline,
         playing,
         tv,
-        session,
         showChannelList,
         switchingChannel,
         twitchPlayer,
@@ -28,9 +27,12 @@
     import { handleKeyDown } from "$lib/utils/controls";
     import { getUser } from "$lib/utils/twitch";
     import { browser } from "$app/environment";
+    import type { PageData } from "./$types";
+    import { onMount } from "svelte";
+
+    export let data: PageData;
 
     $: $activeChannel, onChannelChange();
-    $: $page.params.slug, checkSlug();
 
     let currentSlug: string;
 
@@ -78,9 +80,8 @@
 
     async function checkSlug() {
         if (!browser) return;
-        if ($page.url.hash) return;
 
-        const slug = $page.params.slug;
+        const slug = data.channel;
         if (slug === currentSlug) return;
         currentSlug = slug;
 
@@ -90,8 +91,8 @@
             return;
         }
 
-        if ($session?.user) {
-            const user = await getUser(slug, $session);
+        if (data.user) {
+            const user = await getUser(slug, data.access_token);
             const channel = {
                 id: user.login,
                 title: user.display_name,
@@ -114,6 +115,10 @@
             goto(`/${$activeChannel.id}`);
         }
     }
+
+    onMount(() => {
+        checkSlug();
+    });
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />

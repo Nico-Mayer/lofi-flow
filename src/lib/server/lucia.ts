@@ -3,8 +3,9 @@ import { lucia } from "lucia";
 import { sveltekit } from "lucia/middleware";
 import { pg } from "@lucia-auth/adapter-postgresql";
 import { twitch } from "@lucia-auth/oauth/providers";
-import { POSTGRES_URL, TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, TWITCH_REDIRECT_URI } from "$env/static/private";
+import { POSTGRES_URL, TWITCH_CLIENT_SECRET, TWITCH_REDIRECT_URI } from "$env/static/private";
 import { createPool } from '@vercel/postgres';
+import { PUBLIC_TWITCH_CLIENT_ID } from "$env/static/public";
 
 export const pool = createPool({
     connectionString: POSTGRES_URL,
@@ -31,11 +32,16 @@ export const auth = lucia({
             offline_image_url: dbUser.offline_image_url,
             email: dbUser.email
         };
+    },
+    getSessionAttributes: (session) => {
+        return {
+            token: session.token
+        };
     }
 });
 
 export const twitchProvider = twitch(auth, {
-    clientId: TWITCH_CLIENT_ID,
+    clientId: PUBLIC_TWITCH_CLIENT_ID,
     clientSecret: TWITCH_CLIENT_SECRET,
     redirectUri: TWITCH_REDIRECT_URI
 });

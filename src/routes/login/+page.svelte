@@ -1,7 +1,3 @@
-<script lang="ts">
-    import { PUBLIC_CLIENT_ID } from "$env/static/public";
-</script>
-
 <div class="flex h-screen">
     <div class="m-auto">
         <a

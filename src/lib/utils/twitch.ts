@@ -1,13 +1,13 @@
-import { PUBLIC_CLIENT_ID } from "$env/static/public";
-import type { Session, User } from "./auth";
+import { PUBLIC_TWITCH_CLIENT_ID } from "$env/static/public";
+import type { User } from "./auth";
 
-export async function getUser(name: string | null = null, session: Session): Promise<User> {
+export async function getUser(name: string | null = null, token: string): Promise<User> {
     return fetch(
         `https://api.twitch.tv/helix/users${name ? `?login=${name}` : ""}`,
         {
             headers: {
-                "Client-ID": PUBLIC_CLIENT_ID,
-                Authorization: `Bearer ${session.access_token}`,
+                "Client-ID": PUBLIC_TWITCH_CLIENT_ID,
+                Authorization: `Bearer ${token}`,
             },
         }
     )

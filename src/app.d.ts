@@ -60,14 +60,15 @@ declare global {
 			email: string,
 
 		};
-		type DatabaseSessionAttributes = {};
+		type DatabaseSessionAttributes = {
+			token: string,
+		};
 	}
 
 	namespace App {
 		// interface Error {}
 		interface Locals {
 			auth: import("lucia").AuthRequest;
-			user: Lucia.DatabaseUserAttributes;
 		}
 		// interface PageData {}
 		// interface Platform {}
