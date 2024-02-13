@@ -68,7 +68,7 @@
 
 <main
 	transition:fade={{ duration: 200 }}
-	class="absolute top-0 left-0 z-30 w-full h-full p-8 overflow-auto bg-black/50">
+	class="absolute top-0 left-0 z-50 w-full h-full p-8 overflow-auto bg-black/50">
 	<div
 		class="channel-grid"
 		use:clickOutside={() => {
