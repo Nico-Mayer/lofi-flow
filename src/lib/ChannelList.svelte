@@ -87,15 +87,18 @@
 					icon="pixelarticons:close" />
 
 				<button
-					class:active={$activeChannel.id === channel.id}
-					class="w-full h-full channel-item"
+					class="w-full h-full"
 					on:click={() => handleChannelChange(channel)}>
-					<img
-						draggable="false"
-						class="object-cover w-full h-full max-h-96"
-						src={`http://img.youtube.com/vi/${channel.id}/mqdefault.jpg`}
-						alt="channel-thumbnail" />
-					<div class="p-2 bg-white">
+					<div class="channel-item">
+						<img
+							draggable="false"
+							class:active={$activeChannel.id === channel.id}
+							class="object-cover w-full h-full max-h-96"
+							src={`http://img.youtube.com/vi/${channel.id}/mqdefault.jpg`}
+							alt="channel-thumbnail" />
+					</div>
+
+					<div class="p-2 text-glow">
 						<!-- Your content goes here -->
 						<p class="text-lg font-semibold truncate text-ellipsis">
 							{channel.title}

@@ -73,7 +73,7 @@
 
 <main
 	bind:this={app}
-	class="relative flex w-[calc(100dvw)] h-[calc(100dvh)] overflow-hidden"
+	class="relative flex overflow-hidden w-svw h-svh"
 	class:low-power={$lowPowerMode}>
 	<Darken />
 	{#if !$lowPowerMode}
