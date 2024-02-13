@@ -94,7 +94,7 @@
 
 	<div
 		class="absolute top-0 right-0 flex items-center justify-center w-full h-full">
-		<div class="z-30 flex items-center justify-center w-52 h-52 group">
+		<div class="z-50 flex items-center justify-center w-52 h-52 group">
 			<IconBtn
 				icon={$playing ? 'pixelarticons:pause' : 'pixelarticons:play'}
 				on:click={handlePlayPause}
