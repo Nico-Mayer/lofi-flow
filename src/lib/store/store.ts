@@ -6,6 +6,9 @@ const defaultRadio: Radio = {
 	description: 'The default radio of lofi flow',
 	channels: [
 		{
+			id: 'wkhLHTmS_GI',
+		},
+		{
 			id: 'rPjez8z61rI',
 		},
 		{
@@ -17,14 +20,18 @@ const defaultRadio: Radio = {
 		{
 			id: '-uxi6_5cFqw',
 		},
-		{
-			id: 'wkhLHTmS_GI',
-		},
+
 		{
 			id: '7p41rWD3s-c',
 		},
 		{
 			id: '0ba7dl40tSQ',
+		},
+		{
+			id: '_2sGsqzFXks',
+		},
+		{
+			id: '5yx6BWlEVcY',
 		},
 	],
 }

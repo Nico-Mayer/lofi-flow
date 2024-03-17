@@ -14,6 +14,7 @@
 		}
 	}
 	.refresh {
+		pointer-events: none;
 		float: left;
 		width: 200%;
 		height: 100px;

@@ -56,17 +56,16 @@
 		if ($player == null) return
 		$switchingChannel = true
 		randomTimeout()
-		let randomChannelIndex = Math.floor(
-			Math.random() * $radio.channels.length
-		)
 
-		while (randomChannelIndex === $activeChannel.id) {
-			randomChannelIndex = Math.floor(
-				Math.random() * $radio.channels.length
-			)
+		let randomIndex = Math.floor(Math.random() * $radio.channels.length)
+		let nextChannel = $radio.channels[randomIndex]
+
+		while (nextChannel.id === $activeChannel.id) {
+			randomIndex = Math.floor(Math.random() * $radio.channels.length)
+			nextChannel = $radio.channels[randomIndex]
 		}
 
-		$activeChannel = $radio.channels[randomChannelIndex]
+		$activeChannel = nextChannel
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {
