@@ -15,12 +15,6 @@ const defaultRadio: Radio = {
 			id: 'jfKfPfyJRdk',
 		},
 		{
-			id: 'bLlloaA4b4g',
-		},
-		{
-			id: 'tyVQk-BAWms',
-		},
-		{
 			id: '-uxi6_5cFqw',
 		},
 		{
