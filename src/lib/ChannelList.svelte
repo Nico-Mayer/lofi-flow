@@ -68,7 +68,7 @@
 
 <main
 	transition:fade={{ duration: 200 }}
-	class="absolute top-0 left-0 z-50 w-full h-full p-8 overflow-auto bg-black/50">
+	class="absolute top-0 left-0 w-full h-full p-8 overflow-auto z-[60] bg-black/70">
 	<div
 		class="channel-grid"
 		use:clickOutside={() => {
@@ -77,12 +77,12 @@
 		{#each channels as channel}
 			<div class="relative w-full max-w-full p-4 m-auto group">
 				<IconLink
-					class="absolute top-6 right-6"
+					class="absolute top-4 right-4"
 					url={`https://www.youtube.com/watch?v=${channel.id}`}
 					icon="pixelarticons:external-link" />
 
 				<IconBtn
-					class="absolute !hidden top-6 left-6 group-hover:!block"
+					class="absolute top-4 left-4 !hidden group-hover:!flex"
 					on:click={(e) => removeChannel(e, channel.id)}
 					icon="pixelarticons:close" />
 
@@ -98,9 +98,9 @@
 							alt="channel-thumbnail" />
 					</div>
 
-					<div class="p-2 text-glow">
+					<div class="text-glow">
 						<!-- Your content goes here -->
-						<p class="text-lg font-semibold truncate text-ellipsis">
+						<p class="text-lg truncate text-ellipsis">
 							{channel.title}
 						</p>
 					</div>
@@ -124,6 +124,7 @@
 		border: 1px solid #99ff99;
 		animation: glow 3s ease-in-out infinite;
 	}
+
 	@keyframes glow {
 		0% {
 			box-shadow: 0px 0px 10px #99ff99;

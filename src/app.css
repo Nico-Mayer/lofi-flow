@@ -44,9 +44,15 @@
 	@apply flex items-center justify-center w-8 h-8 select-none;
 }
 
+.btn:hover .icon {
+	filter: drop-shadow(0px 0px 3px #51ff00)
+		drop-shadow(0px 0px 8px rgb(143, 255, 131));
+}
+
 .icon {
 	@apply w-6 h-6;
 	filter: drop-shadow(0px 0px 2px #99ff99) drop-shadow(0px 0px 8px green);
+	transition: filter 0.3s ease; /* Add transition for smooth hover effect */
 }
 
 .glow {

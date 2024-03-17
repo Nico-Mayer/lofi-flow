@@ -98,7 +98,7 @@
 			<IconBtn
 				icon={$playing ? 'pixelarticons:pause' : 'pixelarticons:play'}
 				on:click={handlePlayPause}
-				class="transition-all duration-200 opacity-0 group-hover:opacity-100" />
+				class="transition-all duration-300 scale-0 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
 		</div>
 	</div>
 
