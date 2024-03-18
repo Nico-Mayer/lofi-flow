@@ -11,7 +11,6 @@
 		switchingChannel,
 		videoData,
 	} from '$lib/store/store'
-	import { rnd } from '$lib/utils/utils'
 	import IconBtn from './IconBtn.svelte'
 
 	$: {
@@ -28,19 +27,10 @@
 		}
 	}
 
-	function randomTimeout() {
-		setTimeout(
-			() => {
-				$switchingChannel = false
-			},
-			rnd(220, 310)
-		)
-	}
-
 	function changeChannel(offset: number) {
 		if ($player == null) return
 		$switchingChannel = true
-		randomTimeout()
+
 		const activeChannelIndex = $radio.channels.findIndex(
 			(channel: { id: any }) => channel.id === $activeChannel.id
 		)
@@ -55,7 +45,6 @@
 	function randomChannel() {
 		if ($player == null) return
 		$switchingChannel = true
-		randomTimeout()
 
 		let randomIndex = Math.floor(Math.random() * $radio.channels.length)
 		let nextChannel = $radio.channels[randomIndex]

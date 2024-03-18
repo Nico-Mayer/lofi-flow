@@ -5,7 +5,6 @@
 		showChannelList,
 		switchingChannel,
 	} from '$lib/store/store'
-	import { rnd } from '$lib/utils/utils'
 	import { onMount } from 'svelte'
 	import { fade } from 'svelte/transition'
 	import ChannelItem from './ChannelItem.svelte'
@@ -48,12 +47,6 @@
 		$activeChannel = channel
 		$showChannelList = false
 		$switchingChannel = true
-		setTimeout(
-			() => {
-				$switchingChannel = false
-			},
-			rnd(220, 310)
-		)
 	}
 
 	function removeChannel(e: CustomEvent) {

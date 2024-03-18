@@ -14,6 +14,7 @@
 
 	$: {
 		if ($switchingChannel) {
+			whiteNoiseEffect.currentTime = 0
 			whiteNoiseEffect?.play()
 		} else if (!$switchingChannel) {
 			whiteNoiseEffect?.pause()
