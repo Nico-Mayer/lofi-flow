@@ -20,8 +20,18 @@
 		videoData,
 		volume,
 	} from '$lib/store/store'
+	import { onMount } from 'svelte'
 
 	let app: HTMLElement
+
+	let animationTimeout: number = 700
+	let animationFinished: boolean = false
+
+	onMount(() => {
+		setTimeout(() => {
+			animationFinished = true
+		}, animationTimeout)
+	})
 
 	$: $activeChannel, onChannelChange()
 
@@ -73,7 +83,7 @@
 
 <main
 	bind:this={app}
-	class="relative flex overflow-hidden w-svw h-svh"
+	class="relative flex overflow-hidden main-wrapper w-svw h-svh"
 	class:low-power={$lowPowerMode}>
 	<Darken />
 	{#if !$lowPowerMode}
@@ -102,6 +112,10 @@
 		</div>
 	</div>
 
+	{#if !animationFinished}
+		<div class="absolute w-full h-full bg-white z-[60]"></div>
+	{/if}
+
 	<div
 		id="ui-wrapper"
 		class="z-40 flex flex-col justify-between w-full h-full p-6 text-lg lg:text-2xl lg:p-12">
@@ -111,3 +125,20 @@
 		</Controls>
 	</div>
 </main>
+
+<style>
+	.main-wrapper {
+		animation: crtAnimation 1.2s 0.2s both;
+	}
+
+	@keyframes crtAnimation {
+		0% {
+			transform: scaleY(0) scaleX(0);
+			filter: brightness(15) blur(0px);
+		}
+		20% {
+			transform: scaleY(0.02) scaleX(0.8);
+			filter: brightness(15) blur(0px);
+		}
+	}
+</style>
