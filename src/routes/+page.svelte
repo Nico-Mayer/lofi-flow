@@ -134,11 +134,11 @@
 	@keyframes crtAnimation {
 		0% {
 			transform: scaleY(0) scaleX(0);
-			filter: brightness(15) blur(0px);
+			filter: brightness(15);
 		}
 		20% {
 			transform: scaleY(0.02) scaleX(0.8);
-			filter: brightness(15) blur(0px);
+			filter: brightness(15);
 		}
 	}
 </style>
