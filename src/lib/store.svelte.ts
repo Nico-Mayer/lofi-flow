@@ -63,10 +63,7 @@ export const playerState = new Writable(1);
 
 export const volume = new LocalStorage<number>('volume', 50);
 
-export const dailyRadio = new Writable<DailyRadio>({
-	date: new Date().toISOString().split('T')[0],
-	radios: ['wkhLHTmS_GI', 'rPjez8z61rI', 'J4S8iN7qV1k', 'jfKfPfyJRdk']
-});
+export const dailyRadio = new Writable<DailyRadio | null>(null);
 
 export const favorites = new LocalStorage<string[]>('favorites', [
 	'wkhLHTmS_GI',
@@ -84,3 +81,5 @@ export const activeRadioID = new LocalStorage<string>('activeRadioID', '');
 export const activeRadioData = new Writable<VideoData>({} as VideoData);
 
 export const radioListOpen = new Writable(false);
+
+export const playerError = new Writable(false);

@@ -9,6 +9,7 @@
 		activeRadioData,
 		activeRadioID,
 		dailyRadio,
+		playerError,
 		playerState,
 		radioListOpen,
 		volume
@@ -19,32 +20,47 @@
 	const ytPlayerId = 'youtube-player';
 	let player: Player;
 
-	onMount(() => {
+	onMount(async () => {
+		const response = await fetch('/api/dailyRadio', {
+			method: 'GET'
+		});
+
+		dailyRadio.value = await response.json();
+
+		if (dailyRadio.value == null) {
+			throw new Error('No radios found');
+		}
+
 		player = new YT.Player(ytPlayerId, {
 			height: '360px',
 			width: '640px',
 			videoId: activeRadioID.value != '' ? activeRadioID.value : dailyRadio.value.radios[0],
 			playerVars: { autoplay: 1, rel: 0, controls: 0 },
 			events: {
-				onReady: playerReady,
-				onError: (e) => console.log('Error', e),
-				onStateChange: playerStateChange
+				onReady: onPlayerReady,
+				onError: onPlayerError,
+				onStateChange: onPlayerStateChange
 			}
 		}) as Player;
 	});
 
-	function playerStateChange(e: YT.PlayerEvent) {
+	function onPlayerStateChange(e: YT.PlayerEvent) {
 		playerState.value = e.target.getPlayerState();
 
 		if (playerState.value === YT.PlayerState.PLAYING) {
 			activeRadioData.value = player.getVideoData();
 			activeRadioID.value = activeRadioData.value.video_id;
+			playerError.value = false;
 		}
 	}
 
-	function playerReady(e: YT.PlayerEvent) {
+	function onPlayerReady(e: YT.PlayerEvent) {
 		player.setVolume(volume.value);
 		activeRadioData.value = player.getVideoData();
+	}
+
+	function onPlayerError(e: YT.OnErrorEvent) {
+		playerError.value = true;
 	}
 </script>
 
