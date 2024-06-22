@@ -1,12 +1,16 @@
 <script lang="ts">
-	import { buffering, playing } from '$lib/store/store'
+	import { playerState } from '$lib/store.svelte';
 </script>
 
-<div class="darken" class:paused={$playing === false || $buffering}></div>
+<div
+	class="darken"
+	class:paused={playerState.value === YT.PlayerState.PAUSED ||
+		playerState.value === YT.PlayerState.BUFFERING}
+></div>
 
 <style>
 	.paused {
-		background-color: rgba(0, 0, 0, 0.3) !important;
+		background-color: rgba(0, 0, 0, 0.4) !important;
 	}
 
 	.darken {

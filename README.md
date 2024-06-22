@@ -1,48 +1,38 @@
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/nico-mayer/json-bucket">
-    <img src="https://api.iconify.design/pixelarticons:headphone.svg?color=%23ffffff" alt="Logo" width="90" height="90">
-  </a>
+# create-svelte
 
-  <h3 align="center">
-    <a href="https://lofi-flow.vercel.app">LOFI Flow</a>
-  </h3>
-</div>
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
-<!-- ABOUT THE PROJECT -->
+## Creating a project
 
-## About The Project
+If you're seeing this, you've probably already done this step. Congrats!
 
-<p align="center">
-<img src="./static/preview.png" alt="showcase" />
-</p>
-Lofi Flow is like your cozy corner on the web for all things chill. Save your best-loved YouTube lofi live radios and videos in one spot, kick back with the laid-back vibes of Lofi Flow, and let it be the soundtrack to your relaxation or background beats while you're doing your thing. 🎶✨
+```bash
+# create a new project in the current directory
+npm create svelte@latest
 
-### Built With
+# create a new project in my-app
+npm create svelte@latest my-app
+```
 
--   ![svelte.dev]
--   ![tailwind]
+## Developing
 
-## Features
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
--   [x] 📺 Save your favorite YouTube lofi live radios and videos
--   [x] 🔋 Energy saving mode
--   [x] 📼 Retro CRT feeling
+```bash
+npm run dev
 
-If you have any ideas for new features, feel free to open an issue and let me know!
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-## Acknowledgments
+## Building
 
-This project is heavily inspired by the following Projects:
+To create a production version of your app:
 
--   [lofi.cafe](https://lofi.cafe/)
--   [lofimusic.app](https://lofimusic.app/)
--   [lofifm](https://lofifm.vercel.app/)
+```bash
+npm run build
+```
 
-Inspiration for CRT effect:
+You can preview the production build with `npm run preview`.
 
--   [CRT effect](https://aleclownes.com/2017/02/01/crt-display.html)
-
-[svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[tailwind]: https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.

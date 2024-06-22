@@ -1,144 +1,67 @@
 <script lang="ts">
-	import ChannelList from '$lib/ChannelList.svelte'
-	import Controls from '$lib/Controls.svelte'
-	import IconBtn from '$lib/IconBtn.svelte'
-	import Topbar from '$lib/Topbar.svelte'
-	import VolumeSlider from '$lib/VolumeSlider.svelte'
-	import Youtube from '$lib/Youtube.svelte'
-	import ChangeAnimation from '$lib/effects/ChangeAnimation.svelte'
-	import Crt from '$lib/effects/Crt.svelte'
-	import Darken from '$lib/effects/Darken.svelte'
-	import Vignette from '$lib/effects/Vignette.svelte'
+	import Controls from '$lib/Controls.svelte';
+	import Navbar from '$lib/Navbar.svelte';
+	import RadioList from '$lib/RadioList.svelte';
+	import Crt from '$lib/effects/Crt.svelte';
+	import Darken from '$lib/effects/Darken.svelte';
+	import Vignette from '$lib/effects/Vignette.svelte';
 	import {
-		activeChannel,
-		buffering,
-		lowPowerMode,
-		player,
-		playing,
-		showChannelList,
-		switchingChannel,
-		videoData,
-		volume,
-	} from '$lib/store/store'
-	import { onMount } from 'svelte'
+		activeRadioData,
+		activeRadioID,
+		dailyRadio,
+		playerState,
+		radioListOpen,
+		volume
+	} from '$lib/store.svelte';
+	import { onMount } from 'svelte';
+	import '../app.css';
 
-	let app: HTMLElement
-
-	let animationTimeout: number = 700
-	let animationFinished: boolean = false
+	const ytPlayerId = 'youtube-player';
+	let player: Player;
 
 	onMount(() => {
-		setTimeout(() => {
-			animationFinished = true
-		}, animationTimeout)
-	})
+		player = new YT.Player(ytPlayerId, {
+			height: '360px',
+			width: '640px',
+			videoId: activeRadioID.value != '' ? activeRadioID.value : dailyRadio.value.radios[0],
+			playerVars: { autoplay: 1, rel: 0, controls: 0 },
+			events: {
+				onReady: playerReady,
+				onError: (e) => console.log('Error', e),
+				onStateChange: playerStateChange
+			}
+		}) as Player;
+	});
 
-	$: $activeChannel, onChannelChange()
+	function playerStateChange(e: YT.PlayerEvent) {
+		playerState.value = e.target.getPlayerState();
 
-	function onPlayerReady() {
-		if ($player == null) return
-		$videoData = $player.getVideoData()
-		$player.setVolume($volume)
-	}
-
-	function onChannelChange() {
-		if ($player == null) return
-		$player.loadVideoById($activeChannel.id)
-	}
-
-	function onPlayerStateChange(e: CustomEvent) {
-		if ($player == null) return
-		let state = e.detail
-		if (state == 'UNSTARTED') {
-			$playing = false
-			$buffering = true
-		} else if (state == 'ENDED') {
-			$playing = false
-			$buffering = false
-		} else if (state == 'PLAYING') {
-			$switchingChannel = false
-			$playing = true
-			$buffering = false
-		} else if (state == 'PAUSED') {
-			$playing = false
-			$buffering = false
-		} else if (state == 'BUFFERING') {
-			$playing = false
-			$buffering = true
-		} else if (state == 'VIDEO_CUED') {
-			$playing = false
-			$buffering = true
+		if (playerState.value === YT.PlayerState.PLAYING) {
+			activeRadioData.value = player.getVideoData();
+			activeRadioID.value = activeRadioData.value.video_id;
 		}
-		$videoData = $player.getVideoData()
 	}
 
-	function handlePlayPause() {
-		if ($player != null && !$playing) {
-			$player.playVideo()
-		} else if ($player && $playing) {
-			$player.pauseVideo()
-		}
+	function playerReady(e: YT.PlayerEvent) {
+		player.setVolume(volume.value);
+		activeRadioData.value = player.getVideoData();
 	}
 </script>
 
-<main
-	bind:this={app}
-	class="relative flex overflow-hidden main-wrapper w-svw h-svh"
-	class:low-power={$lowPowerMode}>
+<div class="flex h-svh w-svw flex-col">
+	<div id={ytPlayerId}></div>
+
 	<Darken />
-	{#if !$lowPowerMode}
-		<Crt />
-		<Vignette />
-		<ChangeAnimation />
-	{/if}
+	<Vignette />
+	<Crt />
 
-	<Youtube
-		bind:player={$player}
-		on:stateChangeString={onPlayerStateChange}
-		on:ready={onPlayerReady}>
-	</Youtube>
-
-	{#if $showChannelList}
-		<ChannelList />
-	{/if}
-
-	<div
-		class="absolute top-0 right-0 flex items-center justify-center w-full h-full">
-		<div class="z-50 flex items-center justify-center w-52 h-52 group">
-			<IconBtn
-				icon={$playing ? 'pixelarticons:pause' : 'pixelarticons:play'}
-				on:click={handlePlayPause}
-				class="transition-all duration-300 scale-0 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
-		</div>
+	<div class="z-5 flex size-full flex-col p-8">
+		<Navbar />
+		<main class="flex-1"></main>
+		<Controls {player} />
 	</div>
 
-	{#if !animationFinished}
-		<div class="absolute w-full h-full bg-white z-[60]"></div>
+	{#if radioListOpen.value}
+		<RadioList {player} />
 	{/if}
-
-	<div
-		id="ui-wrapper"
-		class="z-40 flex flex-col justify-between w-full h-full p-6 text-lg lg:text-2xl lg:p-12">
-		<Topbar />
-		<Controls>
-			<VolumeSlider />
-		</Controls>
-	</div>
-</main>
-
-<style>
-	.main-wrapper {
-		animation: crtAnimation 1.2s 0.2s both;
-	}
-
-	@keyframes crtAnimation {
-		0% {
-			transform: scaleY(0) scaleX(0);
-			filter: brightness(15);
-		}
-		20% {
-			transform: scaleY(0.02) scaleX(0.8);
-			filter: brightness(15);
-		}
-	}
-</style>
+</div>

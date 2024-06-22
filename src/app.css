@@ -1,60 +1,85 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.low-power {
-	.icon {
-		filter: none !important;
-	}
+:root {
+	--color-text: #fff;
+	--color-primary: #51ff00;
+	--color-secondary: #8fff83;
+	--filter-glow: drop-shadow(0px 0px 2px var(--color-primary))
+		drop-shadow(0px 0px 8px var(--color-secondary));
+	--filter-glow-hover: drop-shadow(0px 0px 4px var(--color-secondary))
+		drop-shadow(0px 0px 8px var(--color-primary));
 
-	.glow {
-		box-shadow: none !important;
-	}
-
-	.text-glow {
-		filter: none !important;
-	}
+	color: var(--color-text);
+	background-color: #000;
+	font-family: 'VT323', monospace;
+	overflow: hidden;
 }
 
-@layer base {
-	html {
-		font-family: 'VT323', monospace;
-		background-color: black;
-	}
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-	display: none;
-}
-
-/* For IE, Edge and Firefox */
-.scrollbar-hide {
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
-}
-
-.text-glow {
-	color: #fff;
-	filter: drop-shadow(0px 0px 2px #99ff99) drop-shadow(0px 0px 8px green);
+span {
+	@apply text-xl;
+	filter: var(--filter-glow);
 }
 
 .btn {
-	@apply flex items-center justify-center w-8 h-8 select-none;
+	@apply flex items-center justify-center gap-2 p-2;
 }
 
-.btn:hover .icon {
-	filter: drop-shadow(0px 0px 3px #51ff00)
-		drop-shadow(0px 0px 8px rgb(143, 255, 131));
+.btn svg {
+	@apply size-6;
+	filter: var(--filter-glow);
 }
 
-.icon {
-	@apply w-6 h-6;
-	filter: drop-shadow(0px 0px 2px #99ff99) drop-shadow(0px 0px 8px green);
-	transition: filter 0.3s ease; /* Add transition for smooth hover effect */
+.btn:hover svg {
+	cursor: pointer;
+	filter: var(--filter-glow-hover);
 }
 
-.glow {
-	box-shadow: 0px 0px 8px #99ff99;
+#youtube-player {
+	z-index: -1;
+	pointer-events: none;
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	overflow: hidden;
+}
+
+@media (max-aspect-ratio: 16 / 9) {
+	#youtube-player {
+		width: 177.78vh;
+	}
+}
+@media (min-aspect-ratio: 16 / 9) {
+	#youtube-player {
+		height: 56.25vw;
+	}
+}
+
+[data-tooltip] {
+	cursor: pointer;
+	position: relative;
+}
+
+[data-tooltip]::after {
+	@apply text-xl;
+	filter: var(--filter-glow);
+	position: absolute;
+	text-align: center;
+	width: max-content;
+	bottom: 0px;
+	left: 50%;
+	content: attr(data-tooltip);
+	transform: translate(-50%, 110%) scale(0);
+	transform-origin: top;
+	transition: 0.14s;
+}
+
+[data-tooltip]:hover:after {
+	display: block;
+	transform: translate(-50%, 110%) scale(1);
 }
