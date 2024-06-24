@@ -37,7 +37,6 @@ const BACKUP_RADIO = [
 		}
 	}
 ];
-
 const LOFI_CATEGORIES = [
 	'Chillhop',
 	'Jazzhop',
@@ -89,9 +88,11 @@ const LOFI_CATEGORIES = [
 	'LoFi Loops',
 	'LoFi Vocals'
 ];
-
 const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY as string;
 const MAX_RESULTS = 10;
+
+let cashedRadios: Radio[] = [];
+let lastUpdate: number | null = null;
 
 function getCategory() {
 	return LOFI_CATEGORIES[Math.floor(Math.random() * LOFI_CATEGORIES.length)];
@@ -100,16 +101,21 @@ function getCategory() {
 export const GET: RequestHandler = async () => {
 	const URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&q=${getCategory()}&maxResults=${MAX_RESULTS}&key=${API_KEY}`;
 
-	try {
-		const response = await fetch(URL);
-		const data = await response.json();
-		console.log(data);
-
-		const videos: Radio[] = data.items;
-
-		return Response.json(videos);
-	} catch (error) {
-		console.error(error);
-		return Response.json(BACKUP_RADIO);
+	if (lastUpdate === null || lastUpdate + 1000 * 60 * 60 * 12 < Date.now()) {
+		lastUpdate = Date.now();
+		try {
+			const response = await fetch(URL);
+			const data = await response.json();
+			const radios: Radio[] = data.items;
+			cashedRadios = radios;
+			return Response.json(cashedRadios);
+		} catch (error) {
+			cashedRadios = BACKUP_RADIO;
+			console.error('Error fetching radios:', error);
+			console.log('Using backup radios');
+			return Response.json(cashedRadios);
+		}
+	} else {
+		return Response.json(cashedRadios);
 	}
 };
