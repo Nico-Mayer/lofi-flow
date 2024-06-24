@@ -90,7 +90,7 @@ const LOFI_CATEGORIES = [
 	'LoFi Vocals'
 ];
 
-const API_KEY = 'AIzaSyC_RbYtFDv12jK80gWr1RACkotITYssMZo';
+const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY as string;
 const MAX_RESULTS = 10;
 
 function getCategory() {
