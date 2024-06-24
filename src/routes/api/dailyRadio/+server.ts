@@ -1,3 +1,4 @@
+import { PUBLIC_YT_API_KEY } from '$env/static/public';
 import type { RequestHandler } from './$types';
 
 const BACKUP_RADIO = [
@@ -405,8 +406,8 @@ const LOFI_CATEGORIES = [
 	'LoFi Loops',
 	'LoFi Vocals'
 ];
-const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY as string;
-const MAX_RESULTS = 10;
+
+const MAX_RESULTS = 20;
 
 let cashedRadios: Radio[] = [];
 let lastUpdate: number | null = null;
@@ -416,11 +417,13 @@ function getCategory() {
 }
 
 export const GET: RequestHandler = async () => {
-	const URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&q=${getCategory()}&maxResults=${MAX_RESULTS}&key=${API_KEY}`;
+	const CATEGORY = getCategory();
+	const URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&q=${CATEGORY}&maxResults=${MAX_RESULTS}&key=${PUBLIC_YT_API_KEY}`;
 
 	if (lastUpdate === null || lastUpdate + 1000 * 60 * 60 * 12 < Date.now()) {
 		lastUpdate = Date.now();
 		try {
+			console.log('Getting radios from YouTube... Category:', CATEGORY);
 			const response = await fetch(URL);
 			const data = await response.json();
 			const radios: Radio[] = data.items;

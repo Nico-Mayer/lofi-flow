@@ -2,6 +2,7 @@
 	import Controls from '$lib/Controls.svelte';
 	import Navbar from '$lib/Navbar.svelte';
 	import RadioList from '$lib/RadioList.svelte';
+	import ChangeAnimation from '$lib/effects/ChangeAnimation.svelte';
 	import Crt from '$lib/effects/Crt.svelte';
 	import Darken from '$lib/effects/Darken.svelte';
 	import Vignette from '$lib/effects/Vignette.svelte';
@@ -11,6 +12,7 @@
 		playerError,
 		playerState,
 		radioListOpen,
+		radioSwitching,
 		volume
 	} from '$lib/store.svelte';
 	import { onMount } from 'svelte';
@@ -52,6 +54,7 @@
 
 		if (playerState.value === YT.PlayerState.PLAYING) {
 			playerError.value = false;
+			radioSwitching.value = false;
 		}
 	}
 
@@ -66,6 +69,7 @@
 
 <div class="flex h-svh w-svw flex-col">
 	<div id={ytPlayerId}></div>
+	<ChangeAnimation />
 
 	<Darken />
 	<Vignette />

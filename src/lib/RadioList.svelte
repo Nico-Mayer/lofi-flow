@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import RadioListItem from './RadioListItem.svelte';
-	import { activeRadio, dailyRadios, favorites, radioListOpen } from './store.svelte';
+	import {
+		activeRadio,
+		dailyRadios,
+		favorites,
+		radioListOpen,
+		radioSwitching
+	} from './store.svelte';
 
 	type Props = {
 		player: Player;
@@ -22,6 +28,7 @@
 	}
 
 	function onclick(radio: Radio): void {
+		radioSwitching.value = true;
 		activeRadio.value = radio;
 		player.loadVideoById(activeRadio.value.id.videoId);
 		radioListOpen.value = false;

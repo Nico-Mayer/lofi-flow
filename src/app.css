@@ -7,10 +7,16 @@
 	--color-text: #fff;
 	--color-primary: #51ff00;
 	--color-secondary: #8fff83;
+	--color-error: #fe3b3b;
+
 	--filter-glow: drop-shadow(0px 0px 2px var(--color-primary))
 		drop-shadow(0px 0px 8px var(--color-secondary));
-	--filter-glow-hover: drop-shadow(0px 0px 4px var(--color-secondary))
+	--filter-glow-bright: drop-shadow(0px 0px 4px var(--color-secondary))
 		drop-shadow(0px 0px 8px var(--color-primary));
+	--filter-glow-dimmed: drop-shadow(0px 0px 2px var(--color-primary))
+		drop-shadow(0px 0px 4px var(--color-secondary));
+	--filter-glow-red: drop-shadow(0px 0px 2px var(--color-error))
+		drop-shadow(0px 0px 8px var(--color-error));
 
 	color: var(--color-text);
 	background-color: #000;
@@ -29,16 +35,17 @@ span {
 
 .btn svg {
 	@apply size-6;
+	transition: 150ms;
 	filter: var(--filter-glow);
 }
 
 .btn:hover svg {
 	cursor: pointer;
-	filter: var(--filter-glow-hover);
+	filter: var(--filter-glow-bright);
 }
 
 .glow-red {
-	filter: drop-shadow(0px 0px 2px #ff0000) drop-shadow(0px 0px 8px #ff0000);
+	filter: var(--filter-glow-red);
 }
 
 #youtube-player {

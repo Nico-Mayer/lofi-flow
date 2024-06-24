@@ -7,28 +7,51 @@
 	};
 
 	let { radio, onclick }: Props = $props();
-
-	let mouseInside = $state(false);
 </script>
 
 <button
-	class="group relative flex h-full w-full flex-col overflow-hidden p-4"
+	class="radio-list-item"
 	class:active={radio.id.videoId === activeRadio.value.id.videoId}
 	onclick={() => onclick(radio)}
-	onmouseenter={() => (mouseInside = true)}
-	onmouseleave={() => (mouseInside = false)}
 >
 	<img
 		draggable="false"
 		loading="lazy"
 		src={radio.snippet.thumbnails.high.url}
 		alt="channel-thumbnail"
-		class="h-64 w-full object-cover md:h-32"
+		class="thumbnail"
 	/>
 	<span class="title">{radio.snippet.title}</span>
 </button>
 
-<style>
+<style lang="postcss">
+	.radio-list-item {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+		padding: 1rem;
+	}
+
+	.thumbnail {
+		width: 100%;
+		height: 8rem;
+		border: 1px solid transparent;
+		object-fit: cover;
+		transition: 150ms;
+
+		@media (max-width: 768px) {
+			height: 16rem;
+		}
+	}
+
+	.radio-list-item:hover .thumbnail {
+		border: 1px solid var(--color-secondary);
+		filter: var(--filter-glow-dimmed);
+	}
+
 	.title {
 		display: block;
 		width: 100%;
@@ -38,7 +61,7 @@
 		filter: none;
 	}
 
-	.active img {
+	.active .thumbnail {
 		border: 1px solid var(--color-secondary);
 		filter: var(--filter-glow);
 	}

@@ -67,3 +67,5 @@ export const activeRadio = new LocalStorage<Radio | null>('activeRadio', null);
 export const radioListOpen = new Writable(false);
 
 export const playerError = new Writable(false);
+
+export const radioSwitching = new Writable(false);
