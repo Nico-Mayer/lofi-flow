@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { activeRadioData, playerError, playerState, radioListOpen, volume } from './store.svelte';
+	import { activeRadio, playerError, playerState, radioListOpen, volume } from './store.svelte';
 	type Props = {
 		player: YT.Player;
 	};
@@ -160,7 +160,7 @@
 						/></rect
 					></svg
 				>
-				<span>{activeRadioData.value.title ? activeRadioData.value.title : 'loading...'}</span>
+				<span>{activeRadio.value ? activeRadio.value.snippet.title : 'loading...'}</span>
 			{:else}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><rect width="10" height="10" x="1" y="1" fill="currentColor" rx="1"

@@ -1,49 +1,49 @@
 <script lang="ts">
+	import { activeRadio } from './store.svelte';
+
 	type Props = {
-		id: string;
-		onclick: (id: string) => void;
+		radio: Radio;
+		onclick: (radio: Radio) => void;
 	};
 
-	let { id, onclick }: Props = $props();
+	let { radio, onclick }: Props = $props();
 
 	let mouseInside = $state(false);
 </script>
 
 <button
-	class="group relative flex h-full w-full flex-col p-2"
-	onclick={() => onclick(id)}
+	class="group relative flex h-full w-full flex-col overflow-hidden p-4"
+	class:active={radio.id.videoId === activeRadio.value.id.videoId}
+	onclick={() => onclick(radio)}
 	onmouseenter={() => (mouseInside = true)}
 	onmouseleave={() => (mouseInside = false)}
 >
 	<img
 		draggable="false"
-		class="h-full max-h-96 w-full object-cover"
-		src={`http://img.youtube.com/vi/${id}/mqdefault.jpg`}
+		loading="lazy"
+		src={radio.snippet.thumbnails.high.url}
 		alt="channel-thumbnail"
+		class="h-64 w-full object-cover md:h-32"
 	/>
-
-	<span>{id}</span>
+	<span class="title">{radio.snippet.title}</span>
 </button>
 
-<!-- <style>
-	.highlight {
-		animation: glow 3s ease-in-out infinite;
+<style>
+	.title {
+		display: block;
+		width: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		filter: none;
 	}
 
-	.active {
-		border: 1px solid #99ff99;
-		animation: glow 3s ease-in-out infinite;
+	.active img {
+		border: 1px solid var(--color-secondary);
+		filter: var(--filter-glow);
 	}
 
-	@keyframes glow {
-		0% {
-			box-shadow: 0px 0px 10px #99ff99;
-		}
-		50% {
-			box-shadow: 0px 0px 20px #99ff99;
-		}
-		100% {
-			box-shadow: 0px 0px 10px #99ff99;
-		}
+	.active .title {
+		filter: var(--filter-glow);
 	}
-</style> -->
+</style>

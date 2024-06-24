@@ -6,8 +6,7 @@
 	import Darken from '$lib/effects/Darken.svelte';
 	import Vignette from '$lib/effects/Vignette.svelte';
 	import {
-		activeRadioData,
-		activeRadioID,
+		activeRadio,
 		dailyRadios,
 		playerError,
 		playerState,
@@ -31,10 +30,14 @@
 			throw new Error('No radios found');
 		}
 
+		if (activeRadio.value === null) {
+			activeRadio.value = dailyRadios.value[0];
+		}
+
 		player = new YT.Player(ytPlayerId, {
 			height: '360px',
 			width: '640px',
-			videoId: activeRadioID.value != '' ? activeRadioID.value : dailyRadios.value[0].id.videoId,
+			videoId: activeRadio.value.id.videoId,
 			playerVars: { autoplay: 1, rel: 0, controls: 0 },
 			events: {
 				onReady: onPlayerReady,
@@ -48,15 +51,12 @@
 		playerState.value = e.target.getPlayerState();
 
 		if (playerState.value === YT.PlayerState.PLAYING) {
-			activeRadioData.value = player.getVideoData();
-			activeRadioID.value = activeRadioData.value.video_id;
 			playerError.value = false;
 		}
 	}
 
 	function onPlayerReady(e: YT.PlayerEvent) {
 		player.setVolume(volume.value);
-		activeRadioData.value = player.getVideoData();
 	}
 
 	function onPlayerError(e: YT.OnErrorEvent) {

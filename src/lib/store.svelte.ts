@@ -60,20 +60,9 @@ export const volume = new LocalStorage<number>('volume', 50);
 
 export const dailyRadios = new Writable<Radio[] | null>(null);
 
-export const favorites = new LocalStorage<string[]>('favorites', [
-	'wkhLHTmS_GI',
-	'rPjez8z61rI',
-	'J4S8iN7qV1k',
-	'jfKfPfyJRdk',
-	'wkhLHTmS_GI',
-	'rPjez8z61rI',
-	'J4S8iN7qV1k',
-	'jfKfPfyJRdk'
-]);
+export const favorites = new LocalStorage<Radio[]>('favorites', []);
 
-export const activeRadioID = new LocalStorage<string>('activeRadioID', '');
-
-export const activeRadioData = new Writable<VideoData>({} as VideoData);
+export const activeRadio = new LocalStorage<Radio | null>('activeRadio', null);
 
 export const radioListOpen = new Writable(false);
 
