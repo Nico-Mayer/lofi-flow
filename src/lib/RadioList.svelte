@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import RadioListItem from './RadioListItem.svelte';
-	import { dailyRadio, favorites, radioListOpen } from './store.svelte';
+	import { dailyRadios, favorites, radioListOpen } from './store.svelte';
 
 	type Props = {
 		player: Player;
@@ -13,11 +13,12 @@
 	favorites.value.forEach((id) => {
 		radios.add(id);
 	});
-	dailyRadio.value.radios.forEach((id) => {
-		radios.add(id);
-	});
 
-	console.log(dailyRadio.value);
+	if (dailyRadios.value !== null) {
+		dailyRadios.value.forEach((radio) => {
+			radios.add(radio.id.videoId);
+		});
+	}
 
 	function onclick(id: string): void {
 		player.loadVideoById(id);

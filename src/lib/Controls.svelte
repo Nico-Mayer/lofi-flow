@@ -26,7 +26,7 @@
 <main>
 	{#if playerError.value}
 		<section class="px-2">
-			<span class="glow-red">Error loading this radio, redirecting to other radio</span>
+			<span class="glow-red">Radio loading error. Redirecting to a different radio station.</span>
 		</section>
 	{/if}
 

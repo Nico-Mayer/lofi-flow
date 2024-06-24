@@ -54,16 +54,11 @@ class Writable<T> {
 	}
 }
 
-type DailyRadio = {
-	date: string;
-	radios: string[];
-};
-
 export const playerState = new Writable(1);
 
 export const volume = new LocalStorage<number>('volume', 50);
 
-export const dailyRadio = new Writable<DailyRadio | null>(null);
+export const dailyRadios = new Writable<Radio[] | null>(null);
 
 export const favorites = new LocalStorage<string[]>('favorites', [
 	'wkhLHTmS_GI',

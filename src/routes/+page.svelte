@@ -8,7 +8,7 @@
 	import {
 		activeRadioData,
 		activeRadioID,
-		dailyRadio,
+		dailyRadios,
 		playerError,
 		playerState,
 		radioListOpen,
@@ -25,16 +25,16 @@
 			method: 'GET'
 		});
 
-		dailyRadio.value = await response.json();
+		dailyRadios.value = await response.json();
 
-		if (dailyRadio.value == null) {
+		if (dailyRadios.value === null) {
 			throw new Error('No radios found');
 		}
 
 		player = new YT.Player(ytPlayerId, {
 			height: '360px',
 			width: '640px',
-			videoId: activeRadioID.value != '' ? activeRadioID.value : dailyRadio.value.radios[0],
+			videoId: activeRadioID.value != '' ? activeRadioID.value : dailyRadios.value[0].id.videoId,
 			playerVars: { autoplay: 1, rel: 0, controls: 0 },
 			events: {
 				onReady: onPlayerReady,
