@@ -11,7 +11,7 @@
 
 <button
 	class="radio-list-item"
-	class:active={radio.id.videoId === activeRadio.value.id.videoId}
+	class:active={radio.id.videoId === activeRadio.value?.id.videoId}
 	onclick={() => onclick(radio)}
 >
 	<img
