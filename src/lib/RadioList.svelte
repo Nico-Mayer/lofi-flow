@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
 	import RadioListItem from './RadioListItem.svelte';
 	import { activeRadio, dailyRadios, favorites, radioListOpen } from './store.svelte';
 
@@ -19,12 +18,17 @@
 		activeRadio.value = radio;
 		radioListOpen.value = false;
 	}
+
+	function handleKeyDown(e: KeyboardEvent) {
+		if (e.key === 'Escape') {
+			radioListOpen.value = false;
+		}
+	}
 </script>
 
-<main
-	transition:fade={{ duration: 200 }}
-	class="z-5 absolute left-0 top-0 h-full w-full overflow-auto bg-black/70 p-8"
->
+<svelte:window onkeydown={handleKeyDown} />
+
+<main class="z-5 absolute left-0 top-0 h-full w-full overflow-auto bg-black/70 p-8">
 	<div class="channel-grid">
 		{#each radios as radio}
 			<RadioListItem {radio} {onclick} />
@@ -32,7 +36,7 @@
 	</div>
 </main>
 
-<style scoped>
+<style>
 	.channel-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

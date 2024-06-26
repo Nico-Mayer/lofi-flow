@@ -8,6 +8,7 @@
 		radioListOpen,
 		volume
 	} from './store.svelte';
+	import { clamp } from '$lib/utils';
 
 	type Props = {
 		onPlayPause: () => void;
@@ -51,7 +52,41 @@
 		);
 		activeRadio.value = radios[(currentIndex - 1 + radios.length) % radios.length];
 	}
+
+	function changeVolume(step: number) {
+		const newVolume = volume.value + step;
+		volume.value = clamp(newVolume, 0, 100);
+	}
+
+	function handleKeyDown(e: KeyboardEvent) {
+		const KEY = e.key;
+
+		switch (KEY) {
+			case ' ':
+				onPlayPause();
+				break;
+			case 'arrowleft':
+				prevRadio();
+				break;
+			case 'arrowright':
+				nextRadio();
+				break;
+			case 'r':
+				randomRadio();
+				break;
+			case 'arrowup':
+				changeVolume(5);
+				break;
+			case 'arrowdown':
+				changeVolume(-5);
+				break;
+			default:
+				break;
+		}
+	}
 </script>
+
+<svelte:window onkeydown={handleKeyDown} />
 
 <main>
 	{#if playerError.value}
