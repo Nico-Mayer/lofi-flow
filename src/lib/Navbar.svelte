@@ -7,7 +7,13 @@
 			/></svg
 		>
 	</button>
-	<a tabindex="-1" href="https://github.com/nico-mayer" class="btn" data-tooltip="Github">
+	<a
+		tabindex="-1"
+		href="https://github.com/nico-mayer"
+		class="btn"
+		data-tooltip="Github"
+		target="_blank"
+	>
 		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 			><path
 				fill="currentColor"
@@ -21,6 +27,7 @@
 		href="https://buymeacoffee.com/nima94"
 		class="btn"
 		data-tooltip="Buy me a coffee"
+		target="_blank"
 	>
 		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 			><path
