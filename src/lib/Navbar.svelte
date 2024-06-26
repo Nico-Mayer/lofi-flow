@@ -1,5 +1,5 @@
 <main class="flex w-full justify-end">
-	<button class="btn" data-tooltip="Fullscreen">
+	<button tabindex="-1" class="btn" data-tooltip="Fullscreen">
 		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 			><path
 				fill="currentColor"
@@ -7,7 +7,7 @@
 			/></svg
 		>
 	</button>
-	<a href="https://github.com/nico-mayer" class="btn" data-tooltip="Github">
+	<a tabindex="-1" href="https://github.com/nico-mayer" class="btn" data-tooltip="Github">
 		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 			><path
 				fill="currentColor"
@@ -16,7 +16,12 @@
 		>
 	</a>
 
-	<a href="https://buymeacoffee.com/nima94" class="btn" data-tooltip="Buy me a coffee">
+	<a
+		tabindex="-1"
+		href="https://buymeacoffee.com/nima94"
+		class="btn"
+		data-tooltip="Buy me a coffee"
+	>
 		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 			><path
 				fill="currentColor"
@@ -25,7 +30,7 @@
 		>
 	</a>
 
-	<button class="btn" data-tooltip="Info">
+	<button tabindex="-1" class="btn" data-tooltip="Info">
 		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 			><path
 				fill="currentColor"

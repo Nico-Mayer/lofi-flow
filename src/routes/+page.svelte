@@ -112,7 +112,7 @@
 </script>
 
 <div class="flex h-svh w-svw flex-col">
-	<div id={ytPlayerId}></div>
+	<div tabindex="-1" id={ytPlayerId}></div>
 	<ChangeAnimation />
 
 	<Darken />

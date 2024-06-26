@@ -96,7 +96,7 @@
 	{/if}
 
 	<section class="flex items-center">
-		<button class="btn" onclick={onPlayPause}>
+		<button tabindex="-1" class="btn" onclick={onPlayPause}>
 			{#if playerState.value === YT.PlayerState.PLAYING}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
 					<path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
@@ -107,7 +107,7 @@
 				</svg>
 			{/if}
 		</button>
-		<button class="btn" onclick={randomRadio}>
+		<button tabindex="-1" class="btn" onclick={randomRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path
 					fill="currentColor"
@@ -115,24 +115,24 @@
 				/></svg
 			>
 		</button>
-		<button class="btn" onclick={prevRadio}>
+		<button tabindex="-1" class="btn" onclick={prevRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path fill="currentColor" d="M6 4h2v16H6zm12 0h-2v2h-2v3h-2v2h-2v2h2v3h2v2h2v2h2z" /></svg
 			>
 		</button>
-		<button class="btn" onclick={nextRadio}>
+		<button tabindex="-1" class="btn" onclick={nextRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path fill="currentColor" d="M6 4h2v2h2v2h2v2h2v4h-2v2h-2v2H8v2H6zm12 0h-2v16h2z" /></svg
 			>
 		</button>
 
 		<div id="volume-bar">
-			<input type="range" min="0" max="100" bind:value={volume.value} />
+			<input tabindex="-1" type="range" min="0" max="100" bind:value={volume.value} />
 		</div>
 	</section>
 
 	<section>
-		<button class="btn !py-0" onclick={openRadioList}>
+		<button tabindex="-1" class="btn !py-0" onclick={openRadioList}>
 			{#if playerState.value === YT.PlayerState.PLAYING}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><rect width="2.8" height="12" x="1" y="6" fill="currentColor"
