@@ -1,4 +1,4 @@
-import { PUBLIC_YT_API_KEY } from '$env/static/public';
+import { SECRET_YT_API_KEY } from '$env/static/private';
 import type { RequestHandler } from './$types';
 
 const BACKUP_RADIO = [
@@ -418,7 +418,7 @@ function getCategory() {
 
 export const GET: RequestHandler = async () => {
 	const CATEGORY = getCategory();
-	const URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&q=${CATEGORY}&maxResults=${MAX_RESULTS}&key=${PUBLIC_YT_API_KEY}`;
+	const URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&q=${CATEGORY}&maxResults=${MAX_RESULTS}&key=${SECRET_YT_API_KEY}`;
 
 	if (lastUpdate === null || lastUpdate + 1000 * 60 * 60 * 12 < Date.now()) {
 		lastUpdate = Date.now();
