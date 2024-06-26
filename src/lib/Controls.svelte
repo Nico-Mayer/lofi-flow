@@ -59,7 +59,7 @@
 	}
 
 	function handleKeyDown(e: KeyboardEvent) {
-		const KEY = e.key;
+		const KEY = e.key.toLowerCase();
 
 		switch (KEY) {
 			case ' ':

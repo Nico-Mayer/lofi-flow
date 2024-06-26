@@ -92,15 +92,12 @@
 
 		const failedRadio = activeRadio.value;
 		const radios = [...(favorites.value ?? []), ...(dailyRadios.value ?? [])];
-		const randomIndex = Math.floor(Math.random() * radios.length);
-		const randomRadio = radios[randomIndex];
+		const failedRadioIndex = radios.findIndex((radio) => radio === failedRadio);
 
-		if (failedRadio === randomRadio) {
-			activeRadio.value = radios[randomIndex + 1] || radios[0];
-			return;
+		if (failedRadioIndex === radios.length - 1) {
+			activeRadio.value = radios[0];
 		}
-
-		activeRadio.value = radios[randomIndex];
+		activeRadio.value = radios[failedRadioIndex + 1];
 	}
 
 	function onPlayPause() {
