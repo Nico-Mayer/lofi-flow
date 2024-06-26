@@ -407,7 +407,7 @@ const LOFI_CATEGORIES = [
 	'LoFi Vocals'
 ];
 
-const MAX_RESULTS = 20;
+const MAX_RESULTS = 25;
 
 let cashedRadios: Radio[] = [];
 let lastUpdate: number | null = null;

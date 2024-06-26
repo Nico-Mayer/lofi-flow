@@ -5,7 +5,7 @@
 	let whiteNoiseEffect: HTMLAudioElement;
 
 	onMount(() => {
-		whiteNoiseEffect.volume = 0.05;
+		whiteNoiseEffect.volume = 0.02;
 	});
 
 	$effect(() => {

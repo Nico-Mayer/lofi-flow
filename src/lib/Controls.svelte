@@ -1,25 +1,55 @@
 <script lang="ts">
-	import { activeRadio, playerError, playerState, radioListOpen, volume } from './store.svelte';
+	import {
+		activeRadio,
+		dailyRadios,
+		favorites,
+		playerError,
+		playerState,
+		radioListOpen,
+		volume
+	} from './store.svelte';
+
 	type Props = {
-		player: YT.Player;
+		onPlayPause: () => void;
 	};
 
-	let { player }: Props = $props();
-
-	function handleVolumeChange() {
-		player.setVolume(volume.value);
-	}
-
-	function playPause() {
-		if (player.getPlayerState() == YT.PlayerState.PLAYING) {
-			player.pauseVideo();
-		} else {
-			player.playVideo();
-		}
-	}
+	let { onPlayPause }: Props = $props();
 
 	function openRadioList() {
 		radioListOpen.value = true;
+	}
+
+	function getAllRadios() {
+		return [...(favorites.value ?? []), ...(dailyRadios.value ?? [])];
+	}
+
+	function randomRadio() {
+		const radios = getAllRadios();
+		const randomIndex = Math.floor(Math.random() * radios.length);
+		const currentRadio = activeRadio.value;
+
+		if (currentRadio === radios[randomIndex]) {
+			activeRadio.value = radios[(randomIndex + 1) % radios.length];
+			return;
+		}
+
+		activeRadio.value = radios[randomIndex];
+	}
+
+	function nextRadio() {
+		const radios = getAllRadios();
+		const currentIndex = radios.findIndex(
+			(radio) => radio.id.videoId === activeRadio.value?.id.videoId
+		);
+		activeRadio.value = radios[(currentIndex + 1) % radios.length];
+	}
+
+	function prevRadio() {
+		const radios = getAllRadios();
+		const currentIndex = radios.findIndex(
+			(radio) => radio.id.videoId === activeRadio.value?.id.videoId
+		);
+		activeRadio.value = radios[(currentIndex - 1 + radios.length) % radios.length];
 	}
 </script>
 
@@ -31,7 +61,7 @@
 	{/if}
 
 	<section class="flex items-center">
-		<button class="btn" onclick={playPause}>
+		<button class="btn" onclick={onPlayPause}>
 			{#if playerState.value === YT.PlayerState.PLAYING}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
 					<path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
@@ -42,7 +72,7 @@
 				</svg>
 			{/if}
 		</button>
-		<button class="btn">
+		<button class="btn" onclick={randomRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path
 					fill="currentColor"
@@ -50,25 +80,19 @@
 				/></svg
 			>
 		</button>
-		<button class="btn">
+		<button class="btn" onclick={prevRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path fill="currentColor" d="M6 4h2v16H6zm12 0h-2v2h-2v3h-2v2h-2v2h2v3h2v2h2v2h2z" /></svg
 			>
 		</button>
-		<button class="btn">
+		<button class="btn" onclick={nextRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path fill="currentColor" d="M6 4h2v2h2v2h2v2h2v4h-2v2h-2v2H8v2H6zm12 0h-2v16h2z" /></svg
 			>
 		</button>
 
 		<div id="volume-bar">
-			<input
-				type="range"
-				min="0"
-				max="100"
-				bind:value={volume.value}
-				onchange={handleVolumeChange}
-			/>
+			<input type="range" min="0" max="100" bind:value={volume.value} />
 		</div>
 	</section>
 

@@ -9,17 +9,40 @@
 	import {
 		activeRadio,
 		dailyRadios,
+		favorites,
 		playerError,
 		playerState,
 		radioListOpen,
 		radioSwitching,
 		volume
 	} from '$lib/store.svelte';
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import '../app.css';
 
 	const ytPlayerId = 'youtube-player';
-	let player: Player;
+
+	let player: Player | null = $state(null);
+
+	$effect(() => {
+		activeRadio.value;
+
+		untrack(() => {
+			if (player && activeRadio.value && !radioSwitching.value) {
+				player.loadVideoById(activeRadio.value.id.videoId);
+				radioSwitching.value = true;
+			}
+		});
+	});
+
+	$effect(() => {
+		volume.value;
+
+		untrack(() => {
+			if (player) {
+				player.setVolume(volume.value);
+			}
+		});
+	});
 
 	onMount(async () => {
 		const response = await fetch('/api/dailyRadio', {
@@ -59,11 +82,35 @@
 	}
 
 	function onPlayerReady(e: YT.PlayerEvent) {
+		if (player === null) return;
 		player.setVolume(volume.value);
 	}
 
 	function onPlayerError(e: YT.OnErrorEvent) {
 		playerError.value = true;
+		radioSwitching.value = false;
+
+		const failedRadio = activeRadio.value;
+		const radios = [...(favorites.value ?? []), ...(dailyRadios.value ?? [])];
+		const randomIndex = Math.floor(Math.random() * radios.length);
+		const randomRadio = radios[randomIndex];
+
+		if (failedRadio === randomRadio) {
+			activeRadio.value = radios[randomIndex + 1] || radios[0];
+			return;
+		}
+
+		activeRadio.value = radios[randomIndex];
+	}
+
+	function onPlayPause() {
+		if (player === null) return;
+
+		if (playerState.value === YT.PlayerState.PLAYING) {
+			player.pauseVideo();
+		} else {
+			player.playVideo();
+		}
 	}
 </script>
 
@@ -78,10 +125,10 @@
 	<div class="z-5 flex size-full flex-col p-8">
 		<Navbar />
 		<main class="flex-1"></main>
-		<Controls {player} />
+		<Controls {onPlayPause} />
 	</div>
 
 	{#if radioListOpen.value}
-		<RadioList {player} />
+		<RadioList />
 	{/if}
 </div>
