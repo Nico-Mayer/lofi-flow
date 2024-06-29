@@ -24,24 +24,24 @@
 	let player: Player | null = $state(null);
 
 	$effect(() => {
-		activeRadio.value;
-
-		untrack(() => {
-			if (player && activeRadio.value && !radioSwitching.value) {
-				player.loadVideoById(activeRadio.value.id.videoId);
-				radioSwitching.value = true;
-			}
-		});
+		if (activeRadio.value !== null) {
+			untrack(() => {
+				if (player && activeRadio.value && !radioSwitching.value) {
+					player.loadVideoById(activeRadio.value.id.videoId);
+					radioSwitching.value = true;
+				}
+			});
+		}
 	});
 
 	$effect(() => {
-		volume.value;
-
-		untrack(() => {
-			if (player) {
-				player.setVolume(volume.value);
-			}
-		});
+		if (volume.value !== null) {
+			untrack(() => {
+				if (player) {
+					player.setVolume(volume.value);
+				}
+			});
+		}
 	});
 
 	onMount(async () => {
@@ -81,12 +81,12 @@
 		}
 	}
 
-	function onPlayerReady(e: YT.PlayerEvent) {
+	function onPlayerReady() {
 		if (player === null) return;
 		player.setVolume(volume.value);
 	}
 
-	function onPlayerError(e: YT.OnErrorEvent) {
+	function onPlayerError() {
 		playerError.value = true;
 		radioSwitching.value = false;
 
