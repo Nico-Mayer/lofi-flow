@@ -72,7 +72,7 @@
 		}) as Player;
 	});
 
-	function onPlayerStateChange(e: YT.PlayerEvent) {
+	function onPlayerStateChange(e: YT.PlayerEvent): void {
 		playerState.value = e.target.getPlayerState();
 
 		if (playerState.value === YT.PlayerState.PLAYING) {
@@ -81,12 +81,12 @@
 		}
 	}
 
-	function onPlayerReady() {
+	function onPlayerReady(): void {
 		if (player === null) return;
 		player.setVolume(volume.value);
 	}
 
-	function onPlayerError() {
+	function onPlayerError(): void {
 		playerError.value = true;
 		radioSwitching.value = false;
 
@@ -100,7 +100,7 @@
 		activeRadio.value = radios[failedRadioIndex + 1];
 	}
 
-	function onPlayPause() {
+	function onPlayPause(): void {
 		if (player === null) return;
 
 		if (playerState.value === YT.PlayerState.PLAYING) {

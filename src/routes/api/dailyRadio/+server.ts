@@ -412,7 +412,7 @@ const MAX_RESULTS = 25;
 let cashedRadios: Radio[] = [];
 let lastUpdate: number | null = null;
 
-function getCategory() {
+function getCategory(): string {
 	return LOFI_CATEGORIES[Math.floor(Math.random() * LOFI_CATEGORIES.length)];
 }
 

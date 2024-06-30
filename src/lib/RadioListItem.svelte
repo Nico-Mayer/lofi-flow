@@ -12,7 +12,7 @@
 <button
 	class="radio-list-item"
 	class:active={radio.id.videoId === activeRadio.value?.id.videoId}
-	onclick={() => onclick(radio)}
+	onclick={(): void => onclick(radio)}
 >
 	<img
 		draggable="false"

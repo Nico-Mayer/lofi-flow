@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { clamp } from '$lib/utils';
 	import {
 		activeRadio,
 		dailyRadios,
@@ -8,7 +9,6 @@
 		radioListOpen,
 		volume
 	} from './store.svelte';
-	import { clamp } from '$lib/utils';
 
 	type Props = {
 		onPlayPause: () => void;
@@ -16,15 +16,15 @@
 
 	let { onPlayPause }: Props = $props();
 
-	function openRadioList() {
+	function openRadioList(): void {
 		radioListOpen.value = true;
 	}
 
-	function getAllRadios() {
+	function getAllRadios(): Radio[] {
 		return [...(favorites.value ?? []), ...(dailyRadios.value ?? [])];
 	}
 
-	function randomRadio() {
+	function randomRadio(): void {
 		const radios = getAllRadios();
 		const randomIndex = Math.floor(Math.random() * radios.length);
 		const currentRadio = activeRadio.value;
@@ -37,7 +37,7 @@
 		activeRadio.value = radios[randomIndex];
 	}
 
-	function nextRadio() {
+	function nextRadio(): void {
 		const radios = getAllRadios();
 		const currentIndex = radios.findIndex(
 			(radio) => radio.id.videoId === activeRadio.value?.id.videoId
@@ -45,7 +45,7 @@
 		activeRadio.value = radios[(currentIndex + 1) % radios.length];
 	}
 
-	function prevRadio() {
+	function prevRadio(): void {
 		const radios = getAllRadios();
 		const currentIndex = radios.findIndex(
 			(radio) => radio.id.videoId === activeRadio.value?.id.videoId
@@ -53,12 +53,12 @@
 		activeRadio.value = radios[(currentIndex - 1 + radios.length) % radios.length];
 	}
 
-	function changeVolume(step: number) {
+	function changeVolume(step: number): void {
 		const newVolume = volume.value + step;
 		volume.value = clamp(newVolume, 0, 100);
 	}
 
-	function handleKeyDown(e: KeyboardEvent) {
+	function handleKeyDown(e: KeyboardEvent): void {
 		const KEY = e.key.toLowerCase();
 
 		switch (KEY) {

@@ -19,7 +19,7 @@
 		radioListOpen.value = false;
 	}
 
-	function handleKeyDown(e: KeyboardEvent) {
+	function handleKeyDown(e: KeyboardEvent): void {
 		if (e.key === 'Escape') {
 			radioListOpen.value = false;
 		}
