@@ -21,7 +21,7 @@
 		const max = 6;
 		const random = Math.floor(Math.random() * max) + 1;
 
-		return `/gifs/change${random}.gif`;
+		return `/webps/change${random}.webp`;
 	}
 </script>
 
