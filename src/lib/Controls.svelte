@@ -131,7 +131,7 @@
 		</div>
 	</section>
 
-	<section>
+	<section class="mt-2">
 		<button tabindex="-1" class="btn !py-0" onclick={openRadioList}>
 			{#if playerState.value === YT.PlayerState.PLAYING}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
@@ -219,7 +219,9 @@
 						/></rect
 					></svg
 				>
-				<span>{activeRadio.value ? activeRadio.value.snippet.title : 'loading...'}</span>
+				<span class="max-w-72 truncate whitespace-nowrap md:max-w-none"
+					>{activeRadio.value ? activeRadio.value.snippet.title : 'loading...'}</span
+				>
 			{:else}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><rect width="10" height="10" x="1" y="1" fill="currentColor" rx="1"

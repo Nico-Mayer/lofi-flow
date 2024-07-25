@@ -28,7 +28,7 @@
 
 <svelte:window onkeydown={handleKeyDown} />
 
-<main class="z-5 absolute left-0 top-0 h-full w-full overflow-auto bg-black/70 p-8">
+<main class="z-5 absolute left-0 top-0 h-full w-full overflow-auto bg-black/70 p-4 md:p-8">
 	<div class="channel-grid">
 		{#each radios as radio}
 			<RadioListItem {radio} {onclick} />

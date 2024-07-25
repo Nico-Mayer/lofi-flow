@@ -21,7 +21,13 @@
 	color: var(--color-text);
 	background-color: #000;
 	font-family: 'VT323', monospace;
+}
+
+body {
+	position: fixed;
 	overflow: hidden;
+	height: 100svh;
+	width: 100svw;
 }
 
 span {

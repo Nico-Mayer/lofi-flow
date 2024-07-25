@@ -111,7 +111,7 @@
 	}
 </script>
 
-<div class="flex h-svh w-svw flex-col">
+``<div class="flex h-full flex-col">
 	<div tabindex="-1" id={ytPlayerId}></div>
 	<ChangeAnimation />
 
@@ -119,9 +119,27 @@
 	<Vignette />
 	<Crt />
 
-	<div class="z-5 flex size-full flex-col p-8">
+	<div class="z-5 flex size-full flex-col p-4 md:p-8">
 		<Navbar />
-		<main class="flex-1"></main>
+		<main class="flex flex-1 items-center justify-center">
+			<div class="group hidden h-64 w-64 items-center justify-center md:flex">
+				<button
+					tabindex="-1"
+					class="btn scale-0 transition-all duration-300 group-hover:scale-100"
+					onclick={onPlayPause}
+				>
+					{#if playerState.value === YT.PlayerState.PLAYING}
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+							<path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+						</svg>
+					{:else}
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+							<path fill="currentColor" d="M8 5v14l11-7z" />
+						</svg>
+					{/if}
+				</button>
+			</div>
+		</main>
 		<Controls {onPlayPause} />
 	</div>
 
