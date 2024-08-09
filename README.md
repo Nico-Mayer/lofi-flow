@@ -46,3 +46,11 @@ Inspiration for CRT effect:
 
 [svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
 [tailwind]: https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+
+## Todo's
+
+- [ ] add fullscreen support
+- [ ] improve chanel list ui (add video, closing behavior)
+- [ ] invest in initial load bug
+- [x] invest in redirect bug
+- [ ] improve local storage parsing error handling

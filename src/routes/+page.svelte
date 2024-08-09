@@ -96,6 +96,7 @@
 
 		if (failedRadioIndex === radios.length - 1) {
 			activeRadio.value = radios[0];
+			return;
 		}
 		activeRadio.value = radios[failedRadioIndex + 1];
 	}
@@ -111,7 +112,8 @@
 	}
 </script>
 
-``<div class="flex h-full flex-col">
+``
+<div class="flex h-full flex-col">
 	<div tabindex="-1" id={ytPlayerId}></div>
 	<ChangeAnimation />
 

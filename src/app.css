@@ -53,6 +53,9 @@ span {
 .glow-red {
 	filter: var(--filter-glow-red);
 }
+.glow-green {
+	filter: var(--filter-glow);
+}
 
 #youtube-player {
 	z-index: -1;

@@ -126,8 +126,27 @@
 			>
 		</button>
 
-		<div id="volume-bar">
-			<input tabindex="-1" type="range" min="0" max="100" bind:value={volume.value} />
+		<div id="volume-bar" class="relative h-10 w-24">
+			<div
+				class="pointer-events-none absolute bottom-0 left-0 right-0 top-0 flex items-center gap-1 px-2"
+			>
+				<!-- eslint-disable -->
+				{#each Array(10) as _, i}
+					<div
+						class="glow-green h-4 w-[6px] bg-white opacity-30"
+						class:filled={volume.value > i * 10}
+					></div>
+				{/each}
+			</div>
+			<input
+				tabindex="-1"
+				type="range"
+				step="10"
+				min="0"
+				max="100"
+				class="absolute bottom-0 left-0 right-0 top-0 opacity-0"
+				bind:value={volume.value}
+			/>
 		</div>
 	</section>
 
@@ -321,3 +340,9 @@
 		</button>
 	</section>
 </main>
+
+<style>
+	.filled {
+		opacity: 1;
+	}
+</style>
