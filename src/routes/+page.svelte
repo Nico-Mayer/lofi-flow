@@ -112,7 +112,6 @@
 	}
 </script>
 
-``
 <div class="flex h-full flex-col">
 	<div tabindex="-1" id={ytPlayerId}></div>
 	<ChangeAnimation />
