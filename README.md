@@ -49,10 +49,13 @@ Inspiration for CRT effect:
 
 ## Todo's
 
-- [ ] add fullscreen support
+- [x] add fullscreen support
 - [ ] improve chanel list ui (add video, closing behavior)
 - [ ] invest in initial load bug
 - [x] invest in redirect bug
-- [ ] improve local storage parsing error handling
-- [ ] impl low power mode
-- [ ] add vercel analytics
+- [x] improve local storage parsing error handling
+- [x] impl low power mode
+- [x] add vercel analytics
+- [ ] add favorite radios system
+- [ ] add pomodoro timer
+- [ ] add about section

@@ -1,5 +1,15 @@
+<script lang="ts">
+	function toggleFullscreen() {
+		if (document.fullscreenElement === null) {
+			document.documentElement.requestFullscreen();
+		} else {
+			document.exitFullscreen();
+		}
+	}
+</script>
+
 <main class="flex w-full justify-end">
-	<button tabindex="-1" class="btn" data-tooltip="Fullscreen">
+	<button tabindex="-1" class="btn" data-tooltip="Fullscreen" onclick={() => toggleFullscreen()}>
 		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 			><path
 				fill="currentColor"

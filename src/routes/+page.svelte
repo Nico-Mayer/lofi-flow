@@ -14,6 +14,7 @@
 		playerState,
 		radioListOpen,
 		radioSwitching,
+		lowPowerMode,
 		volume
 	} from '$lib/store.svelte';
 	import { onMount, untrack } from 'svelte';
@@ -113,15 +114,29 @@
 			player.playVideo();
 		}
 	}
+
+	function handleKeyDown(e: KeyboardEvent): void {
+		const KEY = e.key.toLowerCase();
+
+		if (KEY === 'l') {
+			lowPowerMode.value = !lowPowerMode.value;
+		}
+	}
+
+	$inspect(lowPowerMode.value);
 </script>
+
+<svelte:window onkeydown={handleKeyDown} />
 
 <div class="flex h-full flex-col">
 	<div tabindex="-1" id={ytPlayerId}></div>
 	<ChangeAnimation />
 
-	<Darken />
-	<Vignette />
-	<Crt />
+	{#if lowPowerMode.value === false}
+		<Darken />
+		<Vignette />
+		<Crt />
+	{/if}
 
 	<div class="z-5 flex size-full flex-col p-4 md:p-8">
 		<Navbar />

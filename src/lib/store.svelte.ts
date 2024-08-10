@@ -9,11 +9,14 @@ class LocalStorage<T> {
 		this.#value = value;
 
 		if (browser) {
-			const item = localStorage.getItem(key);
-			if (item) {
-				this.#value = this.deserialize(item);
+			const storedItem = this.getStoredValue(key);
+			if (storedItem) {
+				this.#value = storedItem;
 			} else {
-				localStorage.setItem(key, this.serialize(this.#value));
+				const newValue = this.serialize(this.#value);
+				if (newValue !== null) {
+					localStorage.setItem(key, newValue);
+				}
 			}
 		}
 	}
@@ -25,16 +28,40 @@ class LocalStorage<T> {
 	set value(newValue: T) {
 		this.#value = newValue;
 		if (browser) {
-			localStorage.setItem(this.key, this.serialize(this.#value));
+			const serializedNewValue = this.serialize(this.#value);
+
+			if (serializedNewValue !== null) {
+				localStorage.setItem(this.key, serializedNewValue);
+			}
 		}
 	}
 
-	serialize(value: T): string {
-		return JSON.stringify(value);
+	private serialize(value: T): string | null {
+		try {
+			return JSON.stringify(value);
+		} catch (e: unknown) {
+			console.error(`error serializing data into local storage (${this.key}): `, e);
+			return null;
+		}
 	}
 
-	deserialize(value: string) {
-		return JSON.parse(value);
+	private deserialize(value: string): T | null {
+		try {
+			return JSON.parse(value);
+		} catch (e: unknown) {
+			console.error(`error deserializing value from local storage (${this.key}):`, e);
+			localStorage.removeItem(this.key);
+			return null;
+		}
+	}
+
+	private getStoredValue(key: string): T | null {
+		const item = localStorage.getItem(key);
+
+		if (item) {
+			return this.deserialize(item);
+		}
+		return null;
 	}
 }
 
@@ -69,3 +96,5 @@ export const radioListOpen = new Writable(false);
 export const playerError = new Writable(false);
 
 export const radioSwitching = new Writable(false);
+
+export const lowPowerMode = new LocalStorage<boolean | null>('lowPowerMode', false);

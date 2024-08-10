@@ -32,8 +32,7 @@ export default [
 	},
 	{
 		rules: {
-			'no-undef': 'off',
-			'@typescript-eslint/explicit-function-return-type': 'error'
+			'no-undef': 'off'
 		}
 	}
 ];
