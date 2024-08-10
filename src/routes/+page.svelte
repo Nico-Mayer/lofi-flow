@@ -44,6 +44,8 @@
 		}
 	});
 
+	$inspect(playerState.value);
+
 	onMount(async () => {
 		const response = await fetch('/api/dailyRadio', {
 			method: 'GET'
@@ -83,6 +85,7 @@
 
 	function onPlayerReady(): void {
 		if (player === null) return;
+		player.pauseVideo();
 		player.setVolume(volume.value);
 	}
 

@@ -54,3 +54,5 @@ Inspiration for CRT effect:
 - [ ] invest in initial load bug
 - [x] invest in redirect bug
 - [ ] improve local storage parsing error handling
+- [ ] impl low power mode
+- [ ] add vercel analytics
