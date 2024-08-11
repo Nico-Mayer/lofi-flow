@@ -51,7 +51,6 @@ Inspiration for CRT effect:
 
 - [x] add fullscreen support
 - [ ] improve chanel list ui (add video, closing behavior)
-- [ ] invest in initial load bug
 - [x] invest in redirect bug
 - [x] improve local storage parsing error handling
 - [x] impl low power mode
@@ -59,3 +58,4 @@ Inspiration for CRT effect:
 - [ ] add favorite radios system
 - [ ] add pomodoro timer
 - [ ] add about section
+- [x] finer volume step

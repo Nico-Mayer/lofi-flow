@@ -60,7 +60,9 @@
 
 	function handleKeyDown(e: KeyboardEvent): void {
 		const KEY = e.key.toLowerCase();
+		const MODIFIER = e.getModifierState('Control');
 
+		console.log(MODIFIER);
 		switch (KEY) {
 			case ' ':
 				onPlayPause();
@@ -74,12 +76,23 @@
 			case 'r':
 				randomRadio();
 				break;
-			case 'arrowup':
-				changeVolume(5);
+			case 'arrowup': {
+				let step = 5;
+				if (MODIFIER) {
+					step = 2;
+				}
+				changeVolume(step);
 				break;
-			case 'arrowdown':
-				changeVolume(-5);
+			}
+			case 'arrowdown': {
+				let step = -5;
+				if (MODIFIER) {
+					step = -2;
+				}
+				changeVolume(step);
 				break;
+			}
+
 			default:
 				break;
 		}
