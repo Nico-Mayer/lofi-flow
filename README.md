@@ -59,3 +59,4 @@ Inspiration for CRT effect:
 - [ ] add pomodoro timer
 - [ ] add about section
 - [x] finer volume step
+- [ ] add listener count?
