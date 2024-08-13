@@ -10,11 +10,11 @@
 		activeRadio,
 		dailyRadios,
 		favorites,
+		lowPowerMode,
 		playerError,
 		playerState,
 		radioListOpen,
 		radioSwitching,
-		lowPowerMode,
 		volume
 	} from '$lib/store.svelte';
 	import { onMount, untrack } from 'svelte';
@@ -44,8 +44,6 @@
 			});
 		}
 	});
-
-	$inspect(playerState.value);
 
 	onMount(async () => {
 		const response = await fetch('/api/dailyRadio', {
@@ -122,8 +120,6 @@
 			lowPowerMode.value = !lowPowerMode.value;
 		}
 	}
-
-	$inspect(lowPowerMode.value);
 </script>
 
 <svelte:window onkeydown={handleKeyDown} />

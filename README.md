@@ -49,14 +49,15 @@ Inspiration for CRT effect:
 
 ## Todo's
 
-- [x] add fullscreen support
+- [ ] add favorite radios system
 - [ ] improve chanel list ui (add video, closing behavior)
+- [ ] add pomodoro timer
+- [ ] add about section
+- [ ] add listener count?
+- [ ] invest in auto play / if it is even possible to make consistent
+- [x] add fullscreen support
 - [x] invest in redirect bug
 - [x] improve local storage parsing error handling
 - [x] impl low power mode
 - [x] add vercel analytics
-- [ ] add favorite radios system
-- [ ] add pomodoro timer
-- [ ] add about section
 - [x] finer volume step
-- [ ] add listener count?

@@ -16,7 +16,8 @@
 
 	let { onPlayPause }: Props = $props();
 
-	function openRadioList(): void {
+	function openRadioList(e: Event): void {
+		e.stopPropagation();
 		radioListOpen.value = true;
 	}
 

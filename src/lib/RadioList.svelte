@@ -1,6 +1,7 @@
 <script lang="ts">
 	import RadioListItem from './RadioListItem.svelte';
 	import { activeRadio, dailyRadios, favorites, radioListOpen } from './store.svelte';
+	import { clickOutside } from './utils';
 
 	let radios = $state(new Set<Radio>());
 
@@ -29,7 +30,13 @@
 <svelte:window onkeydown={handleKeyDown} />
 
 <main class="z-5 absolute left-0 top-0 h-full w-full overflow-auto bg-black/70 p-4 md:p-8">
-	<div class="channel-grid">
+	<div
+		class="channel-grid"
+		use:clickOutside={() => {
+			console.log('click outside ');
+			radioListOpen.value = false;
+		}}
+	>
 		{#each radios as radio}
 			<RadioListItem {radio} {onclick} />
 		{/each}

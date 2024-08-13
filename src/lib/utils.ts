@@ -7,3 +7,22 @@ export function clamp(value: number, minValue: number, maxValue: number): number
 		return value;
 	}
 }
+
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+export function clickOutside(node: HTMLElement, cb: Function) {
+	function onClick(event: MouseEvent) {
+		if (!node.contains(event.target as Node)) {
+			cb();
+		}
+	}
+
+	document.addEventListener('click', onClick);
+	return {
+		update(newCb: Function) {
+			cb = newCb;
+		},
+		destroy() {
+			document.removeEventListener('click', onClick);
+		}
+	};
+}
