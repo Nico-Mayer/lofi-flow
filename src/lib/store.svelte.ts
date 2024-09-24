@@ -81,7 +81,11 @@ class Writable<T> {
 	}
 }
 
+type SkipDirection = 'next' | 'prev' | null;
+
 export const playerState = new Writable(1);
+
+export const lastSkipDirection = new Writable<SkipDirection>(null);
 
 export const volume = new LocalStorage<number>('volume', 50);
 

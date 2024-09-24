@@ -49,7 +49,8 @@ Inspiration for CRT effect:
 
 ## Todo's
 
-- [ ] add favorite radios system
+- [ ] make the player a proper Singelton and move some state inside the player class
+- [ ] add favorite/personal radios system
 - [ ] improve chanel list ui (add video, closing behavior)
 - [ ] add pomodoro timer
 - [ ] add about section

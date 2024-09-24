@@ -4,6 +4,7 @@
 		activeRadio,
 		dailyRadios,
 		favorites,
+		lastSkipDirection,
 		playerError,
 		playerState,
 		radioListOpen,
@@ -32,6 +33,7 @@
 	}
 
 	function randomRadio(): void {
+		lastSkipDirection.value = null;
 		const radios = getAllRadios();
 		const randomIndex = Math.floor(Math.random() * radios.length);
 		const currentRadio = activeRadio.value;
@@ -45,6 +47,7 @@
 	}
 
 	function nextRadio(): void {
+		lastSkipDirection.value = 'next';
 		const radios = getAllRadios();
 		const currentIndex = radios.findIndex(
 			(radio) => radio.id.videoId === activeRadio.value?.id.videoId
@@ -53,6 +56,7 @@
 	}
 
 	function prevRadio(): void {
+		lastSkipDirection.value = 'prev';
 		const radios = getAllRadios();
 		const currentIndex = radios.findIndex(
 			(radio) => radio.id.videoId === activeRadio.value?.id.videoId

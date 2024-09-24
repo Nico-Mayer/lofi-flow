@@ -10,6 +10,7 @@
 		activeRadio,
 		dailyRadios,
 		favorites,
+		lastSkipDirection,
 		lowPowerMode,
 		playerError,
 		playerState,
@@ -96,11 +97,24 @@
 		const radios = [...(favorites.value ?? []), ...(dailyRadios.value ?? [])];
 		const failedRadioIndex = radios.findIndex((radio) => radio === failedRadio);
 
-		if (failedRadioIndex === radios.length - 1) {
-			activeRadio.value = radios[0];
-			return;
+		switch (lastSkipDirection.value) {
+			case 'next': {
+				if (failedRadioIndex === radios.length - 1) {
+					activeRadio.value = radios[0];
+					return;
+				}
+				activeRadio.value = radios[failedRadioIndex + 1];
+				break;
+			}
+			case 'prev': {
+				if (failedRadioIndex === 0) {
+					activeRadio.value = radios[radios.length - 1];
+					return;
+				}
+				activeRadio.value = radios[failedRadioIndex - 1];
+				break;
+			}
 		}
-		activeRadio.value = radios[failedRadioIndex + 1];
 	}
 
 	function onPlayPause(): void {
