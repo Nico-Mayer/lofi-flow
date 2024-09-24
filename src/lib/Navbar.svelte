@@ -9,7 +9,12 @@
 </script>
 
 <main class="flex w-full justify-end">
-	<button tabindex="-1" class="btn" data-tooltip="Fullscreen" onclick={() => toggleFullscreen()}>
+	<button
+		aria-label="fullscreen"
+		class="btn"
+		data-tooltip="Fullscreen"
+		onclick={() => toggleFullscreen()}
+	>
 		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 			><path
 				fill="currentColor"
@@ -18,7 +23,7 @@
 		>
 	</button>
 	<a
-		tabindex="-1"
+		aria-label="github"
 		href="https://github.com/nico-mayer"
 		class="btn"
 		data-tooltip="Github"
@@ -33,7 +38,7 @@
 	</a>
 
 	<a
-		tabindex="-1"
+		aria-label="Buy me a coffee"
 		href="https://buymeacoffee.com/nima94"
 		class="btn"
 		data-tooltip="Buy me a coffee"
@@ -47,7 +52,7 @@
 		>
 	</a>
 
-	<button tabindex="-1" class="btn" data-tooltip="Info">
+	<button aria-label="info" class="btn" data-tooltip="Info">
 		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 			><path
 				fill="currentColor"

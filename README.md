@@ -49,7 +49,7 @@ Inspiration for CRT effect:
 
 ## Todo's
 
-- [ ] make the player a proper Singelton and move some state inside the player class
+- [ ] make a custom playing animated svg that can display paused / playing / buffering state
 - [ ] add favorite/personal radios system
 - [ ] improve chanel list ui (add video, closing behavior)
 - [ ] add pomodoro timer
