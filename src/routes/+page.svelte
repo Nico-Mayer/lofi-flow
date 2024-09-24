@@ -114,6 +114,17 @@
 				activeRadio.value = radios[failedRadioIndex - 1];
 				break;
 			}
+			case 'none': {
+				if (radios.length <= 1) return;
+				console.log('test');
+				let randomIndex = Math.floor(Math.random() * radios.length);
+
+				while (randomIndex === failedRadioIndex) {
+					randomIndex = Math.floor(Math.random() * radios.length);
+				}
+				activeRadio.value = radios[randomIndex];
+				break;
+			}
 		}
 	}
 

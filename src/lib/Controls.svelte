@@ -33,7 +33,7 @@
 	}
 
 	function randomRadio(): void {
-		lastSkipDirection.value = null;
+		lastSkipDirection.value = 'none';
 		const radios = getAllRadios();
 		const randomIndex = Math.floor(Math.random() * radios.length);
 		const currentRadio = activeRadio.value;
