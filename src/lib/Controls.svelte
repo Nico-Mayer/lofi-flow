@@ -16,6 +16,12 @@
 
 	let { onPlayPause }: Props = $props();
 
+	let playBtn: HTMLButtonElement | null = $state(null);
+	let shuffleBtn: HTMLButtonElement | null = $state(null);
+	let prevRadioBtn: HTMLButtonElement | null = $state(null);
+	let nextRadioBtn: HTMLButtonElement | null = $state(null);
+	let volumeBarContainer: HTMLElement | null = $state(null);
+
 	function openRadioList(e: Event): void {
 		e.stopPropagation();
 		radioListOpen.value = true;
@@ -63,21 +69,32 @@
 		const KEY = e.key.toLowerCase();
 		const MODIFIER = e.getModifierState('Control');
 
-		console.log(MODIFIER);
+		if (radioListOpen.value) return;
+
 		switch (KEY) {
-			case ' ':
-				onPlayPause();
+			case ' ': {
+				if (document.activeElement === playBtn) {
+					return;
+				}
+				playBtn?.focus();
+				playBtn?.click();
 				break;
+			}
+			case 'r': {
+				shuffleBtn?.focus();
+				shuffleBtn?.click();
+				break;
+			}
 			case 'arrowleft':
-				prevRadio();
+				prevRadioBtn?.focus();
+				prevRadioBtn?.click();
 				break;
 			case 'arrowright':
-				nextRadio();
-				break;
-			case 'r':
-				randomRadio();
+				nextRadioBtn?.focus();
+				nextRadioBtn?.click();
 				break;
 			case 'arrowup': {
+				volumeBarContainer?.focus();
 				let step = 5;
 				if (MODIFIER) {
 					step = 2;
@@ -86,6 +103,7 @@
 				break;
 			}
 			case 'arrowdown': {
+				volumeBarContainer?.focus();
 				let step = -5;
 				if (MODIFIER) {
 					step = -2;
@@ -110,7 +128,12 @@
 	{/if}
 
 	<section class="flex items-center">
-		<button tabindex="-1" class="btn" onclick={onPlayPause}>
+		<button
+			bind:this={playBtn}
+			aria-label={playerState.value === YT.PlayerState.PLAYING ? 'Pause video' : 'Play video'}
+			class="btn"
+			onclick={onPlayPause}
+		>
 			{#if playerState.value === YT.PlayerState.PLAYING}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
 					<path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
@@ -121,7 +144,8 @@
 				</svg>
 			{/if}
 		</button>
-		<button tabindex="-1" class="btn" onclick={randomRadio}>
+
+		<button bind:this={shuffleBtn} aria-label="Shuffle music" class="btn" onclick={randomRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path
 					fill="currentColor"
@@ -129,18 +153,26 @@
 				/></svg
 			>
 		</button>
-		<button tabindex="-1" class="btn" onclick={prevRadio}>
+
+		<button bind:this={prevRadioBtn} aria-label="Previous radio" class="btn" onclick={prevRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path fill="currentColor" d="M6 4h2v16H6zm12 0h-2v2h-2v3h-2v2h-2v2h2v3h2v2h2v2h2z" /></svg
 			>
 		</button>
-		<button tabindex="-1" class="btn" onclick={nextRadio}>
+
+		<button bind:this={nextRadioBtn} aria-label="Next radio" class="btn" onclick={nextRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path fill="currentColor" d="M6 4h2v2h2v2h2v2h2v4h-2v2h-2v2H8v2H6zm12 0h-2v16h2z" /></svg
 			>
 		</button>
 
-		<div id="volume-bar" class="relative h-10 w-24">
+		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+		<div
+			aria-label="volume slider"
+			tabindex="0"
+			bind:this={volumeBarContainer}
+			class="volume-bar-container relative h-10 w-24"
+		>
 			<div
 				class="pointer-events-none absolute bottom-0 left-0 right-0 top-0 flex items-center gap-1 px-2"
 			>
@@ -158,14 +190,14 @@
 				step="10"
 				min="0"
 				max="100"
-				class="absolute bottom-0 left-0 right-0 top-0 opacity-0"
+				class="absolute bottom-0 left-0 right-0 top-0 cursor-pointer opacity-0"
 				bind:value={volume.value}
 			/>
 		</div>
 	</section>
 
 	<section class="mt-2">
-		<button tabindex="-1" class="btn !py-0" onclick={openRadioList}>
+		<button class="btn !py-0" onclick={openRadioList}>
 			{#if playerState.value === YT.PlayerState.PLAYING}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><rect width="2.8" height="12" x="1" y="6" fill="currentColor"
@@ -255,6 +287,16 @@
 				<span class="max-w-72 truncate whitespace-nowrap md:max-w-none"
 					>{activeRadio.value ? activeRadio.value.snippet.title : 'loading...'}</span
 				>
+			{:else if playerState.value === YT.PlayerState.PAUSED}
+				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+					<rect width="2.8" height="12" x="1" y="6" fill="currentColor"></rect>
+					<rect width="2.8" height="12" x="5.8" y="6" fill="currentColor"></rect>
+					<rect width="2.8" height="12" x="10.6" y="6" fill="currentColor"></rect>
+					<rect width="2.8" height="12" x="15.4" y="6" fill="currentColor"></rect>
+					<rect width="2.8" height="12" x="20.2" y="6" fill="currentColor"></rect>
+				</svg>
+
+				<span>paused</span>
 			{:else}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><rect width="10" height="10" x="1" y="1" fill="currentColor" rx="1"
@@ -358,5 +400,9 @@
 <style>
 	.filled {
 		opacity: 1;
+	}
+	.volume-bar-container:focus {
+		outline: none;
+		filter: var(--filter-glow-shallow);
 	}
 </style>

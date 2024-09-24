@@ -9,12 +9,17 @@
 	--color-secondary: #8fff83;
 	--color-error: #fe3b3b;
 
+	--color-primary-transparent: rgba(81, 255, 0, 0.5);
+	--color-secondary-transparent: rgba(143, 255, 131, 0.5);
+
 	--filter-glow: drop-shadow(0px 0px 2px var(--color-primary))
 		drop-shadow(0px 0px 8px var(--color-secondary));
 	--filter-glow-bright: drop-shadow(0px 0px 4px var(--color-secondary))
 		drop-shadow(0px 0px 8px var(--color-primary));
 	--filter-glow-dimmed: drop-shadow(0px 0px 2px var(--color-primary))
 		drop-shadow(0px 0px 4px var(--color-secondary));
+	--filter-glow-shallow: drop-shadow(0px 0px 0px var(--color-primary-transparent))
+		drop-shadow(0px 0px 0px var(--color-secondary-transparent));
 	--filter-glow-red: drop-shadow(0px 0px 2px var(--color-error))
 		drop-shadow(0px 0px 8px var(--color-error));
 
@@ -40,7 +45,8 @@ span {
 }
 
 .btn svg {
-	@apply size-6;
+	width: 1.5rem;
+	height: 1.5rem;
 	transition: 150ms;
 	filter: var(--filter-glow);
 }
@@ -48,6 +54,10 @@ span {
 .btn:hover svg {
 	cursor: pointer;
 	filter: var(--filter-glow-bright);
+}
+.btn:focus {
+	outline: none;
+	filter: var(--filter-glow-shallow);
 }
 
 .glow-red {
