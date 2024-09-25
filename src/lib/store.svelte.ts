@@ -89,7 +89,7 @@ export const lastSkipDirection = new Writable<SkipDirection>('none');
 
 export const volume = new LocalStorage<number>('volume', 50);
 
-export const dailyRadios = new Writable<Radio[] | null>(null);
+export const dailyRadios = new Writable<Radio[]>([]);
 
 export const favorites = new LocalStorage<Radio[]>('favorites', []);
 

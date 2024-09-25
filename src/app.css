@@ -40,6 +40,11 @@ span {
 	filter: var(--filter-glow);
 }
 
+h2 {
+	@apply text-xl;
+	filter: var(--filter-glow);
+}
+
 .glow-red {
 	filter: var(--filter-glow-red);
 }
@@ -70,4 +75,13 @@ span {
 	}
 }
 
-
+input[type='text'] {
+	background: transparent;
+	border: 1px solid white;
+	border-radius: 0.25rem;
+	filter: var(--filter-glow);
+	@apply px-2;
+}
+input[type='text']:focus {
+	outline: none;
+}

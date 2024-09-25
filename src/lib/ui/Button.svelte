@@ -3,21 +3,30 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
+		ref?: HTMLElement | null;
 		href?: string;
 		children: Snippet;
 		tooltip?: string;
 		target?: string;
 	}
 
-	let { href, tooltip, class: className, children, target = '_blank', ...rest }: Props = $props();
+	let {
+		ref = $bindable(),
+		href,
+		tooltip,
+		class: className,
+		children,
+		target = '_blank',
+		...rest
+	}: Props = $props();
 </script>
 
 {#if href}
-	<a {...rest} class={`btn ${className}`} {href} data-tooltip={tooltip} {target}>
+	<a bind:this={ref} {...rest} class={`btn ${className}`} {href} data-tooltip={tooltip} {target}>
 		{@render children()}
 	</a>
 {:else}
-	<button {...rest} class={`btn ${className}`} data-tooltip={tooltip}>
+	<button bind:this={ref} {...rest} class={`btn ${className}`} data-tooltip={tooltip}>
 		{@render children()}
 	</button>
 {/if}

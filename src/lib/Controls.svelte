@@ -18,10 +18,10 @@
 
 	let { onPlayPause }: Props = $props();
 
-	let playBtn: Button | null = $state(null);
-	let shuffleBtn: Button | null = $state(null);
-	let prevRadioBtn: Button | null = $state(null);
-	let nextRadioBtn: Button | null = $state(null);
+	let playBtn: HTMLElement | null = $state(null);
+	let shuffleBtn: HTMLElement | null = $state(null);
+	let prevRadioBtn: HTMLElement | null = $state(null);
+	let nextRadioBtn: HTMLElement | null = $state(null);
 	let volumeBarContainer: HTMLElement | null = $state(null);
 
 	function openRadioList(e: Event): void {
@@ -134,7 +134,7 @@
 
 	<section class="flex items-center">
 		<Button
-			bind:this={playBtn}
+			bind:ref={playBtn}
 			aria-label={playerState.value === YT.PlayerState.PLAYING ? 'Pause video' : 'Play video'}
 			onclick={onPlayPause}
 		>
@@ -149,7 +149,7 @@
 			{/if}
 		</Button>
 
-		<Button bind:this={shuffleBtn} aria-label="Shuffle music" onclick={randomRadio}>
+		<Button bind:ref={shuffleBtn} aria-label="Shuffle music" onclick={randomRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path
 					fill="currentColor"
@@ -158,13 +158,13 @@
 			>
 		</Button>
 
-		<Button bind:this={prevRadioBtn} aria-label="Previous radio" onclick={prevRadio}>
+		<Button bind:ref={prevRadioBtn} aria-label="Previous radio" onclick={prevRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path fill="currentColor" d="M6 4h2v16H6zm12 0h-2v2h-2v3h-2v2h-2v2h2v3h2v2h2v2h2z" /></svg
 			>
 		</Button>
 
-		<Button bind:this={nextRadioBtn} aria-label="Next radio" onclick={nextRadio}>
+		<Button bind:ref={nextRadioBtn} aria-label="Next radio" onclick={nextRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path fill="currentColor" d="M6 4h2v2h2v2h2v2h2v4h-2v2h-2v2H8v2H6zm12 0h-2v16h2z" /></svg
 			>

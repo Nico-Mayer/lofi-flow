@@ -21,6 +21,7 @@
 		alt="channel-thumbnail"
 		class="thumbnail"
 	/>
+
 	<span class="title">{radio.snippet.title}</span>
 </button>
 
@@ -32,7 +33,6 @@
 		height: 100%;
 		width: 100%;
 		overflow: hidden;
-		padding: 1rem;
 	}
 
 	.thumbnail {
