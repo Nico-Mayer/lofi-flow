@@ -10,6 +10,7 @@
 		radioListOpen,
 		volume
 	} from './store.svelte';
+	import Button from './ui/Button.svelte';
 
 	type Props = {
 		onPlayPause: () => void;
@@ -17,10 +18,10 @@
 
 	let { onPlayPause }: Props = $props();
 
-	let playBtn: HTMLButtonElement | null = $state(null);
-	let shuffleBtn: HTMLButtonElement | null = $state(null);
-	let prevRadioBtn: HTMLButtonElement | null = $state(null);
-	let nextRadioBtn: HTMLButtonElement | null = $state(null);
+	let playBtn: Button | null = $state(null);
+	let shuffleBtn: Button | null = $state(null);
+	let prevRadioBtn: Button | null = $state(null);
+	let nextRadioBtn: Button | null = $state(null);
 	let volumeBarContainer: HTMLElement | null = $state(null);
 
 	function openRadioList(e: Event): void {
@@ -132,10 +133,9 @@
 	{/if}
 
 	<section class="flex items-center">
-		<button
+		<Button
 			bind:this={playBtn}
 			aria-label={playerState.value === YT.PlayerState.PLAYING ? 'Pause video' : 'Play video'}
-			class="btn"
 			onclick={onPlayPause}
 		>
 			{#if playerState.value === YT.PlayerState.PLAYING}
@@ -147,28 +147,28 @@
 					<path fill="currentColor" d="M8 5v14l11-7z" />
 				</svg>
 			{/if}
-		</button>
+		</Button>
 
-		<button bind:this={shuffleBtn} aria-label="Shuffle music" class="btn" onclick={randomRadio}>
+		<Button bind:this={shuffleBtn} aria-label="Shuffle music" onclick={randomRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path
 					fill="currentColor"
 					d="M18 5h-2v2h2v2h-6v2h-2v6H2v2h8v-2h2v-6h6v2h-2v2h2v-2h2v-2h2V9h-2V7h-2zM2 9h6v2H2zm20 10v-2h-8v2z"
 				/></svg
 			>
-		</button>
+		</Button>
 
-		<button bind:this={prevRadioBtn} aria-label="Previous radio" class="btn" onclick={prevRadio}>
+		<Button bind:this={prevRadioBtn} aria-label="Previous radio" onclick={prevRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path fill="currentColor" d="M6 4h2v16H6zm12 0h-2v2h-2v3h-2v2h-2v2h2v3h2v2h2v2h2z" /></svg
 			>
-		</button>
+		</Button>
 
-		<button bind:this={nextRadioBtn} aria-label="Next radio" class="btn" onclick={nextRadio}>
+		<Button bind:this={nextRadioBtn} aria-label="Next radio" onclick={nextRadio}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 				><path fill="currentColor" d="M6 4h2v2h2v2h2v2h2v4h-2v2h-2v2H8v2H6zm12 0h-2v16h2z" /></svg
 			>
-		</button>
+		</Button>
 
 		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 		<div
@@ -201,7 +201,7 @@
 	</section>
 
 	<section class="mt-2">
-		<button class="btn !py-0" onclick={openRadioList}>
+		<Button class="!py-0" onclick={openRadioList}>
 			{#if playerState.value === YT.PlayerState.PLAYING}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><rect width="2.8" height="12" x="1" y="6" fill="currentColor"
@@ -397,7 +397,7 @@
 				>
 				<span>buffering...</span>
 			{/if}
-		</button>
+		</Button>
 	</section>
 </main>
 

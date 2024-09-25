@@ -55,8 +55,8 @@ Inspiration for CRT effect:
 - [ ] add pomodoro timer
 - [ ] add about section
 - [ ] add listener count?
-- [ ] invest in auto play / if it is even possible to make consistent
-- [x] add fullscreen support
+- [ ] invest in auto play make it more consistent id Possible
+- [x] add full screen support
 - [x] invest in redirect bug
 - [x] improve local storage parsing error handling
 - [x] impl low power mode
