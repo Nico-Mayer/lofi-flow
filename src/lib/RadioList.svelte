@@ -24,36 +24,49 @@
 		}
 	}
 
-	async function addToFavorites(e: MouseEvent) {
-		e.preventDefault();
-		e.stopPropagation();
-		showNewRadioModal = true;
+	async function addToFavorites(event: SubmitEvent) {
+		event.preventDefault();
 
-		/* const url = prompt('Please enter YT a URL:');
+		const form = event.target as HTMLFormElement;
+		const data = new FormData(form);
+
+		let url = data.get('ytUrl') as string;
 
 		if (url) {
 			const response = await fetch(`/api/getVideo?url=${url}`);
 			const data = await response.json();
 
 			if (data.ok) {
+				const duplicate = favorites.value.some(
+					(radio) => radio.id.videoId === data.radio.id.videoId
+				);
+
+				if (duplicate) {
+					showNewRadioModal = false;
+					form.reset();
+					return;
+				}
+
 				favorites.value = [data.radio, ...favorites.value];
-				alert(`Added video to favorites`);
-			} else {
-				alert('Something went wrong');
 			}
-		} else {
-			alert('No URL entered.');
-		} */
+		}
+		form.reset();
+		showNewRadioModal = false;
 	}
 
 	function onClickOutside() {
-		console.log('click outside ');
 		exitRadioList();
 	}
 
 	function exitRadioList() {
 		if (showNewRadioModal) return;
 		radioListOpen.value = false;
+	}
+
+	function closeModal(e: MouseEvent) {
+		e.stopPropagation();
+		e.preventDefault();
+		showNewRadioModal = false;
 	}
 </script>
 
@@ -64,7 +77,7 @@
 
 	<div class="p-4 backdrop-blur-0 md:p-8">
 		<nav class="mb-4 flex justify-between">
-			<Button onclick={addToFavorites}>
+			<Button onclick={() => (showNewRadioModal = true)}>
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><path fill="currentColor" d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z" /></svg
 				>
@@ -72,22 +85,20 @@
 			</Button>
 
 			<Modal bind:showModal={showNewRadioModal}>
-				<div class="flex w-52 flex-col gap-3 p-4 text-white">
-					<h2>Add new Radio</h2>
-					<form class="flex flex-col" action="">
-						<label for="ytUrl">Youtube url</label>
-						<input class="glow bg-transparent" type="text" name="ytUrl" id="ytUrl" />
+				<h2>Add new Radio</h2>
+				<form class="flex flex-col" action="" onsubmit={addToFavorites}>
+					<label for="ytUrl">Youtube url</label>
+					<input class="w-60" type="text" name="ytUrl" id="ytUrl" />
 
-						<div class="mt-2 flex w-full justify-between">
-							<Button>
-								<span>Add</span>
-							</Button>
-							<Button>
-								<span>Cancel</span>
-							</Button>
-						</div>
-					</form>
-				</div>
+					<div class="mt-2 flex w-full justify-between">
+						<Button>
+							<span>Add</span>
+						</Button>
+						<Button onclick={closeModal}>
+							<span>Cancel</span>
+						</Button>
+					</div>
+				</form>
 			</Modal>
 
 			<Button onclick={exitRadioList} tooltip="close">

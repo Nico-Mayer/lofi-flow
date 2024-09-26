@@ -46,6 +46,23 @@
 		}
 	});
 
+	$effect(() => {
+		if (playerState.value === YT.PlayerState.ENDED) {
+			untrack(() => {
+				if (!activeRadio.value) return;
+
+				const radios = [...favorites.value, ...dailyRadios.value];
+				const index = radios.indexOf(activeRadio.value);
+
+				if (index === radios.length) {
+					activeRadio.value = radios[0];
+				}
+
+				activeRadio.value = radios[index + 1];
+			});
+		}
+	});
+
 	onMount(async () => {
 		const response = await fetch('/api/dailyRadio', {
 			method: 'GET'
@@ -116,7 +133,6 @@
 			}
 			case 'none': {
 				if (radios.length <= 1) return;
-				console.log('test');
 				let randomIndex = Math.floor(Math.random() * radios.length);
 
 				while (randomIndex === failedRadioIndex) {

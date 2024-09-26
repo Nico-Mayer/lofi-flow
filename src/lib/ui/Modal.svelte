@@ -10,12 +10,18 @@
 	let dialog: HTMLDialogElement | null = $state(null);
 
 	$effect(() => {
-		if (dialog && showModal) dialog.showModal();
+		if (showModal) dialog?.showModal();
+	});
+
+	$effect(() => {
+		if (!showModal) dialog?.close();
 	});
 </script>
 
-<dialog bind:this={dialog} onclose={() => (showModal = false)}>
-	{@render children()}
+<dialog class="text-white" bind:this={dialog}>
+	<div class="flex w-full max-w-xl flex-col border p-12">
+		{@render children()}
+	</div>
 </dialog>
 
 <style>
