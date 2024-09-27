@@ -13,7 +13,7 @@
 	let {
 		ref = $bindable(),
 		href,
-		tooltip,
+		tooltip = ' ',
 		class: className,
 		children,
 		target = '_blank',
@@ -33,24 +33,39 @@
 
 <style>
 	.btn {
-		@apply flex items-center justify-center gap-2 p-2;
+		@apply m-1 flex items-center justify-center gap-2 rounded-md p-1 text-white;
+	}
+
+	.btn:hover {
+		cursor: pointer;
+	}
+
+	:global(.btn span) {
+		@apply text-lg;
+		text-shadow: var(--green-glow);
+		transition: text-shadow 250ms;
+		overflow: visible;
 	}
 
 	:global(.btn svg) {
 		width: 1.5rem;
 		height: 1.5rem;
-		transition: 150ms;
-		filter: var(--filter-glow);
+		transition: filter 250ms;
+		filter: var(--green-glow-drop-shadow);
+	}
+
+	:global(.btn:hover span) {
+		text-shadow: var(--green-glow-hover);
 	}
 
 	:global(.btn:hover svg) {
 		cursor: pointer;
-		filter: var(--filter-glow-bright);
+		filter: var(--green-glow-drop-shadow-hover);
 	}
 
 	.btn:focus {
 		outline: none;
-		filter: var(--filter-glow-shallow);
+		filter: var(--green-glow-drop-shadow);
 	}
 
 	[data-tooltip] {
@@ -60,7 +75,6 @@
 
 	[data-tooltip]::after {
 		@apply text-xl;
-		filter: var(--filter-glow);
 		position: absolute;
 		text-align: center;
 		width: max-content;
@@ -70,6 +84,7 @@
 		transform: translate(-50%, 110%) scale(0);
 		transform-origin: top;
 		transition: 0.14s;
+		text-shadow: var(--green-glow-hover);
 	}
 
 	[data-tooltip]:hover:after {

@@ -157,7 +157,7 @@
 	function handleKeyDown(e: KeyboardEvent): void {
 		const KEY = e.key.toLowerCase();
 
-		if (KEY === 'l') {
+		if (KEY === 'l' && !radioListOpen.value) {
 			lowPowerMode.value = !lowPowerMode.value;
 		}
 	}
@@ -196,6 +196,7 @@
 				</button>
 			</div>
 		</main>
+
 		<Controls {onPlayPause} />
 	</div>
 

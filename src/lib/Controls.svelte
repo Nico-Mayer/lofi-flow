@@ -128,7 +128,7 @@
 <main>
 	{#if playerError.value}
 		<section class="px-2">
-			<span class="glow-red">Radio loading error. Redirecting to a different radio station.</span>
+			<span>Radio loading error. Redirecting to a different radio station.</span>
 		</section>
 	{/if}
 
@@ -182,10 +182,7 @@
 			>
 				<!-- eslint-disable -->
 				{#each Array(10) as _, i}
-					<div
-						class="glow-green h-4 w-[6px] bg-white opacity-30"
-						class:filled={volume.value > i * 10}
-					></div>
+					<div class="h-4 w-[6px] bg-white opacity-30" class:filled={volume.value > i * 10}></div>
 				{/each}
 			</div>
 			<input
@@ -303,95 +300,31 @@
 				<span>paused</span>
 			{:else}
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-					><rect width="10" height="10" x="1" y="1" fill="currentColor" rx="1"
+					><rect width="6" height="14" x="1" y="4" fill="currentColor"
 						><animate
-							id="svgSpinnersBlocksShuffle30"
+							id="svgSpinnersBarsFade0"
 							fill="freeze"
-							attributeName="x"
-							begin="0;svgSpinnersBlocksShuffle3b.end"
-							dur="0.2s"
-							values="1;13"
-						/><animate
-							id="svgSpinnersBlocksShuffle31"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle38.end"
-							dur="0.2s"
-							values="1;13"
-						/><animate
-							id="svgSpinnersBlocksShuffle32"
-							fill="freeze"
-							attributeName="x"
-							begin="svgSpinnersBlocksShuffle39.end"
-							dur="0.2s"
-							values="13;1"
-						/><animate
-							id="svgSpinnersBlocksShuffle33"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle3a.end"
-							dur="0.2s"
-							values="13;1"
+							attributeName="opacity"
+							begin="0;svgSpinnersBarsFade1.end-0.25s"
+							dur="0.75s"
+							values="1;.2"
 						/></rect
-					><rect width="10" height="10" x="1" y="13" fill="currentColor" rx="1"
+					><rect width="6" height="14" x="9" y="4" fill="currentColor" opacity=".4"
 						><animate
-							id="svgSpinnersBlocksShuffle34"
 							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle30.end"
-							dur="0.2s"
-							values="13;1"
-						/><animate
-							id="svgSpinnersBlocksShuffle35"
-							fill="freeze"
-							attributeName="x"
-							begin="svgSpinnersBlocksShuffle31.end"
-							dur="0.2s"
-							values="1;13"
-						/><animate
-							id="svgSpinnersBlocksShuffle36"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle32.end"
-							dur="0.2s"
-							values="1;13"
-						/><animate
-							id="svgSpinnersBlocksShuffle37"
-							fill="freeze"
-							attributeName="x"
-							begin="svgSpinnersBlocksShuffle33.end"
-							dur="0.2s"
-							values="13;1"
+							attributeName="opacity"
+							begin="svgSpinnersBarsFade0.begin+0.15s"
+							dur="0.75s"
+							values="1;.2"
 						/></rect
-					><rect width="10" height="10" x="13" y="13" fill="currentColor" rx="1"
+					><rect width="6" height="14" x="17" y="4" fill="currentColor" opacity=".3"
 						><animate
-							id="svgSpinnersBlocksShuffle38"
+							id="svgSpinnersBarsFade1"
 							fill="freeze"
-							attributeName="x"
-							begin="svgSpinnersBlocksShuffle34.end"
-							dur="0.2s"
-							values="13;1"
-						/><animate
-							id="svgSpinnersBlocksShuffle39"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle35.end"
-							dur="0.2s"
-							values="13;1"
-						/><animate
-							id="svgSpinnersBlocksShuffle3a"
-							fill="freeze"
-							attributeName="x"
-							begin="svgSpinnersBlocksShuffle36.end"
-							dur="0.2s"
-							values="1;13"
-						/><animate
-							id="svgSpinnersBlocksShuffle3b"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle37.end"
-							dur="0.2s"
-							values="1;13"
+							attributeName="opacity"
+							begin="svgSpinnersBarsFade0.begin+0.3s"
+							dur="0.75s"
+							values="1;.2"
 						/></rect
 					></svg
 				>
@@ -404,9 +337,10 @@
 <style>
 	.filled {
 		opacity: 1;
+		filter: var(--green-glow-drop-shadow);
 	}
 	.volume-bar-container:focus {
 		outline: none;
-		filter: var(--filter-glow-shallow);
+		filter: var(--green-glow-drop-shadow);
 	}
 </style>

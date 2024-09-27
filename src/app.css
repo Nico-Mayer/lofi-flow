@@ -5,23 +5,20 @@
 
 :root {
 	--color-text: #fff;
-	--color-primary: #51ff00;
-	--color-secondary: #8fff83;
+	--color-primary: rgb(51, 255, 51);
+	--color-secondary: rgb(153, 255, 153);
 	--color-error: #fe3b3b;
 
-	--color-primary-transparent: rgba(81, 255, 0, 0.5);
-	--color-secondary-transparent: rgba(143, 255, 131, 0.5);
+	--green-glow: 0px 0px 2px var(--color-secondary), 0px 0px 15px green, 0px 0px 60px green;
 
-	--filter-glow: drop-shadow(0px 0px 2px var(--color-primary))
-		drop-shadow(0px 0px 8px var(--color-secondary));
-	--filter-glow-bright: drop-shadow(0px 0px 4px var(--color-secondary))
+	--green-glow-hover: 0px 0px 2px var(--color-secondary), 0px 0px 15px var(--color-primary),
+		0px 0px 60px var(--color-primary);
+
+	--green-glow-drop-shadow: drop-shadow(0px 0px 2px var(--color-secondary))
+		drop-shadow(0px 0px 8px green);
+
+	--green-glow-drop-shadow-hover: drop-shadow(0px 0px 2px var(--color-secondary))
 		drop-shadow(0px 0px 8px var(--color-primary));
-	--filter-glow-dimmed: drop-shadow(0px 0px 2px var(--color-primary))
-		drop-shadow(0px 0px 4px var(--color-secondary));
-	--filter-glow-shallow: drop-shadow(0px 0px 0px var(--color-primary-transparent))
-		drop-shadow(0px 0px 0px var(--color-secondary-transparent));
-	--filter-glow-red: drop-shadow(0px 0px 2px var(--color-error))
-		drop-shadow(0px 0px 8px var(--color-error));
 
 	color: var(--color-text);
 	background-color: #000;
@@ -33,23 +30,6 @@ body {
 	overflow: hidden;
 	height: 100svh;
 	width: 100svw;
-}
-
-span {
-	@apply text-xl;
-	filter: var(--filter-glow);
-}
-
-h2 {
-	@apply text-xl;
-	filter: var(--filter-glow);
-}
-
-.glow-red {
-	filter: var(--filter-glow-red);
-}
-.glow-green {
-	filter: var(--filter-glow);
 }
 
 #youtube-player {
@@ -75,13 +55,6 @@ h2 {
 	}
 }
 
-input[type='text'] {
-	background: transparent;
-	border: 1px solid white;
-	border-radius: 0.25rem;
-	filter: var(--filter-glow);
-	@apply px-2 py-1;
-}
-input[type='text']:focus {
-	outline: none;
+.text-glow-green {
+	text-shadow: var(--green-glow);
 }

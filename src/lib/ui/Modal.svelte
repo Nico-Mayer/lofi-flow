@@ -18,8 +18,8 @@
 	});
 </script>
 
-<dialog class="text-white" bind:this={dialog}>
-	<div class="flex w-full max-w-xl flex-col border p-12">
+<dialog class="overflow-visible text-white" bind:this={dialog}>
+	<div class="flex w-full max-w-xl flex-col p-4">
 		{@render children()}
 	</div>
 </dialog>

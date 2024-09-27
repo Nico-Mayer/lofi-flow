@@ -73,7 +73,7 @@
 <svelte:window onkeydown={handleKeyDown} />
 
 <main class="z-5 absolute left-0 top-0 h-full w-full overflow-auto">
-	<div class="absolute left-0 top-0 h-full w-full bg-black/25 backdrop-blur-lg"></div>
+	<div class="absolute left-0 top-0 h-full w-full bg-black/45 backdrop-blur-lg"></div>
 
 	<div class="p-4 backdrop-blur-0 md:p-8">
 		<nav class="mb-4 flex justify-between">
@@ -85,10 +85,15 @@
 			</Button>
 
 			<Modal bind:showModal={showNewRadioModal}>
-				<h2>Add new Radio</h2>
+				<h2 class="text-glow-green text-2xl">Add new Radio</h2>
 				<form class="flex flex-col" action="" onsubmit={addToFavorites}>
-					<label for="ytUrl">Youtube url</label>
-					<input class="w-60" type="text" name="ytUrl" id="ytUrl" />
+					<label class="text-glow-green" for="ytUrl">Youtube url</label>
+					<input
+						class="text-glow-green w-60 rounded border bg-transparent px-1 focus:outline-none"
+						type="text"
+						name="ytUrl"
+						id="ytUrl"
+					/>
 
 					<div class="mt-2 flex w-full justify-between">
 						<Button>
@@ -113,7 +118,7 @@
 
 		{#if favorites.value.length !== 0}
 			<section>
-				<h2>Favorites</h2>
+				<h2 class="text-glow-green text-xl">Favorites</h2>
 
 				<div class="channel-grid" use:clickOutside={onClickOutside}>
 					{#each favorites.value as radio}
@@ -125,7 +130,7 @@
 
 		{#if filteredDailyRadios}
 			<section>
-				<h2>Daily radios</h2>
+				<h2 class="text-glow-green text-xl">Daily radios</h2>
 				<div class="channel-grid" use:clickOutside={onClickOutside}>
 					{#each filteredDailyRadios as radio}
 						<RadioListItem {radio} {onclick} />
