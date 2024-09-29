@@ -49,13 +49,12 @@ Inspiration for CRT effect:
 
 ## Todo's
 
-- [ ] make a custom playing animated svg that can display paused / playing / buffering state
 - [ ] improve chanel list ui (add video, closing behavior)
+- [ ] make a custom playing animated svg that can display paused / playing / buffering state
 - [ ] add pomodoro timer
-- [ ] add listener count?
-- [ ] invest in auto play make it more consistent if Possible
 - [ ] add settings section
 - [ ] impl toaster
+- [ ] add listener count?
 - [x] improve performance and css simplicity
 - [x] add favorite/personal radios system
 - [x] add full screen support

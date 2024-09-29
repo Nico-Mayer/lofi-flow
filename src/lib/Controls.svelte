@@ -11,6 +11,7 @@
 		volume
 	} from './store.svelte';
 	import Button from './ui/Button.svelte';
+	import { inlineSvg } from '@svelte-put/inline-svg';
 
 	type Props = {
 		onPlayPause: () => void;
@@ -139,35 +140,22 @@
 			onclick={onPlayPause}
 		>
 			{#if playerState.value === YT.PlayerState.PLAYING}
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-					<path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-				</svg>
+				<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:pause.svg'}></svg>
 			{:else}
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-					<path fill="currentColor" d="M8 5v14l11-7z" />
-				</svg>
+				<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:play.svg'}></svg>
 			{/if}
 		</Button>
 
 		<Button bind:ref={shuffleBtn} aria-label="Shuffle music" onclick={randomRadio}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-				><path
-					fill="currentColor"
-					d="M18 5h-2v2h2v2h-6v2h-2v6H2v2h8v-2h2v-6h6v2h-2v2h2v-2h2v-2h2V9h-2V7h-2zM2 9h6v2H2zm20 10v-2h-8v2z"
-				/></svg
-			>
+			<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:shuffle.svg'}></svg>
 		</Button>
 
 		<Button bind:ref={prevRadioBtn} aria-label="Previous radio" onclick={prevRadio}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-				><path fill="currentColor" d="M6 4h2v16H6zm12 0h-2v2h-2v3h-2v2h-2v2h2v3h2v2h2v2h2z" /></svg
-			>
+			<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:prev.svg'}></svg>
 		</Button>
 
 		<Button bind:ref={nextRadioBtn} aria-label="Next radio" onclick={nextRadio}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-				><path fill="currentColor" d="M6 4h2v2h2v2h2v2h2v4h-2v2h-2v2H8v2H6zm12 0h-2v16h2z" /></svg
-			>
+			<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:next.svg'}></svg>
 		</Button>
 
 		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -200,91 +188,7 @@
 	<section class="mt-2">
 		<Button class="!py-0" onclick={openRadioList}>
 			{#if playerState.value === YT.PlayerState.PLAYING}
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-					><rect width="2.8" height="12" x="1" y="6" fill="currentColor"
-						><animate
-							id="svgSpinnersBarsScale0"
-							attributeName="y"
-							begin="0;svgSpinnersBarsScale1.end-0.1s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".36,.61,.3,.98;.36,.61,.3,.98"
-							values="6;1;6"
-						/><animate
-							attributeName="height"
-							begin="0;svgSpinnersBarsScale1.end-0.1s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".36,.61,.3,.98;.36,.61,.3,.98"
-							values="12;22;12"
-						/></rect
-					><rect width="2.8" height="12" x="5.8" y="6" fill="currentColor"
-						><animate
-							attributeName="y"
-							begin="svgSpinnersBarsScale0.begin+0.1s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".36,.61,.3,.98;.36,.61,.3,.98"
-							values="6;1;6"
-						/><animate
-							attributeName="height"
-							begin="svgSpinnersBarsScale0.begin+0.1s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".36,.61,.3,.98;.36,.61,.3,.98"
-							values="12;22;12"
-						/></rect
-					><rect width="2.8" height="12" x="10.6" y="6" fill="currentColor"
-						><animate
-							attributeName="y"
-							begin="svgSpinnersBarsScale0.begin+0.2s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".36,.61,.3,.98;.36,.61,.3,.98"
-							values="6;1;6"
-						/><animate
-							attributeName="height"
-							begin="svgSpinnersBarsScale0.begin+0.2s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".36,.61,.3,.98;.36,.61,.3,.98"
-							values="12;22;12"
-						/></rect
-					><rect width="2.8" height="12" x="15.4" y="6" fill="currentColor"
-						><animate
-							attributeName="y"
-							begin="svgSpinnersBarsScale0.begin+0.3s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".36,.61,.3,.98;.36,.61,.3,.98"
-							values="6;1;6"
-						/><animate
-							attributeName="height"
-							begin="svgSpinnersBarsScale0.begin+0.3s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".36,.61,.3,.98;.36,.61,.3,.98"
-							values="12;22;12"
-						/></rect
-					><rect width="2.8" height="12" x="20.2" y="6" fill="currentColor"
-						><animate
-							id="svgSpinnersBarsScale1"
-							attributeName="y"
-							begin="svgSpinnersBarsScale0.begin+0.4s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".36,.61,.3,.98;.36,.61,.3,.98"
-							values="6;1;6"
-						/><animate
-							attributeName="height"
-							begin="svgSpinnersBarsScale0.begin+0.4s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".36,.61,.3,.98;.36,.61,.3,.98"
-							values="12;22;12"
-						/></rect
-					></svg
-				>
+				<svg use:inlineSvg={'https://api.iconify.design/svg-spinners:bars-scale.svg'}></svg>
 				<span class="max-w-72 truncate whitespace-nowrap md:max-w-none"
 					>{activeRadio.value ? activeRadio.value.snippet.title : 'loading...'}</span
 				>
@@ -296,38 +200,9 @@
 					<rect width="2.8" height="12" x="15.4" y="6" fill="currentColor"></rect>
 					<rect width="2.8" height="12" x="20.2" y="6" fill="currentColor"></rect>
 				</svg>
-
 				<span>paused</span>
 			{:else}
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-					><rect width="6" height="14" x="1" y="4" fill="currentColor"
-						><animate
-							id="svgSpinnersBarsFade0"
-							fill="freeze"
-							attributeName="opacity"
-							begin="0;svgSpinnersBarsFade1.end-0.25s"
-							dur="0.75s"
-							values="1;.2"
-						/></rect
-					><rect width="6" height="14" x="9" y="4" fill="currentColor" opacity=".4"
-						><animate
-							fill="freeze"
-							attributeName="opacity"
-							begin="svgSpinnersBarsFade0.begin+0.15s"
-							dur="0.75s"
-							values="1;.2"
-						/></rect
-					><rect width="6" height="14" x="17" y="4" fill="currentColor" opacity=".3"
-						><animate
-							id="svgSpinnersBarsFade1"
-							fill="freeze"
-							attributeName="opacity"
-							begin="svgSpinnersBarsFade0.begin+0.3s"
-							dur="0.75s"
-							values="1;.2"
-						/></rect
-					></svg
-				>
+				<svg use:inlineSvg={'https://api.iconify.design/svg-spinners:bars-fade.svg'}></svg>
 				<span>buffering...</span>
 			{/if}
 		</Button>

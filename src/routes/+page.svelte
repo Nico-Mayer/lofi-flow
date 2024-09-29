@@ -18,6 +18,7 @@
 		radioSwitching,
 		volume
 	} from '$lib/store.svelte';
+	import { inlineSvg } from '@svelte-put/inline-svg';
 	import { onMount, untrack } from 'svelte';
 	import '../app.css';
 
@@ -185,13 +186,9 @@
 					onclick={onPlayPause}
 				>
 					{#if playerState.value === YT.PlayerState.PLAYING}
-						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-							<path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-						</svg>
+						<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:pause.svg'}></svg>
 					{:else}
-						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-							<path fill="currentColor" d="M8 5v14l11-7z" />
-						</svg>
+						<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:play.svg'}></svg>
 					{/if}
 				</button>
 			</div>

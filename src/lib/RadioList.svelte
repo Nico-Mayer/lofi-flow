@@ -4,6 +4,7 @@
 	import Button from './ui/Button.svelte';
 	import Modal from './ui/Modal.svelte';
 	import { clickOutside } from './utils';
+	import { inlineSvg } from '@svelte-put/inline-svg';
 
 	let showNewRadioModal: boolean = $state(false);
 
@@ -78,9 +79,7 @@
 	<div class="p-4 backdrop-blur-0 md:p-8">
 		<nav class="mb-4 flex justify-between">
 			<Button onclick={() => (showNewRadioModal = true)}>
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-					><path fill="currentColor" d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z" /></svg
-				>
+				<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:plus.svg'}></svg>
 				<span>New Radio</span>
 			</Button>
 
@@ -107,12 +106,7 @@
 			</Modal>
 
 			<Button onclick={exitRadioList} tooltip="close">
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-					><path
-						fill="currentColor"
-						d="M5 5h2v2H5zm4 4H7V7h2zm2 2H9V9h2zm2 0h-2v2H9v2H7v2H5v2h2v-2h2v-2h2v-2h2v2h2v2h2v2h2v-2h-2v-2h-2v-2h-2zm2-2v2h-2V9zm2-2v2h-2V7zm0 0V5h2v2z"
-					/></svg
-				>
+				<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:close.svg'}></svg>
 			</Button>
 		</nav>
 
