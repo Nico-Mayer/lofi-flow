@@ -6,7 +6,7 @@
 	import Crt from '$lib/effects/Crt.svelte';
 	import Darken from '$lib/effects/Darken.svelte';
 	import Vignette from '$lib/effects/Vignette.svelte';
-	import { inlineSvg } from '$lib/inlinesvg';
+	import { inlineSvg } from '$lib/inlineSvg';
 	import {
 		activeRadio,
 		dailyRadios,

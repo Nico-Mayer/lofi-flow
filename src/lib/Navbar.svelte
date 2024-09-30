@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { inlineSvg } from '$lib/inlinesvg';
+		import { inlineSvg } from '$lib/inlineSvg';
 	import Button from './ui/Button.svelte';
 
 	function toggleFullscreen() {

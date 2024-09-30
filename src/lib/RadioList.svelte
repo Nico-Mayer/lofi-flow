@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { inlineSvg } from '$lib/inlinesvg';
+	import { inlineSvg } from '$lib/inlineSvg';
 	import RadioListItem from './RadioListItem.svelte';
 	import { activeRadio, dailyRadios, favorites, radioListOpen } from './store.svelte';
 	import Button from './ui/Button.svelte';

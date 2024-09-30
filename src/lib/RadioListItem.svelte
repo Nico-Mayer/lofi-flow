@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { inlineSvg } from '$lib/inlinesvg';
+	import { inlineSvg } from '$lib/inlineSvg';
 	import { activeRadio } from './store.svelte';
 
 	type Props = {
@@ -14,7 +14,7 @@
 <button class="radio-list-item group relative" class:active onclick={(): void => onclick(radio)}>
 	{#if active}
 		<svg
-			class="absolute m-2"
+			class="play-icon absolute m-2"
 			use:inlineSvg={'https://api.iconify.design/svg-spinners:bars-scale.svg'}
 		></svg>
 	{/if}
