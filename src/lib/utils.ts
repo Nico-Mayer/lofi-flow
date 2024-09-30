@@ -1,3 +1,5 @@
+import type { Action } from 'svelte/action';
+
 export function clamp(value: number, minValue: number, maxValue: number): number {
 	if (value < minValue) {
 		return minValue;
@@ -26,3 +28,29 @@ export function clickOutside(node: HTMLElement, cb: Function) {
 		}
 	};
 }
+
+export const inlineSvg: Action<SVGSVGElement, string> = (node, url) => {
+	async function op() {
+		if (url) {
+			const response = await fetch(url);
+			const str = await response.text();
+			const svg = new DOMParser().parseFromString(str, 'image/svg+xml').documentElement;
+			for (let i = 0; i < svg.attributes.length; i++) {
+				const attr = svg.attributes[i];
+
+				node.setAttribute(attr.name, attr.value);
+			}
+
+			node.setAttribute('width', node.getAttribute('width') || '');
+			node.setAttribute('height', node.getAttribute('height') || '');
+
+			node.innerHTML = svg.innerHTML;
+		}
+	}
+	op();
+	return {
+		update() {
+			op();
+		}
+	};
+};

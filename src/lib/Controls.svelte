@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { inlineSvg } from '$lib/inlineSvg';
-	import { clamp } from '$lib/utils';
+	import { clamp, inlineSvg } from '$lib/utils';
 	import {
 		activeRadio,
 		dailyRadios,

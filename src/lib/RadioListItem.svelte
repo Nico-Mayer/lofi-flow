@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { inlineSvg } from '$lib/inlineSvg';
+	import { inlineSvg } from '$lib/utils';
 	import { activeRadio } from './store.svelte';
 
 	type Props = {
