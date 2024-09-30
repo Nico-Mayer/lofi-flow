@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { inlineSvg } from '$lib/inlinesvg';
 	import { activeRadio } from './store.svelte';
-	import { inlineSvg } from '@svelte-put/inline-svg';
 
 	type Props = {
 		radio: Radio;

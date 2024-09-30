@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { inlineSvg } from '$lib/inlinesvg';
 	import RadioListItem from './RadioListItem.svelte';
 	import { activeRadio, dailyRadios, favorites, radioListOpen } from './store.svelte';
 	import Button from './ui/Button.svelte';
 	import Modal from './ui/Modal.svelte';
 	import { clickOutside } from './utils';
-	import { inlineSvg } from '@svelte-put/inline-svg';
 
 	let showNewRadioModal: boolean = $state(false);
 

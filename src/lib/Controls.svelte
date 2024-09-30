@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { clamp } from '$lib/utils';
+	import { inlineSvg } from '$lib/inlinesvg';
 	import {
 		activeRadio,
 		dailyRadios,
@@ -11,7 +12,6 @@
 		volume
 	} from './store.svelte';
 	import Button from './ui/Button.svelte';
-	import { inlineSvg } from '@svelte-put/inline-svg';
 
 	type Props = {
 		onPlayPause: () => void;

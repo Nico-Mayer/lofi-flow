@@ -6,6 +6,7 @@
 	import Crt from '$lib/effects/Crt.svelte';
 	import Darken from '$lib/effects/Darken.svelte';
 	import Vignette from '$lib/effects/Vignette.svelte';
+	import { inlineSvg } from '$lib/inlinesvg';
 	import {
 		activeRadio,
 		dailyRadios,
@@ -18,7 +19,6 @@
 		radioSwitching,
 		volume
 	} from '$lib/store.svelte';
-	import { inlineSvg } from '@svelte-put/inline-svg';
 	import { onMount, untrack } from 'svelte';
 	import '../app.css';
 
