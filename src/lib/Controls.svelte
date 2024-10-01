@@ -18,11 +18,11 @@
 
 	let { onPlayPause }: Props = $props();
 
-	let playBtn: HTMLElement | null = $state(null);
-	let shuffleBtn: HTMLElement | null = $state(null);
-	let prevRadioBtn: HTMLElement | null = $state(null);
-	let nextRadioBtn: HTMLElement | null = $state(null);
-	let volumeBarContainer: HTMLElement | null = $state(null);
+	let playBtn = $state<HTMLButtonElement>();
+	let shuffleBtn = $state<HTMLButtonElement>();
+	let prevRadioBtn = $state<HTMLButtonElement>();
+	let nextRadioBtn = $state<HTMLButtonElement>();
+	let volumeBarContainer = $state<HTMLDivElement>();
 
 	function openRadioList(e: Event): void {
 		e.stopPropagation();

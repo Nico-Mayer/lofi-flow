@@ -3,7 +3,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
-		ref?: HTMLElement | null;
+		ref?: HTMLButtonElement | HTMLAnchorElement;
 		href?: string;
 		children: Snippet;
 		tooltip?: string;

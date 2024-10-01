@@ -10,8 +10,7 @@ export function clamp(value: number, minValue: number, maxValue: number): number
 	}
 }
 
-/* eslint-disable @typescript-eslint/no-unsafe-function-type */
-export function clickOutside(node: HTMLElement, cb: Function) {
+export function clickOutside(node: HTMLElement, cb: () => void) {
 	function onClick(event: MouseEvent) {
 		if (!node.contains(event.target as Node)) {
 			cb();
@@ -20,7 +19,7 @@ export function clickOutside(node: HTMLElement, cb: Function) {
 
 	document.addEventListener('click', onClick);
 	return {
-		update(newCb: Function) {
+		update(newCb: () => void) {
 			cb = newCb;
 		},
 		destroy() {
