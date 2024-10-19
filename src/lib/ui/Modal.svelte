@@ -18,7 +18,7 @@
 	});
 </script>
 
-<dialog class="overflow-visible text-white" bind:this={dialog}>
+<dialog class="overflow-visible text-white" bind:this={dialog} onclose={() => (showModal = false)}>
 	<div class="flex w-full max-w-xl flex-col p-4">
 		{@render children()}
 	</div>
