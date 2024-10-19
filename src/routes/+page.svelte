@@ -176,23 +176,22 @@
 		<Crt />
 	{/if}
 
-	<div class="z-5 flex size-full flex-col p-4 md:p-8">
+	<div class="z-5 flex size-full flex-col justify-between p-4 md:p-8">
 		<Navbar />
-		<main class="flex flex-1 items-center justify-center">
-			<div class="group hidden h-64 w-64 items-center justify-center md:flex">
-				<button
-					tabindex="-1"
-					class="btn scale-0 transition-all duration-300 group-hover:scale-100"
-					onclick={onPlayPause}
-				>
-					{#if playerState.value === YT.PlayerState.PLAYING}
-						<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:pause.svg'}></svg>
-					{:else}
-						<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:play.svg'}></svg>
-					{/if}
-				</button>
-			</div>
-		</main>
+
+		<div class="group m-auto hidden h-64 w-64 items-center justify-center md:flex">
+			<button
+				tabindex="-1"
+				class="btn scale-0 transition-all duration-300 group-hover:scale-100"
+				onclick={onPlayPause}
+			>
+				{#if playerState.value === YT.PlayerState.PLAYING}
+					<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:pause.svg'}></svg>
+				{:else}
+					<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:play.svg'}></svg>
+				{/if}
+			</button>
+		</div>
 
 		<Controls {onPlayPause} />
 	</div>

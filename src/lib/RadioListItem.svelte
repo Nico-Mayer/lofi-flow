@@ -1,14 +1,26 @@
 <script lang="ts">
 	import { inlineSvg } from '$lib/utils';
-	import { activeRadio } from './store.svelte';
+	import { activeRadio, favorites } from './store.svelte';
+	import Button from './ui/Button.svelte';
 
 	type Props = {
 		radio: Radio;
+		fav: boolean;
 		onclick: (radio: Radio) => void;
 	};
 
-	let { radio, onclick }: Props = $props();
+	let { radio, fav, onclick }: Props = $props();
 	let active = $derived(radio.id.videoId === activeRadio.value?.id.videoId);
+
+	function toggleFavorite(e: Event) {
+		e.stopPropagation();
+
+		if (fav) {
+			favorites.value = favorites.value.filter((entry) => entry.id.videoId !== radio.id.videoId);
+		} else {
+			favorites.value = [radio, ...favorites.value];
+		}
+	}
 </script>
 
 <button class="radio-list-item group relative" class:active onclick={(): void => onclick(radio)}>
@@ -19,15 +31,6 @@
 		></svg>
 	{/if}
 
-	<input
-		class="absolute right-0 m-2 hidden group-hover:block"
-		onselect={(e) => {
-			e.preventDefault();
-			e.stopPropagation();
-		}}
-		type="checkbox"
-	/>
-
 	<img
 		draggable="false"
 		loading="lazy"
@@ -35,6 +38,22 @@
 		alt="channel-thumbnail"
 		class="thumbnail"
 	/>
+
+	{#if fav}
+		<Button
+			class="!absolute right-0 m-2 !scale-0 transition-all duration-200 group-hover:!scale-100"
+			onclick={toggleFavorite}
+		>
+			<svg use:inlineSvg={'https://api.iconify.design/material-symbols:star.svg'}></svg>
+		</Button>
+	{:else}
+		<Button
+			class="!absolute right-0 m-2 !scale-0 transition-all duration-200 group-hover:!scale-100"
+			onclick={toggleFavorite}
+		>
+			<svg use:inlineSvg={'https://api.iconify.design/material-symbols:star-outline.svg'}></svg>
+		</Button>
+	{/if}
 
 	<span class="title">{radio.snippet.title}</span>
 </button>

@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { clickOutside, inlineSvg } from '$lib/utils';
+	import { crossfade } from 'svelte/transition';
 	import RadioListItem from './RadioListItem.svelte';
 	import { activeRadio, dailyRadios, favorites, radioListOpen } from './store.svelte';
 	import Button from './ui/Button.svelte';
 	import Modal from './ui/Modal.svelte';
+	const [send, receive] = crossfade({});
 
 	let showNewRadioModal: boolean = $state(false);
 
@@ -104,7 +106,7 @@
 				</form>
 			</Modal>
 
-			<Button onclick={exitRadioList} tooltip="close">
+			<Button onclick={exitRadioList} tooltip="Close">
 				<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:close.svg'}></svg>
 			</Button>
 		</nav>
@@ -114,8 +116,10 @@
 				<h2 class="text-glow-green text-xl">Favorites</h2>
 
 				<div class="channel-grid" use:clickOutside={onClickOutside}>
-					{#each favorites.value as radio}
-						<RadioListItem {radio} {onclick} />
+					{#each favorites.value as radio (radio)}
+						<div in:receive={{ key: radio }} out:send={{ key: radio }}>
+							<RadioListItem fav={true} {radio} {onclick} />
+						</div>
 					{/each}
 				</div>
 			</section>
@@ -125,8 +129,10 @@
 			<section>
 				<h2 class="text-glow-green text-xl">Daily radios</h2>
 				<div class="channel-grid" use:clickOutside={onClickOutside}>
-					{#each filteredDailyRadios as radio}
-						<RadioListItem {radio} {onclick} />
+					{#each filteredDailyRadios as radio (radio)}
+						<div in:receive={{ key: radio }} out:send={{ key: radio }}>
+							<RadioListItem fav={false} {radio} {onclick} />
+						</div>
 					{/each}
 				</div>
 			</section>

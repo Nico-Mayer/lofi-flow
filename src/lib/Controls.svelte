@@ -185,7 +185,7 @@
 	</section>
 
 	<section class="mt-2">
-		<Button class="!py-0" onclick={openRadioList}>
+		<Button class="!py-0" onclick={openRadioList} tooltip="< Change Radio" tooltipPosition="right">
 			{#if playerState.value === YT.PlayerState.PLAYING}
 				<svg use:inlineSvg={'https://api.iconify.design/svg-spinners:bars-scale.svg'}></svg>
 				<span class="max-w-72 truncate whitespace-nowrap md:max-w-none"

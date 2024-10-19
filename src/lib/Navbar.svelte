@@ -11,15 +11,7 @@
 	}
 </script>
 
-<main class="flex w-full justify-end">
-	<Button aria-label="fullscreen" tooltip="Fullscreen" onclick={() => toggleFullscreen()}>
-		<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:arrows-vertical.svg'}></svg>
-	</Button>
-
-	<Button aria-label="github" href="https://github.com/nico-mayer" tooltip="Github">
-		<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:github.svg'}></svg>
-	</Button>
-
+<main class="flex w-full justify-end gap-3">
 	<Button
 		aria-label="Buy me a coffee"
 		href="https://buymeacoffee.com/nima94"
@@ -28,7 +20,11 @@
 		<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:coffee.svg'}></svg>
 	</Button>
 
-	<Button aria-label="info" class="btn" tooltip="Info">
-		<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:info-box.svg'}></svg>
+	<Button aria-label="github" href="https://github.com/nico-mayer" tooltip="Github">
+		<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:github.svg'}></svg>
+	</Button>
+
+	<Button aria-label="fullscreen" tooltip="Fullscreen" onclick={() => toggleFullscreen()}>
+		<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:arrows-vertical.svg'}></svg>
 	</Button>
 </main>

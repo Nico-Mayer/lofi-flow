@@ -49,12 +49,9 @@ Inspiration for CRT effect:
 
 ## Todo's
 
-- [ ] improve chanel list ui (add video, closing behavior)
-- [ ] make a custom playing animated svg that can display paused / playing / buffering state
+- [ ] add about section
 - [ ] add pomodoro timer
-- [ ] add settings section
-- [ ] impl toaster
-- [ ] add listener count?
+- [x] improve chanel list ui (add video, closing behavior)
 - [x] improve performance and css simplicity
 - [x] add favorite/personal radios system
 - [x] add full screen support
@@ -63,3 +60,9 @@ Inspiration for CRT effect:
 - [x] impl low power mode
 - [x] add vercel analytics
 - [x] finer volume step
+
+## Backlog
+
+- [ ] make a custom playing animated svg that can display paused / playing / buffering state
+- [ ] impl toaster
+- [ ] add listener count?

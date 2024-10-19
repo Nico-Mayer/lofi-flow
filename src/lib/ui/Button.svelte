@@ -7,6 +7,7 @@
 		href?: string;
 		children: Snippet;
 		tooltip?: string;
+		tooltipPosition?: string;
 		target?: string;
 	}
 
@@ -14,6 +15,7 @@
 		ref = $bindable(),
 		href,
 		tooltip = ' ',
+		tooltipPosition = 'bot',
 		class: className,
 		children,
 		target = '_blank',
@@ -22,11 +24,23 @@
 </script>
 
 {#if href}
-	<a bind:this={ref} {...rest} class={`btn ${className}`} {href} data-tooltip={tooltip} {target}>
+	<a
+		bind:this={ref}
+		{...rest}
+		class={`btn ${className} tooltip-${tooltipPosition}`}
+		{href}
+		data-tooltip={tooltip}
+		{target}
+	>
 		{@render children()}
 	</a>
 {:else}
-	<button bind:this={ref} {...rest} class={`btn ${className}`} data-tooltip={tooltip}>
+	<button
+		bind:this={ref}
+		{...rest}
+		class={`btn ${className} tooltip-${tooltipPosition}`}
+		data-tooltip={tooltip}
+	>
 		{@render children()}
 	</button>
 {/if}
@@ -68,6 +82,7 @@
 		filter: var(--green-glow-drop-shadow);
 	}
 
+	/* Base tooltip styles */
 	[data-tooltip] {
 		cursor: pointer;
 		position: relative;
@@ -78,17 +93,59 @@
 		position: absolute;
 		text-align: center;
 		width: max-content;
-		bottom: 0px;
-		left: 50%;
 		content: attr(data-tooltip);
-		transform: translate(-50%, 110%) scale(0);
-		transform-origin: top;
+		transform: scale(0);
 		transition: 0.14s;
 		text-shadow: var(--green-glow-hover);
+		pointer-events: none; /* Ensures tooltip doesn't interfere with cursor */
+		transform-origin: center;
 	}
 
-	[data-tooltip]:hover:after {
-		display: block;
+	/* Bottom tooltip */
+	.tooltip-bot::after {
+		bottom: 0px;
+		left: 50%;
+		transform: translate(-50%, 110%) scale(0);
+		transform-origin: top;
+	}
+
+	.tooltip-bot:hover::after {
 		transform: translate(-50%, 110%) scale(1);
+	}
+
+	/* Top tooltip */
+	.tooltip-top::after {
+		top: 0px;
+		left: 50%;
+		transform: translate(-50%, -110%) scale(0);
+		transform-origin: bottom;
+	}
+
+	.tooltip-top:hover::after {
+		transform: translate(-50%, -110%) scale(1);
+	}
+
+	/* Left tooltip */
+	.tooltip-left::after {
+		top: 50%;
+		left: 0px;
+		transform: translate(-110%, -50%) scale(0);
+		transform-origin: right;
+	}
+
+	.tooltip-left:hover::after {
+		transform: translate(-110%, -50%) scale(1);
+	}
+
+	/* Right tooltip */
+	.tooltip-right::after {
+		top: 50%;
+		right: 0px;
+		transform: translate(110%, -50%) scale(0);
+		transform-origin: left;
+	}
+
+	.tooltip-right:hover::after {
+		transform: translate(110%, -50%) scale(1);
 	}
 </style>
