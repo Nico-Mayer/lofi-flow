@@ -2,11 +2,13 @@
 	import { playerState } from '$lib/store.svelte';
 </script>
 
-<div
-	class="darken"
-	class:paused={playerState.value === YT.PlayerState.PAUSED ||
-		playerState.value === YT.PlayerState.BUFFERING}
-></div>
+{#if YT.PlayerState != undefined}
+	<div
+		class="darken"
+		class:paused={playerState.value === YT.PlayerState.PAUSED ||
+			playerState.value === YT.PlayerState.BUFFERING}
+	></div>
+{/if}
 
 <style>
 	.paused {
