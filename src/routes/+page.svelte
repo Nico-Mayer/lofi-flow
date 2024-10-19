@@ -48,6 +48,8 @@
 	});
 
 	$effect(() => {
+		if (!player) return;
+
 		if (playerState.value === YT.PlayerState.ENDED) {
 			untrack(() => {
 				if (!activeRadio.value) return;
