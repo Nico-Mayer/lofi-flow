@@ -1,5 +1,7 @@
 import type { Action } from 'svelte/action';
 
+type PlayerState = 'unstated' | 'ended' | 'playing' | 'paused' | 'buffering' | 'video cued';
+
 export function clamp(value: number, minValue: number, maxValue: number): number {
 	if (value < minValue) {
 		return minValue;
@@ -53,3 +55,21 @@ export const inlineSvg: Action<SVGSVGElement, string> = (node, url) => {
 		}
 	};
 };
+
+export function ytPlayerStateCode(state: PlayerState): number {
+	switch (state) {
+		case 'unstated':
+			return -1;
+		case 'ended':
+			return 0;
+		case 'playing':
+			return 1;
+		case 'paused':
+			return 2;
+		case 'buffering':
+			return 3;
+		case 'video cued':
+			return 5;
+	}
+	return -1;
+}

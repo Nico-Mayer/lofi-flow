@@ -18,13 +18,13 @@
 		radioSwitching,
 		volume
 	} from '$lib/store.svelte';
-	import { inlineSvg } from '$lib/utils';
+	import { inlineSvg, ytPlayerStateCode } from '$lib/utils';
 	import { onMount, untrack } from 'svelte';
 	import '../app.css';
 
 	const ytPlayerId = 'youtube-player';
 
-	let player: Player | null = $state(null);
+	let player: YT.Player | null = $state(null);
 
 	$effect(() => {
 		if (activeRadio.value !== null) {
@@ -50,7 +50,7 @@
 	$effect(() => {
 		if (!player) return;
 
-		if (playerState.value === YT.PlayerState.ENDED) {
+		if (playerState.value === ytPlayerStateCode('ended')) {
 			untrack(() => {
 				if (!activeRadio.value) return;
 
@@ -91,7 +91,7 @@
 				onError: onPlayerError,
 				onStateChange: onPlayerStateChange
 			}
-		}) as Player;
+		});
 	});
 
 	function onPlayerStateChange(e: YT.PlayerEvent): void {
@@ -187,7 +187,7 @@
 				class="btn scale-0 transition-all duration-300 group-hover:scale-100"
 				onclick={onPlayPause}
 			>
-				{#if playerState.value === YT.PlayerState.PLAYING}
+				{#if playerState.value === ytPlayerStateCode('playing')}
 					<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:pause.svg'}></svg>
 				{:else}
 					<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:play.svg'}></svg>
