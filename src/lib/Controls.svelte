@@ -1,313 +1,220 @@
 <script lang="ts">
+	import { clamp, inlineSvg } from '$lib/utils';
 	import {
-		activeChannel,
-		buffering,
-		disableChannelSwitching,
-		lowPowerMode,
-		player,
-		playing,
-		radio,
-		showChannelList,
-		switchingChannel,
-		videoData,
-	} from '$lib/store/store'
-	import IconBtn from './IconBtn.svelte'
+		activeRadio,
+		dailyRadios,
+		favorites,
+		lastSkipDirection,
+		playerError,
+		playerState,
+		radioListOpen,
+		volume
+	} from './store.svelte';
+	import Button from './ui/Button.svelte';
 
-	$: {
-		if ($videoData?.errorCode !== null) {
-			randomChannel()
-		}
+	type Props = {
+		onPlayPause: () => void;
+	};
+
+	let { onPlayPause }: Props = $props();
+
+	let playBtn = $state<HTMLButtonElement>();
+	let shuffleBtn = $state<HTMLButtonElement>();
+	let prevRadioBtn = $state<HTMLButtonElement>();
+	let nextRadioBtn = $state<HTMLButtonElement>();
+	let volumeBarContainer = $state<HTMLDivElement>();
+
+	function openRadioList(e: Event): void {
+		e.stopPropagation();
+		radioListOpen.value = true;
 	}
 
-	function handlePlayPause() {
-		if ($player != null && !$playing) {
-			$player.playVideo()
-		} else if ($player && $playing) {
-			$player.pauseVideo()
-		}
+	function getAllRadios(): Radio[] {
+		return [...(favorites.value ?? []), ...(dailyRadios.value ?? [])];
 	}
 
-	function changeChannel(offset: number) {
-		if ($player == null) return
-		$switchingChannel = true
+	function randomRadio(): void {
+		lastSkipDirection.value = 'none';
+		const radios = getAllRadios();
+		const randomIndex = Math.floor(Math.random() * radios.length);
+		const currentRadio = activeRadio.value;
 
-		const activeChannelIndex = $radio.channels.findIndex(
-			(channel: { id: any }) => channel.id === $activeChannel.id
-		)
-
-		const totalChannels = $radio.channels.length
-		const newChannelIndex =
-			(activeChannelIndex + offset + totalChannels) % totalChannels
-
-		$activeChannel = $radio.channels[newChannelIndex]
-	}
-
-	function randomChannel() {
-		if ($player == null) return
-		$switchingChannel = true
-
-		let randomIndex = Math.floor(Math.random() * $radio.channels.length)
-		let nextChannel = $radio.channels[randomIndex]
-
-		while (nextChannel.id === $activeChannel.id) {
-			randomIndex = Math.floor(Math.random() * $radio.channels.length)
-			nextChannel = $radio.channels[randomIndex]
+		if (currentRadio === radios[randomIndex]) {
+			activeRadio.value = radios[(randomIndex + 1) % radios.length];
+			return;
 		}
 
-		$activeChannel = nextChannel
+		activeRadio.value = radios[randomIndex];
 	}
 
-	function handleKeyDown(event: KeyboardEvent) {
-		if ($disableChannelSwitching || $showChannelList) return
+	function nextRadio(): void {
+		lastSkipDirection.value = 'next';
+		const radios = getAllRadios();
+		const currentIndex = radios.findIndex(
+			(radio) => radio.id.videoId === activeRadio.value?.id.videoId
+		);
+		activeRadio.value = radios[(currentIndex + 1) % radios.length];
+	}
 
-		if (event.key === ' ') {
-			handlePlayPause()
-		} else if (event.key === 'ArrowLeft') {
-			changeChannel(-1)
-		} else if (event.key === 'ArrowRight') {
-			changeChannel(1)
-		} else if (event.key === 'r') {
-			randomChannel()
-		} else if (event.key === 'm') {
-			$player?.isMuted() ? $player.unMute() : $player?.mute()
-		} else if (event.key === 'l') {
-			$lowPowerMode = !$lowPowerMode
+	function prevRadio(): void {
+		lastSkipDirection.value = 'prev';
+		const radios = getAllRadios();
+		const currentIndex = radios.findIndex(
+			(radio) => radio.id.videoId === activeRadio.value?.id.videoId
+		);
+		activeRadio.value = radios[(currentIndex - 1 + radios.length) % radios.length];
+	}
+
+	function changeVolume(step: number): void {
+		const newVolume = volume.value + step;
+		volume.value = clamp(newVolume, 0, 100);
+	}
+
+	function handleKeyDown(e: KeyboardEvent): void {
+		const KEY = e.key.toLowerCase();
+		const MODIFIER = e.getModifierState('Control');
+
+		if (radioListOpen.value) return;
+
+		switch (KEY) {
+			case ' ': {
+				if (document.activeElement === playBtn) {
+					return;
+				}
+				playBtn?.focus();
+				playBtn?.click();
+				break;
+			}
+			case 'r': {
+				shuffleBtn?.focus();
+				shuffleBtn?.click();
+				break;
+			}
+			case 'arrowleft':
+				prevRadioBtn?.focus();
+				prevRadioBtn?.click();
+				break;
+			case 'arrowright':
+				nextRadioBtn?.focus();
+				nextRadioBtn?.click();
+				break;
+			case 'arrowup': {
+				volumeBarContainer?.focus();
+				let step = 5;
+				if (MODIFIER) {
+					step = 2;
+				}
+				changeVolume(step);
+				break;
+			}
+			case 'arrowdown': {
+				volumeBarContainer?.focus();
+				let step = -5;
+				if (MODIFIER) {
+					step = -2;
+				}
+				changeVolume(step);
+				break;
+			}
+
+			default:
+				break;
 		}
-	}
-
-	function openChannelList(e: MouseEvent) {
-		e.stopPropagation()
-		$showChannelList = true
 	}
 </script>
 
-<svelte:window on:keydown={handleKeyDown} />
+<svelte:window onkeydown={handleKeyDown} />
 
-<main
-	class="flex flex-col items-start gap-2 lg:items-center lg:gap-10 lg:flex-row">
-	<div class="flex-1 hidden w-1/3 h-full overflow-hidden lg:flex"></div>
+<main>
+	{#if playerError.value}
+		<section class="px-2">
+			<span>Radio loading error. Redirecting to a different radio station.</span>
+		</section>
+	{/if}
 
-	<section
-		class="flex items-center flex-1 gap-2 lg:gap-4 select-justify-center">
-		<div class="flex items-center justify-end flex-1 gap-1 shrink-0">
-			<IconBtn icon="pixelarticons:shuffle" on:click={randomChannel} />
-			<IconBtn
-				icon="pixelarticons:prev"
-				on:click={() => changeChannel(-1)} />
-			<IconBtn
-				icon="pixelarticons:next"
-				on:click={() => changeChannel(1)} />
+	<section class="flex items-center">
+		<Button
+			bind:ref={playBtn}
+			aria-label={playerState.value === YT.PlayerState.PLAYING ? 'Pause video' : 'Play video'}
+			onclick={onPlayPause}
+		>
+			{#if playerState.value === YT.PlayerState.PLAYING}
+				<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:pause.svg'}></svg>
+			{:else}
+				<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:play.svg'}></svg>
+			{/if}
+		</Button>
+
+		<Button bind:ref={shuffleBtn} aria-label="Shuffle music" onclick={randomRadio}>
+			<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:shuffle.svg'}></svg>
+		</Button>
+
+		<Button bind:ref={prevRadioBtn} aria-label="Previous radio" onclick={prevRadio}>
+			<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:prev.svg'}></svg>
+		</Button>
+
+		<Button bind:ref={nextRadioBtn} aria-label="Next radio" onclick={nextRadio}>
+			<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:next.svg'}></svg>
+		</Button>
+
+		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+		<div
+			aria-label="volume slider"
+			tabindex="0"
+			bind:this={volumeBarContainer}
+			class="volume-bar-container relative h-10 w-24"
+		>
+			<div
+				class="pointer-events-none absolute bottom-0 left-0 right-0 top-0 flex items-center gap-1 px-2"
+			>
+				<!-- eslint-disable -->
+				{#each Array(10) as _, i}
+					<div class="h-4 w-[6px] bg-white opacity-30" class:filled={volume.value > i * 10}></div>
+				{/each}
+			</div>
+			<input
+				tabindex="-1"
+				type="range"
+				step="10"
+				min="0"
+				max="100"
+				class="absolute bottom-0 left-0 right-0 top-0 cursor-pointer opacity-0"
+				bind:value={volume.value}
+			/>
 		</div>
-
-		{#if $playing}
-			<IconBtn icon="pixelarticons:pause" on:click={handlePlayPause} />
-		{:else}
-			<IconBtn icon="pixelarticons:play" on:click={handlePlayPause} />
-		{/if}
-
-		<slot />
 	</section>
 
-	<button
-		on:click={openChannelList}
-		type="button"
-		class="flex flex-row-reverse items-center justify-end flex-1 max-w-full gap-4 overflow-hidden lg:w-1/3 lg:flex-row">
-		<p class="truncate text-glow">
-			{#if $buffering}
-				...buffering
-			{:else if !$playing}
-				...paused
-			{:else if $videoData != null}
-				{$videoData.title}
+	<section class="mt-2">
+		<Button class="!py-0" onclick={openRadioList} tooltip="< Change Radio" tooltipPosition="right">
+			{#if playerState.value === YT.PlayerState.PLAYING}
+				<svg use:inlineSvg={'https://api.iconify.design/svg-spinners:bars-scale.svg'}></svg>
+				<span class="max-w-72 truncate whitespace-nowrap md:max-w-none"
+					>{activeRadio.value ? activeRadio.value.snippet.title : 'loading...'}</span
+				>
+			{:else if playerState.value === YT.PlayerState.PAUSED}
+				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+					<rect width="2.8" height="12" x="1" y="6" fill="currentColor"></rect>
+					<rect width="2.8" height="12" x="5.8" y="6" fill="currentColor"></rect>
+					<rect width="2.8" height="12" x="10.6" y="6" fill="currentColor"></rect>
+					<rect width="2.8" height="12" x="15.4" y="6" fill="currentColor"></rect>
+					<rect width="2.8" height="12" x="20.2" y="6" fill="currentColor"></rect>
+				</svg>
+				<span>paused</span>
+			{:else}
+				<svg use:inlineSvg={'https://api.iconify.design/svg-spinners:bars-fade.svg'}></svg>
+				<span>buffering...</span>
 			{/if}
-		</p>
-
-		<div class="flex items-center justify-center w-8 h-8">
-			{#if $buffering}
-				<svg
-					class="icon"
-					xmlns="http://www.w3.org/2000/svg"
-					width="32"
-					height="32"
-					viewBox="0 0 24 24"
-					><rect
-						width="10"
-						height="10"
-						x="1"
-						y="1"
-						fill="#ffffff"
-						rx="1"
-						><animate
-							id="svgSpinnersBlocksShuffle30"
-							fill="freeze"
-							attributeName="x"
-							begin="0;svgSpinnersBlocksShuffle3b.end"
-							dur="0.2s"
-							values="1;13" /><animate
-							id="svgSpinnersBlocksShuffle31"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle38.end"
-							dur="0.2s"
-							values="1;13" /><animate
-							id="svgSpinnersBlocksShuffle32"
-							fill="freeze"
-							attributeName="x"
-							begin="svgSpinnersBlocksShuffle39.end"
-							dur="0.2s"
-							values="13;1" /><animate
-							id="svgSpinnersBlocksShuffle33"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle3a.end"
-							dur="0.2s"
-							values="13;1" /></rect
-					><rect
-						width="10"
-						height="10"
-						x="1"
-						y="13"
-						fill="#ffffff"
-						rx="1"
-						><animate
-							id="svgSpinnersBlocksShuffle34"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle30.end"
-							dur="0.2s"
-							values="13;1" /><animate
-							id="svgSpinnersBlocksShuffle35"
-							fill="freeze"
-							attributeName="x"
-							begin="svgSpinnersBlocksShuffle31.end"
-							dur="0.2s"
-							values="1;13" /><animate
-							id="svgSpinnersBlocksShuffle36"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle32.end"
-							dur="0.2s"
-							values="1;13" /><animate
-							id="svgSpinnersBlocksShuffle37"
-							fill="freeze"
-							attributeName="x"
-							begin="svgSpinnersBlocksShuffle33.end"
-							dur="0.2s"
-							values="13;1" /></rect
-					><rect
-						width="10"
-						height="10"
-						x="13"
-						y="13"
-						fill="#ffffff"
-						rx="1"
-						><animate
-							id="svgSpinnersBlocksShuffle38"
-							fill="freeze"
-							attributeName="x"
-							begin="svgSpinnersBlocksShuffle34.end"
-							dur="0.2s"
-							values="13;1" /><animate
-							id="svgSpinnersBlocksShuffle39"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle35.end"
-							dur="0.2s"
-							values="13;1" /><animate
-							id="svgSpinnersBlocksShuffle3a"
-							fill="freeze"
-							attributeName="x"
-							begin="svgSpinnersBlocksShuffle36.end"
-							dur="0.2s"
-							values="1;13" /><animate
-							id="svgSpinnersBlocksShuffle3b"
-							fill="freeze"
-							attributeName="y"
-							begin="svgSpinnersBlocksShuffle37.end"
-							dur="0.2s"
-							values="1;13" /></rect
-					></svg>
-			{:else if $playing}
-				<svg
-					class="icon"
-					xmlns="http://www.w3.org/2000/svg"
-					width="32"
-					height="32"
-					viewBox="0 0 24 24"
-					><rect width="2.8" height="12" x="1" y="6" fill="#ffffff"
-						><animate
-							attributeName="y"
-							begin="svgSpinnersBarsScaleMiddle0.begin+0.4s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".14,.73,.34,1;.65,.26,.82,.45"
-							values="6;1;6" /><animate
-							attributeName="height"
-							begin="svgSpinnersBarsScaleMiddle0.begin+0.4s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".14,.73,.34,1;.65,.26,.82,.45"
-							values="12;22;12" /></rect
-					><rect width="2.8" height="12" x="5.8" y="6" fill="#ffffff"
-						><animate
-							attributeName="y"
-							begin="svgSpinnersBarsScaleMiddle0.begin+0.2s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".14,.73,.34,1;.65,.26,.82,.45"
-							values="6;1;6" /><animate
-							attributeName="height"
-							begin="svgSpinnersBarsScaleMiddle0.begin+0.2s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".14,.73,.34,1;.65,.26,.82,.45"
-							values="12;22;12" /></rect
-					><rect width="2.8" height="12" x="10.6" y="6" fill="#ffffff"
-						><animate
-							id="svgSpinnersBarsScaleMiddle0"
-							attributeName="y"
-							begin="0;svgSpinnersBarsScaleMiddle1.end-0.1s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".14,.73,.34,1;.65,.26,.82,.45"
-							values="6;1;6" /><animate
-							attributeName="height"
-							begin="0;svgSpinnersBarsScaleMiddle1.end-0.1s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".14,.73,.34,1;.65,.26,.82,.45"
-							values="12;22;12" /></rect
-					><rect width="2.8" height="12" x="15.4" y="6" fill="#ffffff"
-						><animate
-							attributeName="y"
-							begin="svgSpinnersBarsScaleMiddle0.begin+0.2s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".14,.73,.34,1;.65,.26,.82,.45"
-							values="6;1;6" /><animate
-							attributeName="height"
-							begin="svgSpinnersBarsScaleMiddle0.begin+0.2s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".14,.73,.34,1;.65,.26,.82,.45"
-							values="12;22;12" /></rect
-					><rect width="2.8" height="12" x="20.2" y="6" fill="#ffffff"
-						><animate
-							id="svgSpinnersBarsScaleMiddle1"
-							attributeName="y"
-							begin="svgSpinnersBarsScaleMiddle0.begin+0.4s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".14,.73,.34,1;.65,.26,.82,.45"
-							values="6;1;6" /><animate
-							attributeName="height"
-							begin="svgSpinnersBarsScaleMiddle0.begin+0.4s"
-							calcMode="spline"
-							dur="0.6s"
-							keySplines=".14,.73,.34,1;.65,.26,.82,.45"
-							values="12;22;12" /></rect
-					></svg>
-			{/if}
-		</div>
-	</button>
+		</Button>
+	</section>
 </main>
+
+<style>
+	.filled {
+		opacity: 1;
+		filter: var(--green-glow-drop-shadow);
+	}
+	.volume-bar-container:focus {
+		outline: none;
+		filter: var(--green-glow-drop-shadow);
+	}
+</style>

@@ -1,38 +1,27 @@
 <script lang="ts">
-	import { switchingChannel, volume } from '$lib/store/store'
-	import { onMount } from 'svelte'
+	import { radioSwitching } from '$lib/store.svelte';
+	import { onMount } from 'svelte';
 
-	let whiteNoiseEffect: HTMLAudioElement
-	let mounted = false
+	let whiteNoiseEffect: HTMLAudioElement;
 
 	onMount(() => {
-		mounted = true
-		handleVolumeChange()
-	})
+		whiteNoiseEffect.volume = 0.02;
+	});
 
-	$: $volume, handleVolumeChange()
-
-	$: {
-		if ($switchingChannel) {
-			whiteNoiseEffect.currentTime = 0
-			whiteNoiseEffect?.play()
-		} else if (!$switchingChannel) {
-			whiteNoiseEffect?.pause()
+	$effect(() => {
+		if (radioSwitching.value) {
+			whiteNoiseEffect?.play();
+		} else if (!radioSwitching.value) {
+			whiteNoiseEffect.currentTime = 0;
+			whiteNoiseEffect?.pause();
 		}
-	}
-
-	function handleVolumeChange() {
-		if (!mounted) return
-		let newVolume = $volume / 100
-
-		whiteNoiseEffect.volume = Math.min(newVolume, 0.05)
-	}
+	});
 
 	function getRandomChangeImg(): string {
-		const max = 6
-		const random = Math.floor(Math.random() * max) + 1
+		const max = 6;
+		const random = Math.floor(Math.random() * max) + 1;
 
-		return `/gifs/change${random}.gif`
+		return `/webps/change${random}.webp`;
 	}
 </script>
 
@@ -41,10 +30,11 @@
 	Your browser does not support the audio tag.
 </audio>
 
-{#if $switchingChannel}
+{#if radioSwitching.value}
 	<img
 		draggable="false"
-		class="absolute top-0 left-0 w-full h-full"
+		class="absolute left-0 top-0 h-full w-full"
 		src={getRandomChangeImg()}
-		alt="change-screen" />
+		alt="change-screen"
+	/>
 {/if}

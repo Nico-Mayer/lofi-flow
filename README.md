@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/nico-mayer/json-bucket">
-    <img src="https://api.iconify.design/pixelarticons:headphone.svg?color=%23ffffff" alt="Logo" width="90" height="90">
+    <img src="./static/favicon.png" alt="Logo" width="90" height="90">
   </a>
 
   <h3 align="center">
@@ -21,14 +21,14 @@ Lofi Flow is like your cozy corner on the web for all things chill. Save your be
 
 ### Built With
 
--   ![svelte.dev]
--   ![tailwind]
+- ![svelte.dev]
+- ![tailwind]
 
 ## Features
 
--   [x] 📺 Save your favorite YouTube lofi live radios and videos
--   [x] 🔋 Energy saving mode
--   [x] 📼 Retro CRT feeling
+- [x] 📺 Save your favorite YouTube lofi live radios and videos
+- [x] 🔋 Energy saving mode
+- [x] 📼 Retro CRT feeling
 
 If you have any ideas for new features, feel free to open an issue and let me know!
 
@@ -36,13 +36,33 @@ If you have any ideas for new features, feel free to open an issue and let me kn
 
 This project is heavily inspired by the following Projects:
 
--   [lofi.cafe](https://lofi.cafe/)
--   [lofimusic.app](https://lofimusic.app/)
--   [lofifm](https://lofifm.vercel.app/)
+- [lofi.cafe](https://lofi.cafe/)
+- [lofimusic.app](https://lofimusic.app/)
+- [lofifm](https://lofifm.vercel.app/)
 
 Inspiration for CRT effect:
 
--   [CRT effect](https://aleclownes.com/2017/02/01/crt-display.html)
+- [CRT effect](https://aleclownes.com/2017/02/01/crt-display.html)
 
 [svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
 [tailwind]: https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+
+## Todo's
+
+- [ ] add about section
+- [ ] add pomodoro timer
+- [x] improve chanel list ui (add video, closing behavior)
+- [x] improve performance and css simplicity
+- [x] add favorite/personal radios system
+- [x] add full screen support
+- [x] invest in redirect bug
+- [x] improve local storage parsing error handling
+- [x] impl low power mode
+- [x] add vercel analytics
+- [x] finer volume step
+
+## Backlog
+
+- [ ] make a custom playing animated svg that can display paused / playing / buffering state
+- [ ] impl toaster
+- [ ] add listener count?

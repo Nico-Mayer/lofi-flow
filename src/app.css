@@ -1,60 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.low-power {
-	.icon {
-		filter: none !important;
+:root {
+	--color-text: #fff;
+	--color-primary: rgb(51, 255, 51);
+	--color-secondary: rgb(153, 255, 153);
+	--color-error: #fe3b3b;
+
+	--green-glow: 0px 0px 2px var(--color-secondary), 0px 0px 15px green, 0px 0px 60px green;
+
+	--green-glow-hover: 0px 0px 2px var(--color-secondary), 0px 0px 15px var(--color-primary),
+		0px 0px 60px var(--color-primary);
+
+	--green-glow-drop-shadow: drop-shadow(0px 0px 2px var(--color-secondary))
+		drop-shadow(0px 0px 8px green);
+
+	--green-glow-drop-shadow-hover: drop-shadow(0px 0px 2px var(--color-secondary))
+		drop-shadow(0px 0px 8px var(--color-primary));
+
+	color: var(--color-text);
+	background-color: #000;
+	font-family: 'VT323', monospace;
+}
+
+body {
+	position: fixed;
+	overflow: hidden;
+	height: 100svh;
+	width: 100svw;
+}
+
+#youtube-player {
+	z-index: -1;
+	pointer-events: none;
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1.3);
+	overflow: hidden;
+}
+
+@media (max-aspect-ratio: 16 / 9) {
+	#youtube-player {
+		width: 177.78vh;
 	}
-
-	.glow {
-		box-shadow: none !important;
-	}
-
-	.text-glow {
-		filter: none !important;
+}
+@media (min-aspect-ratio: 16 / 9) {
+	#youtube-player {
+		height: 56.25vw;
 	}
 }
 
-@layer base {
-	html {
-		font-family: 'VT323', monospace;
-		background-color: black;
-	}
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-	display: none;
-}
-
-/* For IE, Edge and Firefox */
-.scrollbar-hide {
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
-}
-
-.text-glow {
-	color: #fff;
-	filter: drop-shadow(0px 0px 2px #99ff99) drop-shadow(0px 0px 8px green);
-}
-
-.btn {
-	@apply flex items-center justify-center w-8 h-8 select-none;
-}
-
-.btn:hover .icon {
-	filter: drop-shadow(0px 0px 3px #51ff00)
-		drop-shadow(0px 0px 8px rgb(143, 255, 131));
-}
-
-.icon {
-	@apply w-6 h-6;
-	filter: drop-shadow(0px 0px 2px #99ff99) drop-shadow(0px 0px 8px green);
-	transition: filter 0.3s ease; /* Add transition for smooth hover effect */
-}
-
-.glow {
-	box-shadow: 0px 0px 8px #99ff99;
+.text-glow-green {
+	text-shadow: var(--green-glow);
 }
