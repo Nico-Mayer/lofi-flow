@@ -8,7 +8,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: url(crt.png);
+		background: url(/static/crt.png);
 		z-index: 10;
 		background-size: 6px auto;
 		mix-blend-mode: overlay;
