@@ -85,7 +85,7 @@
 			height: '360px',
 			width: '640px',
 			videoId: activeRadio.value.id.videoId,
-			playerVars: { autoplay: 1, rel: 0, controls: 0 },
+			playerVars: { autoplay: 0, rel: 0, controls: 0 },
 			events: {
 				onReady: onPlayerReady,
 				onError: onPlayerError,
@@ -107,6 +107,7 @@
 		if (player === null) return;
 		player.pauseVideo();
 		player.setVolume(volume.value);
+		playerState.value = player.getPlayerState();
 	}
 
 	function onPlayerError(): void {
