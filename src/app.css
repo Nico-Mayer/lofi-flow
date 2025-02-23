@@ -9,10 +9,10 @@
 	--color-secondary: rgb(153, 255, 153);
 	--color-error: #fe3b3b;
 
-	--green-glow: 0px 0px 2px var(--color-secondary), 0px 0px 15px green, 0px 0px 60px green;
+	--green-glow: 0px 0px 2px var(--color-secondary), 0px 0px 8px green, 0px 0px 30px green;
 
-	--green-glow-hover: 0px 0px 2px var(--color-secondary), 0px 0px 15px var(--color-primary),
-		0px 0px 60px var(--color-primary);
+	--green-glow-hover: 0px 0px 2px var(--color-secondary), 0px 0px 8px var(--color-primary),
+		0px 0px 30px var(--color-primary);
 
 	--green-glow-drop-shadow: drop-shadow(0px 0px 2px var(--color-secondary))
 		drop-shadow(0px 0px 8px green);

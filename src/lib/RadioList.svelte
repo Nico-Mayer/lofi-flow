@@ -74,43 +74,43 @@
 
 <svelte:window onkeydown={handleKeyDown} />
 
-<main class="z-5 absolute left-0 top-0 h-full w-full overflow-auto">
+<main class="z-5 absolute left-0 top-0 h-full w-full overflow-hidden">
 	<div class="absolute left-0 top-0 h-full w-full bg-black/45 backdrop-blur-lg"></div>
 
-	<div class="p-4 backdrop-blur-0 md:p-8">
-		<nav class="mb-4 flex justify-between">
-			<Button onclick={() => (showNewRadioModal = true)}>
-				<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:plus.svg'}></svg>
-				<span>New Radio</span>
-			</Button>
+	<nav class="flex justify-between p-3 !pb-0 md:p-6">
+		<Button onclick={() => (showNewRadioModal = true)}>
+			<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:plus.svg'}></svg>
+			<span>New Radio</span>
+		</Button>
 
-			<Modal bind:showModal={showNewRadioModal}>
-				<h2 class="text-glow-green text-2xl">Add new Radio</h2>
-				<form class="flex flex-col" action="" onsubmit={addToFavorites}>
-					<label class="text-glow-green" for="ytUrl">Youtube url</label>
-					<input
-						class="text-glow-green w-60 rounded border bg-transparent px-1 focus:outline-none"
-						type="text"
-						name="ytUrl"
-						id="ytUrl"
-					/>
+		<Modal bind:showModal={showNewRadioModal}>
+			<h2 class="text-glow-green text-2xl">Add new Radio</h2>
+			<form class="flex flex-col" action="" onsubmit={addToFavorites}>
+				<label class="text-glow-green" for="ytUrl">Youtube url</label>
+				<input
+					class="text-glow-green w-60 rounded border bg-transparent px-1 focus:outline-none"
+					type="text"
+					name="ytUrl"
+					id="ytUrl"
+				/>
 
-					<div class="mt-2 flex w-full justify-between">
-						<Button>
-							<span>Add</span>
-						</Button>
-						<Button onclick={closeModal}>
-							<span>Cancel</span>
-						</Button>
-					</div>
-				</form>
-			</Modal>
+				<div class="mt-2 flex w-full justify-between">
+					<Button>
+						<span>Add</span>
+					</Button>
+					<Button onclick={closeModal}>
+						<span>Cancel</span>
+					</Button>
+				</div>
+			</form>
+		</Modal>
 
-			<Button onclick={exitRadioList} tooltip="Close">
-				<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:close.svg'}></svg>
-			</Button>
-		</nav>
+		<Button onclick={exitRadioList} tooltip="Close">
+			<svg use:inlineSvg={'https://api.iconify.design/pixelarticons:close.svg'}></svg>
+		</Button>
+	</nav>
 
+	<div class="h-full overflow-y-auto p-3 md:p-6">
 		{#if favorites.value.length !== 0}
 			<section>
 				<h2 class="text-glow-green text-xl">Favorites</h2>
